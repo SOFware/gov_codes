@@ -1,0 +1,725 @@
+1A:
+  name: Aircrew operations
+  subcategories:
+    1X2:
+      name: Mobility force aviator
+      subcategories:
+        A:
+          name: C-5 flight engineer
+        B:
+          name: C-5 loadmaster
+        C:
+          name: C-17 loadmaster
+        D:
+          name: C-130J loadmaster
+        E:
+          name: WC-130J loadmaster
+        F:
+          name: E-3 flight engineer
+        G:
+          name: KC-46 boom operator
+        H:
+          name: KC-135 boom operator
+        I:
+          name: KC-10 boom operator
+        J:
+          name: KC-10 flight engineer
+        K:
+          name: E-8 flight engineer
+        L:
+          name: C-130H flight engineer
+        M:
+          name: CEM mobility force aviator
+        N:
+          name: C-130H loadmaster
+        O:
+          name: EC-130H flight engineer
+        Z:
+          name: Data mask mobility force aviator
+    1X3:
+      name: Special mission aviator
+      subcategories:
+        A:
+          name: AC-130J gunner
+        B:
+          name: CV-22 flight engineer
+        C:
+          name: UH-1N flight engineer
+        D:
+          name: HC-130J loadmaster
+        E:
+          name: MC-130J loadmaster
+        F:
+          name: HH-60 flight engineer
+        G:
+          name: MH-139 flight engineer
+        H:
+          name: C-146 loadmaster
+        S:
+          name: CEM special mission aviator
+        Z:
+          name: SMA data masked
+    1X8:
+      name: Executive mission aviator
+      subcategories:
+        A:
+          name: C-32/C-40 flight attendant
+        B:
+          name: C-32/C-40 communications systems operator
+        C:
+          name: C-37 flight attendant
+        D:
+          name: C-37 flight engineer
+        E:
+          name: CEM executive mission aviator
+        F:
+          name: C-37 communications systems operator
+        G:
+          name: E-4 flight engineer
+        H:
+          name: E-4 flight attendant
+        I:
+          name: E-4 communications systems operator/technician/controller
+        J:
+          name: Presidential Airlift Group, flight engineer
+        K:
+          name: Presidential Airlift Group, flight attendant
+        L:
+          name: Presidential Airlift Group, communication system operator
+        Z:
+          name: EMA data mask
+1B:
+  name: Cyber warfare
+  subcategories:
+    4X1:
+      name: Cyber warfare operations
+1C:
+  name: Command and control systems operations
+  subcategories:
+    0X2:
+      name: Aviation resource management
+    1X1:
+      name: Air traffic control
+    3X1:
+      name: All-domain command and control operations (C2 OPS)
+    5X1:
+      name: Battle management ops
+      subcategories:
+        D:
+          name: Weapons director
+    6X1:
+      name: Space systems operations
+    7X1:
+      name: Airfield management
+    8X3:
+      name: Radar, airfield & weather systems (RAWS)
+1D:
+  name: Cyber defense operations
+  subcategories:
+    7X1:
+      name: Cyber defense operations (to become IT systems technician)
+      subcategories:
+        A:
+          name: Network operations (to be phased out)
+        B:
+          name: Systems operations (to be phased out)
+        D:
+          name: Security operations (to be phased out)
+        E:
+          name: Client systems operations (to be phased out)
+        K:
+          name: Knowledge operations (to be phased out)
+        M:
+          name: Mission defense activities (to become cybersecurity in November 2024)
+        P:
+          name: Data operations (to become 1D7X4 data engineering)
+        Q:
+          name: Enterprise operations
+        R:
+          name: RF operations (to become 1D7X2R RF transmissions operations)
+        W:
+          name: Expeditionary communications
+        Z:
+          name: Software development operations (to be phased out)
+    7X2:
+      name: Spectrum defense operations (to become RF & electromagnetic activities)
+      subcategories:
+        F:
+          name: Spectrum operations (to become spectrum management)
+    7X3:
+      name: Cable and antenna defense operations (to become cable & antenna operations)
+      subcategories:
+        C:
+          name: Cable and antenna operations (to be phased out)
+1H:
+  name: Aerospace physiology
+  subcategories:
+    0X1:
+      name: Aerospace physiology
+1N:
+  name: Intelligence
+  subcategories:
+    0X1:
+      name: All Source intelligence analyst
+    092:
+      name: Intelligence superintendent
+    1X1:
+      name: Geospatial intelligence
+      subcategories:
+        A:
+          name: Imagery analyst
+    292:
+      name: Cryptologic intelligence superintendent
+    2X1:
+      name: Signals intelligence
+      subcategories:
+        A:
+          name: Electronic non-communications analyst
+        C:
+          name: Communications analyst
+    3X1:
+      name: Cryptologic language analyst
+      subcategories:
+        F:
+          name: Arabic
+        G:
+          name: Chinese
+        H:
+          name: Korean
+        I:
+          name: Russian
+        J:
+          name: Spanish
+        K:
+          name: Persian
+        M:
+          name: Pashto
+        N:
+          name: Urdu
+        Z:
+          name: Divested languages
+    4X1:
+      name: Cyber intelligence
+      subcategories:
+        A:
+          name: Analyst
+    4X2:
+      name: Cryptologic analyst & reporter
+    7X1:
+      name: Human intelligence specialist
+    8X1:
+      name: Targeting analyst
+1P:
+  name: Aircrew flight equipment
+  subcategories:
+    0X1:
+      name: Aircrew flight equipment
+      subcategories:
+        A:
+          name: Ejection seat aircraft
+        B:
+          name: Non-ejection seat aircraft
+1S:
+  name: Safety
+  subcategories:
+    0X1:
+      name: Safety
+1T:
+  name: Special warfare enabler
+  subcategories:
+    0X1:
+      name: Survival, evasion, resistance, escape (SERE) specialist
+1U:
+  name: Aircrew operations (RPA)
+  subcategories:
+    0X1:
+      name: Sensor operator
+      subcategories:
+        N:
+          name: RQ-4
+        Q:
+          name: MQ-1
+        R:
+          name: MQ-9
+        T:
+          name: MC-12
+        U:
+          name: AC-130U
+        V:
+          name: AC-130J
+        W:
+          name: AC-130W
+        Y:
+          name: CAA
+    1X1:
+      name: Remotely piloted aircraft (RPA) pilot
+      subcategories:
+        O:
+          name: RQ-4
+        R:
+          name: MQ-9
+1W:
+  name: Weather
+  subcategories:
+    0X1:
+      name: Weather
+2A:
+  name: Aerospace Maintenance
+  subcategories:
+    0X1:
+      name: Avionics Test Station and Components
+    3X3:
+      name: Tactical Aircraft Maintenance
+      subcategories:
+        A:
+          name: A-10/U-2
+        B:
+          name: F-15
+        C:
+          name: F-16
+        D:
+          name: F-22
+        E:
+          name: F-35
+        M:
+          name: Special Operations Forces/Personnel Recovery
+    3X4:
+      name: Fighter Aircraft Integrated Avionics
+      subcategories:
+        A:
+          name: A-10/F-15
+        B:
+          name: F-16
+        C:
+          name: F-22
+        D:
+          name: F-35
+    3X5:
+      name: Advanced Fighter Aircraft Integrated Avionics
+    3X7:
+      name: Tactical Aircraft Maintenance (5th Generation)
+      subcategories:
+        A:
+          name: F-22
+        B:
+          name: F-35
+    3X8:
+      name: Remotely Piloted Aircraft Maintenance
+      subcategories:
+        A:
+          name: MQ-1/MQ-9
+        B:
+          name: RQ-4
+    5X1:
+      name: Aerospace Maintenance (CEM)
+    5X2:
+      name: Helicopter/Tiltrotor Aircraft Maintenance
+      subcategories:
+        A:
+          name: UH-1
+        B:
+          name: HH-60
+        C:
+          name: CV-22
+    5X4:
+      name: Refuel/Bomber Aircraft Maintenance
+      subcategories:
+        A:
+          name: KC-46
+        B:
+          name: KC-135
+        C:
+          name: B-1
+        D:
+          name: B-2
+        E:
+          name: B-52
+    7X1:
+      name: Aircraft Metals Technology
+    7X2:
+      name: Nondestructive Inspection
+    7X3:
+      name: Aircraft Structural Maintenance
+    7X4:
+      name: Survival Equipment
+    8X1:
+      name: Mobility Air Forces Integrated Communication/Navigation/Mission Systems
+    8X2:
+      name: Mobility Air Forces Integrated Instrument and Flight Control Systems
+2F:
+  name: Fuels
+  subcategories:
+    0X1:
+      name: Fuels
+2G:
+  name: Logistics Plans
+  subcategories:
+    0X1:
+      name: Logistics Plans
+2M:
+  name: Missile and Space Systems Maintenance
+  subcategories:
+    0X1:
+      name: Missile and Space Systems Electronic Maintenance
+    0X2:
+      name: Missile and Space Systems Maintenance
+    0X3:
+      name: Missile and Space Facilities
+2P:
+  name: Precision Measurement Equipment Laboratory
+  subcategories:
+    0X1:
+      name: Precision Measurement Equipment Laboratory
+2R:
+  name: Maintenance Management
+  subcategories:
+    0X1:
+      name: Maintenance Management Analysis
+    1X1:
+      name: Maintenance Management Production
+2S:
+  name: Materiel Management
+  subcategories:
+    0X1:
+      name: Materiel Management
+2T:
+  name: Transportation and Vehicle Management
+  subcategories:
+    0X1:
+      name: Traffic Management
+    1X1:
+      name: Vehicle Operations
+    2X1:
+      name: Vehicle Management
+    3X1:
+      name: Mission Generation Vehicular Equipment Maintenance
+    3X2:
+      name: Special Vehicle Maintenance
+    3X7:
+      name: Vehicle Management and Analysis
+2W:
+  name: Munitions and Weapons
+  subcategories:
+    0X1:
+      name: Munitions Systems
+    1X1:
+      name: Aircraft Armament Systems
+      subcategories:
+        A:
+          name: A-10/F-15
+        B:
+          name: F-16
+        C:
+          name: F-22
+        D:
+          name: F-35
+3A:
+  name: Personnel
+  subcategories:
+    0X1:
+      name: Personnel
+3D:
+  name: Information Technology
+  subcategories:
+    0X1:
+      name: Knowledge Operations Management
+    0X2:
+      name: Cyber Systems Operations
+    0X3:
+      name: Cyber Surety
+    0X4:
+      name: Computer Systems Programming
+    1X1:
+      name: Client Systems
+    1X2:
+      name: Cyber Systems Operations
+    1X3:
+      name: Cyber Surety
+3E:
+  name: Engineering
+  subcategories:
+    0X1:
+      name: Engineering
+3F:
+  name: Force Support
+  subcategories:
+    0X1:
+      name: Services
+3G:
+  name: Ground Transportation
+  subcategories:
+    0X1:
+      name: Ground Transportation
+3H:
+  name: Historian
+  subcategories:
+    0X1:
+      name: Historian
+3M:
+  name: Services
+  subcategories:
+    0X1:
+      name: Services
+3N:
+  name: Public Affairs
+  subcategories:
+    0X1:
+      name: Public Affairs
+3P:
+  name: Security Forces
+  subcategories:
+    0X1:
+      name: Security Forces
+3S:
+  name: Support
+  subcategories:
+    0X1:
+      name: Support
+4A:
+  name: Health Services Management
+  subcategories:
+    1X1:
+      name: Medical material
+4B:
+  name: Biomedical Equipment
+  subcategories:
+    0X1:
+      name: Biomedical Equipment
+4C:
+  name: Mental Health Service
+  subcategories:
+    0X1:
+      name: Mental Health Service
+4D:
+  name: Diagnostic Imaging
+  subcategories:
+    0X1:
+      name: Diagnostic Imaging
+4E:
+  name: Aerospace Physiology
+  subcategories:
+    0X1:
+      name: Aerospace Physiology
+4H:
+  name: Cardiopulmonary Laboratory
+  subcategories:
+    0X1:
+      name: Cardiopulmonary Laboratory
+4J:
+  name: Physical Medicine
+  subcategories:
+    0X1:
+      name: Physical Medicine
+4M:
+  name: Aerospace and Operational Physiology
+  subcategories:
+    0X1:
+      name: Aerospace and Operational Physiology
+4N:
+  name: Aerospace Medical Service
+  subcategories:
+    0X1:
+      name: Aerospace Medical Service
+4P:
+  name: Pharmacy
+  subcategories:
+    0X1:
+      name: Pharmacy
+4R:
+  name: Diagnostic Molecular
+  subcategories:
+    0X1:
+      name: Diagnostic Molecular
+4T:
+  name: Laboratory
+  subcategories:
+    0X1:
+      name: Laboratory
+    0X2:
+      name: Histopathology
+4V:
+  name: Ophthalmic
+  subcategories:
+    0X1:
+      name: Ophthalmic
+      subcategories:
+        S:
+          name: Ophthalmic
+4Y:
+  name: Dental Assistant
+  subcategories:
+    0X1:
+      name: Dental Assistant
+5J:
+  name: Paralegal
+  subcategories:
+    0X1:
+      name: Paralegal
+5R:
+  name: Religious Affairs
+  subcategories:
+    0X1:
+      name: Religious Affairs
+6C:
+  name: Contracting
+  subcategories:
+    0X1:
+      name: Contracting
+6F:
+  name: Financial Management and Comptroller
+  subcategories:
+    0X1:
+      name: Financial Management and Comptroller
+7S:
+  name: Special Investigations
+  subcategories:
+    0X1:
+      name: Special Investigations
+8A:
+  name: Career Development
+  subcategories:
+    100:
+      name: Career Assistance Advisor
+8B:
+  name: Military Training
+  subcategories:
+    000:
+      name: Military Training Instructor
+    100:
+      name: Military Training Leader
+    200:
+      name: Academy Military Training NCO
+8C:
+  name: Airman & Family Readiness
+  subcategories:
+    000:
+      name: Airman & Family Readiness Center NCO
+8D:
+  name: Linguist
+  subcategories:
+    100:
+      name: Defense Attaché
+8F:
+  name: First Sergeant
+  subcategories:
+    000:
+      name: First Sergeant
+8G:
+  name: USAF Honor Guard
+  subcategories:
+    000:
+      name: USAF Honor Guard
+8H:
+  name: Nuclear Weapons
+  subcategories:
+    000:
+      name: Nuclear Weapons Instructor
+8K:
+  name: Enlisted Professional Military Education
+  subcategories:
+    000:
+      name: Enlisted Professional Military Education Instructor
+8L:
+  name: Recruiting
+  subcategories:
+    000:
+      name: Recruiting Service
+    100:
+      name: Recruiting Liaison NCO
+    200:
+      name: In-Service Recruiter
+8P:
+  name: Security Forces
+  subcategories:
+    100:
+      name: Military Working Dog Handler
+8R:
+  name: Enlisted Accessions
+  subcategories:
+    000:
+      name: Enlisted Accessions Recruiter
+    300:
+      name: Flight chief
+      subcategories:
+        A:
+          name: Flight chief
+8S:
+  name: Missile Facility
+  subcategories:
+    000:
+      name: Missile Facility Manager
+8T:
+  name: Technical Training
+  subcategories:
+    000:
+      name: Technical Training Instructor
+9A:
+  name: Awaiting Retraining-Reasons Beyond Control
+  subcategories:
+    000:
+      name: Awaiting Retraining-Reasons Beyond Control
+9C:
+  name: CMSgt of the Air Force
+  subcategories:
+    000:
+      name: CMSgt of the Air Force
+9D:
+  name: Dormitory Manager
+  subcategories:
+    000:
+      name: Dormitory Manager
+9E:
+  name: Command Chief Master Sergeant
+  subcategories:
+    000:
+      name: Command Chief Master Sergeant
+9F:
+  name: First Term Airmen
+  subcategories:
+    000:
+      name: First Term Airmen
+9G:
+  name: Air Force Specialty Training
+  subcategories:
+    000:
+      name: Air Force Specialty Training
+9J:
+  name: Prisoner
+  subcategories:
+    000:
+      name: Prisoner
+9L:
+  name: Interpreter/Translator
+  subcategories:
+    000:
+      name: Interpreter/Translator
+9P:
+  name: Patient
+  subcategories:
+    000:
+      name: Patient
+9R:
+  name: Civil Air Patrol-USAF Reserve Assistance
+  subcategories:
+    000:
+      name: Civil Air Patrol-USAF Reserve Assistance
+9S:
+  name: Technical Applications Specialist
+  subcategories:
+    100:
+      name: Technical Applications Specialist
+9T:
+  name: Basic Enlisted Airman
+  subcategories:
+    000:
+      name: Basic Enlisted Airman
+9U:
+  name: Basic Enlisted Helper
+  subcategories:
+    000:
+      name: Basic Enlisted Helper
+9W:
+  name: Combat Wounded Warrior
+  subcategories:
+    000:
+      name: Combat Wounded Warrior 
