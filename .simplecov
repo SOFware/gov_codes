@@ -2,7 +2,8 @@ SimpleCov.start do
   # enable_coverage :branch
 
   # Add any files or directories you want to exclude from coverage
-  add_filter "/test/", "lib/gov_codes/version.rb"
+  add_filter "/test/"
+  add_filter "lib/gov_codes/version.rb"
 
   # Set minimum coverage requirements
   # minimum_coverage 80
@@ -11,5 +12,6 @@ SimpleCov.start do
   track_files "lib/**/*.rb"
 
   # Group files by module
+
   add_group "AFSC", "lib/gov_codes/afsc"
 end

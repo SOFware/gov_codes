@@ -12,9 +12,16 @@ module GovCodes
     def data(lookup: $LOAD_PATH)
       data = {}
 
+      # Handle nil or empty lookup
+      return data if lookup.nil? || lookup.empty?
+
+      # Add the gem's lib directory to the lookup path
+      gem_lib_dir = File.expand_path("../../", __FILE__)
+      lookup = [gem_lib_dir] + Array(lookup)
+
       namespace_parts = name.split("::")
-        .map { |it| it.gsub(/([A-Z])([a-z])/, '_\1\2').downcase }
-        .map { |it| it.sub(/^_/, "") }
+        .map { it.gsub(/([A-Z])([a-z])/, '_\1\2').downcase }
+        .map { it.sub(/^_/, "") }
 
       # Append .yml to the last item
       namespace_parts[-1] = "#{namespace_parts[-1]}.yml"
@@ -26,8 +33,16 @@ module GovCodes
       end
         .compact
         .uniq
+
       files.each do |path|
-        data.merge!(YAML.load_file(path, symbolize_names: true))
+        yaml_data = YAML.load_file(path, symbolize_names: true)
+        # Handle nil or empty YAML data
+        if yaml_data&.is_a?(Hash)
+          data.merge!(yaml_data)
+        end
+      rescue Psych::SyntaxError, TypeError
+        # Handle invalid YAML gracefully
+        next
       end
 
       data
