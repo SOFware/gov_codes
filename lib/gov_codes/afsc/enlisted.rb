@@ -127,15 +127,25 @@ module GovCodes
         # Subcategory (e.g., "0X1" from "9Z0X1")
         if data && result[:subcategory]
           sub = result[:subcategory].to_sym
-          if sub && data[sub]
-            name = data[sub][:name] || name
-            data = data[sub][:subcategories]
+          lookup_value = data[sub]
+          if lookup_value
+            if lookup_value.is_a?(Hash)
+              name = lookup_value[:name] || name
+              data = lookup_value[:subcategories]
+            else
+              # String value (leaf node)
+              name = lookup_value
+              data = nil
+            end
           end
         end
 
         # Shredout (optional, e.g., :A)
-        if data && result[:shredout] && data[result[:shredout]]
-          name = data[result[:shredout]][:name] || name
+        if data && result[:shredout]
+          lookup_value = data[result[:shredout]]
+          if lookup_value
+            name = lookup_value.is_a?(Hash) ? (lookup_value[:name] || name) : (lookup_value || name)
+          end
         end
 
         name || "Unknown"
