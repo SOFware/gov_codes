@@ -2,8 +2,6 @@ require "strscan"
 require "yaml"
 require_relative "../data_loader"
 
-puts "Loading enlisted.rb"
-
 module GovCodes
   module AFSC
     module Enlisted
@@ -38,22 +36,25 @@ module GovCodes
           return result unless career_field_letter
           result[:career_field] = :"#{career_group}#{career_field_letter}"
 
-          # Scan for subdivision digit and combine with career field
+          # Scan for subdivision digit
           subdivision_digit = scanner.scan(/\d/)
           return result unless subdivision_digit
           result[:career_field_subdivision] = :"#{result[:career_field]}#{subdivision_digit}"
 
-          # Scan for skill level
-          skill_level = scanner.scan(/[\dX]/)
-          return result unless skill_level
-          result[:skill_level] = skill_level.to_sym
+          # Scan for skill level letter (usually X)
+          skill_level_letter = scanner.scan(/[A-Z]/)
+          return result unless skill_level_letter
+          result[:skill_level] = skill_level_letter.to_sym
 
-          # Scan for specific AFSC digit and combine with previous components
-          specific_digit = scanner.scan(/\d/)
-          return result unless specific_digit
-          result[:specific_afsc] = :"#{result[:career_field_subdivision]}#{result[:skill_level]}#{specific_digit}"
+          # Scan for skill level digit
+          skill_level_digit = scanner.scan(/\d/)
+          return result unless skill_level_digit
 
-          result[:subcategory] = result[:specific_afsc][2..4].to_sym
+          # Subcategory is subdivision digit + letter + digit (e.g. '1X2')
+          result[:subcategory] = :"#{subdivision_digit}#{skill_level_letter}#{skill_level_digit}"
+
+          # Build specific AFSC
+          result[:specific_afsc] = :"#{result[:career_field_subdivision]}#{skill_level_letter}#{skill_level_digit}"
 
           # Scan for shredout (optional)
           result[:shredout] = scanner.scan(/[A-Z]/)&.to_sym
@@ -66,6 +67,7 @@ module GovCodes
       end
 
       extend GovCodes::DataLoader
+
       DATA = data
 
       Code = Data.define(
@@ -86,10 +88,24 @@ module GovCodes
           parser = Parser.new(code)
           result = parser.parse
 
-          return nil if result.reject { |_, v| v.nil? }.empty?
+          # Return nil if parsing failed or required fields are missing
+          return nil if result.reject { |_, v| v.nil? }.empty? ||
+            result[:career_group].nil? ||
+            result[:career_field].nil? ||
+            result[:career_field_subdivision].nil? ||
+            result[:skill_level].nil? ||
+            result[:specific_afsc].nil? ||
+            result[:subcategory].nil?
+
+          # Additional validation: check for invalid characters or too long codes
+          return nil if code.length > 7 ||
+            code.match?(/[^A-Z0-9]/)
 
           # Find the name by recursively searching the codes hash
           name = find_name_recursive(result)
+
+          # Return nil if name is 'Unknown'
+          return nil if name == "Unknown"
 
           # Add the name to the result
           result[:name] = name
@@ -97,6 +113,32 @@ module GovCodes
           # Create a new Code object with the result
           Code.new(**result)
         end
+      end
+
+      def self.find_name_recursive(result)
+        data = DATA
+
+        # Career field (e.g., "9Z")
+        cf = result[:career_field]&.to_sym
+        return "Unknown" unless cf && data[cf]
+        name = data[cf][:name]
+        data = data[cf][:subcategories]
+
+        # Subcategory (e.g., "0X1" from "9Z0X1")
+        if data && result[:subcategory]
+          sub = result[:subcategory].to_sym
+          if sub && data[sub]
+            name = data[sub][:name] || name
+            data = data[sub][:subcategories]
+          end
+        end
+
+        # Shredout (optional, e.g., :A)
+        if data && result[:shredout] && data[result[:shredout]]
+          name = data[result[:shredout]][:name] || name
+        end
+
+        name || "Unknown"
       end
     end
   end

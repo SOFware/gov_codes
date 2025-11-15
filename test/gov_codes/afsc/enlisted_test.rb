@@ -25,24 +25,16 @@ module GovCodes
                   A:
                     name: Test Operations Apprentice
         YAML
-
-        # Get the path to the gem's lib directory
-        @lib_dir = File.expand_path("../../../../lib", __FILE__)
-
-        # Add the temporary directory to the load path
-        $LOAD_PATH.unshift @temp_dir
       end
 
       after do
-        # Remove the temporary directory from the load path
-        $LOAD_PATH.delete(@temp_dir)
         # Clean up the temporary directory
         FileUtils.rm_rf(@temp_dir)
       end
 
       describe "#data" do
         it "merges YAML files from lookup path" do
-          data = Enlisted.data(lookup: [$LOAD_PATH.first])
+          data = Enlisted.data(lookup: [@temp_dir])
 
           # Verify that our test data is present
           _(data[:"9Z"]).wont_be :nil?
@@ -65,7 +57,7 @@ module GovCodes
 
       describe "#find" do
         it "uses merged data" do
-          Enlisted.reset_data
+          Enlisted.reset_data(lookup: [@temp_dir])
           code = Enlisted.find("9Z0X1")
           _(code).wont_be :nil?
           _(code.specific_afsc.to_s).must_equal "9Z0X1"
@@ -73,7 +65,7 @@ module GovCodes
         end
 
         it "returns correct object" do
-          AFSC.reset_data
+          AFSC.reset_data(lookup: [@temp_dir])
           code = Enlisted.find("9Z0X1")
           _(code.specific_afsc.to_s).must_equal "9Z0X1"
           _(code.name).must_equal "Test Operations Group"

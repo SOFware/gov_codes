@@ -17,7 +17,8 @@ module GovCodes
             career_group: nil,
             functional_area: nil,
             qualification_level: nil,
-            shredout: nil
+            shredout: nil,
+            specific_afsc: nil
           }
 
           # Scan for prefix (optional)
@@ -26,20 +27,24 @@ module GovCodes
           # Scan for career group (two digits)
           career_group = scanner.scan(/\d{2}/)
           return result unless career_group
-          result[:career_group] = career_group
+          result[:career_group] = career_group.to_sym
 
           # Scan for functional area (uppercase letter)
           functional_area = scanner.scan(/[A-Z]/)
           return result unless functional_area
-          result[:functional_area] = functional_area
+          result[:functional_area] = functional_area.to_sym
 
           # Scan for qualification level (digit 0-4)
           qualification_level = scanner.scan(/[0-4]/)
           return result unless qualification_level
-          result[:qualification_level] = qualification_level
+          result[:qualification_level] = qualification_level.to_sym
+
+          # Build specific AFSC
+          result[:specific_afsc] = :"#{result[:career_group]}#{result[:functional_area]}#{result[:qualification_level]}"
 
           # Scan for shredout (optional)
-          result[:shredout] = scanner.scan(/[A-Z]/)
+          shredout = scanner.scan(/[A-Z]/)
+          result[:shredout] = shredout&.to_sym
 
           # Check if we've reached the end of the string
           return result unless scanner.eos?
@@ -49,6 +54,7 @@ module GovCodes
       end
 
       extend GovCodes::DataLoader
+
       DATA = data
 
       Code = Data.define(
@@ -57,8 +63,49 @@ module GovCodes
         :functional_area,
         :qualification_level,
         :shredout,
+        :specific_afsc,
         :name
       )
+
+      def self.find_name_recursive(result)
+        name = nil
+        data = DATA
+
+        # For officer codes, the structure uses combined career group and functional area
+        # like "11B" where "11" is career group and "B" is functional area
+        career_group = result[:career_group].to_s
+        functional_area = result[:functional_area].to_s
+        combined_key = :"#{career_group}#{functional_area}"
+
+        # Look for the combined key first
+        if data[combined_key]
+          name = data[combined_key][:name]
+          data = data[combined_key][:subcategories]
+
+          # Then look for qualification level
+          if data && result[:qualification_level]
+            qual_level = result[:qualification_level]
+            # Try Integer first (for numeric keys 0-4), then Symbol, then String
+            lookup_value = data[qual_level.to_s.to_i] || data[qual_level] || data[qual_level.to_s]
+            if lookup_value
+              name = lookup_value.is_a?(Hash) ? (lookup_value[:name] || name) : (lookup_value || name)
+              data = lookup_value[:subcategories] if lookup_value.is_a?(Hash)
+            end
+          end
+
+          # Finally look for shredout
+          if data && result[:shredout]
+            shred = result[:shredout]
+            # Try Symbol first (most shredouts are letters), then Integer, then String
+            lookup_value = data[shred] || data[shred.to_s.to_i] || data[shred.to_s]
+            if lookup_value
+              name = lookup_value.is_a?(Hash) ? (lookup_value[:name] || name) : (lookup_value || name)
+            end
+          end
+        end
+
+        name || "Unknown"
+      end
 
       def self.find(code)
         code = code.to_s
@@ -67,12 +114,8 @@ module GovCodes
 
         return nil if result.reject { |_, v| v.nil? }.empty?
 
-        # Find the name from the codes data
-        career_group = result[:career_group]
-        functional_area = result[:functional_area]
-
-        # Look up the name in the codes hash
-        name = find_name(career_group, functional_area)
+        # Find the name by recursively searching the codes hash
+        name = find_name_recursive(result)
 
         # Add the name to the result
         result[:name] = name

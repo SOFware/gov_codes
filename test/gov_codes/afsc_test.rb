@@ -22,21 +22,21 @@ module GovCodes
       assert_equal "Mobility force aviator", code.name
     end
 
-    # def test_find_returns_officer_code_for_valid_officer_afsc
-    #   # Test with a valid officer AFSC code
-    #   code = AFSC.find("11M4")
+    def test_find_returns_officer_code_for_valid_officer_afsc
+      # Test with a valid officer AFSC code
+      code = AFSC.find("11M4")
 
-    #   # Verify it returns an Officer::Code object
-    #   assert_instance_of GovCodes::AFSC::Officer::Code, code
+      # Verify it returns an Officer::Code object
+      assert_instance_of GovCodes::AFSC::Officer::Code, code
 
-    #   # Verify the properties are correctly set
-    #   assert_nil code.prefix
-    #   assert_equal "11", code.career_group
-    #   assert_equal "M", code.functional_area
-    #   assert_equal "4", code.qualification_level
-    #   assert_nil code.shredout
-    #   assert_equal "Pilot", code.name
-    # end
+      # Verify the properties are correctly set
+      assert_nil code.prefix
+      assert_equal :"11", code.career_group
+      assert_equal :M, code.functional_area
+      assert_equal :"4", code.qualification_level
+      assert_nil code.shredout
+      assert_equal "Mobility Pilot", code.name
+    end
 
     def test_find_raises_error_for_invalid_afsc
       # Test with an invalid AFSC code
