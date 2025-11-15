@@ -11,35 +11,25 @@ module GovCodes
 
     def data(lookup: $LOAD_PATH)
       data = {}
-
-      # Handle nil or empty lookup
-      return data if lookup.nil? || lookup.empty?
+      lookup_array = Array(lookup)
+      return data if lookup_array.empty?
 
       # Add the gem's lib directory to the lookup path
-      gem_lib_dir = File.expand_path("../../", __FILE__)
-      lookup = [gem_lib_dir] + Array(lookup)
+      gem_lib_dir = File.expand_path("..", __dir__)
+      lookup_paths = [gem_lib_dir] + lookup_array
 
+      # Convert namespace to file path parts (e.g., "GovCodes::AFSC::Enlisted" -> ["gov_codes", "afsc", "enlisted.yml"])
       namespace_parts = name.split("::")
-        .map { it.gsub(/([A-Z])([a-z])/, '_\1\2').downcase }
-        .map { it.sub(/^_/, "") }
-
-      # Append .yml to the last item
+        .map { |part| part.gsub(/([A-Z])([a-z])/, '_\1\2').downcase.sub(/^_/, "") }
       namespace_parts[-1] = "#{namespace_parts[-1]}.yml"
 
-      # Iterate through each path in the lookup array
-      files = lookup.map do |dir|
+      # Find all existing YAML files in lookup paths
+      lookup_paths.filter_map do |dir|
         yaml_path = File.join(dir, *namespace_parts)
         yaml_path if File.exist?(yaml_path)
-      end
-        .compact
-        .uniq
-
-      files.each do |path|
+      end.uniq.each do |path|
         yaml_data = YAML.load_file(path, symbolize_names: true)
-        # Handle nil or empty YAML data
-        if yaml_data&.is_a?(Hash)
-          data.merge!(yaml_data)
-        end
+        data.merge!(yaml_data) if yaml_data.is_a?(Hash)
       rescue Psych::SyntaxError, TypeError
         # Handle invalid YAML gracefully
         next
@@ -49,42 +39,31 @@ module GovCodes
     end
 
     def reset_data(lookup: $LOAD_PATH)
-      remove_const(:DATA)
+      remove_const(:DATA) if const_defined?(:DATA, false)
       const_set(:DATA, data(lookup:).freeze)
-      remove_const(:CODES)
+      remove_const(:CODES) if const_defined?(:CODES, false)
       const_set(:CODES, {})
     end
 
     def find_name_recursive(result)
-      # Start with the career field (e.g., "1N")
       base_code = result[:career_field].to_sym
+      base_data = self::DATA[base_code]
+      return "Unknown" unless base_data
 
-      loaded_data = self::DATA
-      # Look up in the codes hash
-      if loaded_data[base_code]
-        # If we have a subcategory, try to find a more specific name
-        if result[:subcategory] &&
-            loaded_data.dig(base_code, :subcategories) &&
-            loaded_data.dig(base_code, :subcategories, result[:subcategory])
-
-          subdivision = loaded_data.dig(base_code, :subcategories, result[:subcategory])
-          # If we have a shredout, try to find an even more specific name
-          if result[:shredout] &&
-              subdivision.dig(:subcategories) &&
-              subdivision.dig(:subcategories, result[:shredout])
-            return subdivision.dig(:subcategories, result[:shredout], :name)
+      # Try subcategory lookup if present
+      if result[:subcategory]
+        subdivision = base_data.dig(:subcategories, result[:subcategory])
+        if subdivision
+          # Try shredout lookup if present
+          if result[:shredout]
+            shredout_name = subdivision.dig(:subcategories, result[:shredout], :name)
+            return shredout_name if shredout_name
           end
-
-          # Return the subdivision name if no shredout match
-          return subdivision.dig(:name)
+          return subdivision[:name] if subdivision[:name]
         end
-
-        # Return the base name if no subdivision match
-        return loaded_data.dig(base_code, :name)
       end
 
-      # Return a default if no match found
-      "Unknown"
+      base_data[:name] || "Unknown"
     end
   end
 end
