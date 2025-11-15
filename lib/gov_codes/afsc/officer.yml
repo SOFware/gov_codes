@@ -1,1120 +1,477 @@
-# Officer AFSCs and subcategories as listed on Wikipedia
-# https://en.wikipedia.org/wiki/Air_Force_Specialty_Code
+# Officer AFSCs extracted from Wikipedia
+# Source: https://en.wikipedia.org/wiki/Air_Force_Specialty_Code
+# Wikipedia Revision: 1318430021
+# Extracted: 2025-11-15
+#
+# IMPORTANT: This file contains ONLY codes explicitly listed on Wikipedia.
+# No predictions, no assumptions, no hallucinations.
+# See .agent-os/product/decisions.md (DEC-003) for anti-hallucination policy.
+#
+# Extraction script: bin/extract_afsc_from_wikipedia.rb
+# Verification: bundle exec ruby test/verification/wikipedia_match_test.rb
 
-10C0: Operations commander
-11: Pilot
-11B:
-  name: Bomber pilot
-  subcategories:
-    X: General
-    A: B-1
-    B: B-2
-    C: B-52
-    D: B-21
-    U: Air liaison officer (ALO)
-    Y: General
-    Z: Other
-11C: Combat Support
-11D: Air Defense
-11E:
-  name: Experimental test pilot
-  subcategories:
-    X: General
-    A: Airlift/tanker/bomber
-    B: Fighter
-    C: Helicopter/VSTOL
-    D: Airlift
-    E: Tanker
-    F: Bomber
-    G: RPA
-    Q: Mission support (T-38, etc.)
-    Y: General
-    Z: Other
-11F:
-  name: Fighter pilot
-  subcategories:
-    X: General
-    B: A-10
-    F: F-15
-    G: F-15E
-    H: F-16
-    J: F-22
-    N: F-35
-    Q: IFF (AT-38/T-38C)
-    U: Air liaison officer (ALO)
-    Y: General
-    Z: Other
-11G:
-  name: Generalist pilot
-  subcategories:
-    X: General
-11H:
-  name: Rescue pilot
-  subcategories:
-    X: General
-    C: UH-1N
-    E: HH-60
-    F: CSAR-X
-    G: MH-139
-    J: HC-130J
-    P: HC-130P/N
-    W: Combat search and rescue, general
-    Y: General
-    Z: Other
-11I: Intelligence
-11J: Reconnaissance
-11K:
-  name: Trainer pilot
-  subcategories:
-    X: General
-    A: T-1
-    D: T-38
-    F: T-6
-    H: T-44/TC-12
-    J: SUPT-H
-    M: AETC air mobility fundamentals course instructor
-    Q: T-7
-    Y: General
-    Z: Other
-11L: Airlift
-11M:
-  name: Mobility pilot
-  subcategories:
-    0: Mobility commander
-    1: Mobility pilot
-    2: Mobility navigator
-    3: Mobility air battle manager
-    4: Mobility Pilot
-    X: General
-    A: C-5
-    B: C-130E/H
-    C: C-130J
-    D: C-27J (JCA)
-    E: VC-25
-    F: KC-135
-    G: KC-10
-    J: C-12
-    K: C-17
-    L: C-20/C-37
-    M: C-21
-    N: C-26
-    P: C-32
-    Q: C-40
-    R: KC-46
-    S: Airlift, general
-    T: Tanker, general
-    U: Air mobility liaison officer
-    V: Inter-theater airlift, general
-    W: Intra-theater airlift, general
-    Y: General
-    Z: Other
-11N: Navigator
-11O: Observer
-11P: Pilot
-11Q: Special Operations
-11R:
-  name: Reconnaissance/surveillance/electronic warfare pilot
-  subcategories:
-    X: General
-    A: E-3
-    B: E-4
-    C: EC-130
-    E: WC-130
-    G: RC-135
-    H: WC/OC-135
-    J: TR-1/U-2
-    L: E-8
-    M: MC-12
-    N: RC-26B
-    S: E-7
-    Y: General
-    Z: Other
-11S:
-  name: Special operations pilot
-  subcategories:
-    X: General
-    C: AC-130H
-    D: AC-130U
-    E: MC-130P
-    F: MC-130E
-    G: MC-130H
-    I: CAA (fixed wing)
-    J: CV-22
-    M: Air commando (NSAv, DM)
-    N: AC-130W
-    P: MC-130J
-    Q: AC-130J
-    S: EC-130J
-    U: Air liaison officer (ALO)
-    X: U-28
-    Y: General
-    Z: Other
-11T:
-  name: Student pilot
-  subcategories:
-    X: General
-    A: T-1
-    D: T-38
-    F: T-6
-    G: T-7
-    H: T-96
-    J: TH-1
-    Z: Other
-11U:
-  name: Remotely piloted aircraft (RPA) pilot
-  subcategories:
-    X: General
-    A: MQ-1
-    B: MQ-9
-    C: RQ-4
-    E: RQ-170
-    S: Special operations
-    U: Air liaison officer (ALO)
-    Y: General
-    Z: Other
-11V: Vertical Lift
-11W: Weather
-11X: Experimental
-11Y: General
-11Z: Other
-12A: Airfield Operations
-12B:
-  name: Bomber combat systems officer
-  subcategories:
-    X: General
-    C: B-1 WSO
-    D: B-52 EWO
-    E: B-52 WSO
-    U: Air liaison officer (ALO)
-    W: EWO, general
-    Y: General
-    Z: Other
-12C: Command and Control
-12D: Air Defense
-12E:
-  name: Experimental test combat systems officer
-  subcategories:
-    X: General
-    A: Airlift/tanker/bomber
-    B: Fighter
-    D: Airlift
-    E: Tanker
-    F: Bomber
-    G: RPA
-    W: EWO, general
-    Y: General
-    Z: Other
-12F:
-  name: Fighter weapon systems officer
-  subcategories:
-    X: General
-    F: F-15E WSO
-    G: F-15E EWO
-    Q: T-7
-    U: Air liaison officer (ALO)
-    V: EA-18G
-    W: EWO, general
-    Y: General
-    Z: Other
-12G:
-  name: Generalist combat systems officer
-  subcategories:
-    X: General
-    W: EWO
-12H:
-  name: Rescue combat systems officer
-  subcategories:
-    X: General
-    J: HC-130J
-    P: HC-130
-    Y: General
-    Z: Other
-12I: Intelligence
-12J: Reconnaissance
-12K:
-  name: Trainer combat systems officer
-  subcategories:
-    X: General
-    A: SUNT, navigator general
-    B: SUNT, EWO
-    C: SUNT, WSO
-    D: Instructor, undergraduate CSO training
-    Y: General
-    Z: Other
-12L: Airlift
-12M:
-  name: Mobility combat systems officer
-  subcategories:
-    X: General
-    B: C-130E/H
-    E: VC-25
-    F: KC-135
-    S: Airlift, general
-    T: Tanker, general
-    U: Air mobility liaison officer (AMLO)
-    V: Inter-theater airlift, general
-    W: Intra-theater airlift, general
-    Y: General
-    Z: Other
-12N: Navigator
-12O: Observer
-12P: Pilot
-12Q: Special Operations
-12R:
-  name: Reconnaissance/surveillance/electronic warfare combat systems officer
-  subcategories:
-    X: General
-    A: E-3
-    B: E-4
-    C: EC-130 EWO
-    D: EC-130
-    F: WC-130
-    H: RC-135 EWO
-    J: RC-135
-    K: WC/OC-135
-    L: E-8
-    N: RC-26B
-    S: E-7 EWO
-    W: EWO, general
-    Y: General
-    Z: Other
-12S:
-  name: Special operations combat systems officer
-  subcategories:
-    X: General
-    A: AC-130H EWO
-    B: AC-130H FCO
-    C: AC-130H
-    D: AC-130U EWO
-    E: AC-130U FCO
-    F: AC-130U
-    G: MC-130P
-    H: MC-130E EWO
-    J: MC-130E
-    K: MC-130H EWO
-    L: MC-130H
-    M: Air commando (CAA, NSAv, DM)
-    N: AC-130W
-    O: AC-130W FCO
-    P: MC-130J
-    Q: AC-130J CSO
-    R: AC-130J WSO
-    S: EC-130J
-    U: Air liaison officer
-    W: EWO, general
-    X: U-28
-    Y: General
-    Z: Other
-12T: Trainer
-12U:
-  name: Remotely piloted aircraft (RPA)
-  subcategories:
-    X: General
-    A: MQ-1
-    B: MQ-9
-    C: RQ-4
-    E: RQ-170
-    S: Special operations
-    U: Air liaison officer
-    Y: General
-    Z: Other
-12V: Vertical Lift
-12W: Weather
-12X: Experimental
-12Y: General
-12Z: Other
-13A:
-  name: Astronaut
-  subcategories:
-    X: General
-13B:
-  name: Air battle manager
-  subcategories:
-    X: General
-    B: AWACS
-    C: Air defense
-    D: Mobile air control
-    K: JSTARS
-    M: Trainer (UABMT)
-    S: E-7
-    U: Air liaison officer (ALO)
-    Y: General
-    Z: Other
-    X: Flight test
-13C: Logistics Readiness
-13D: Supply
-13E: Transportation
-13F: Fuels
-13G:
-  name: Space, nuclear and missile operations, & command and control
-13H:
-  name: Aerospace physiologist
-  subcategories:
-    X: General
-13M:
-  name: Airfield operations
-  subcategories:
-    X: General
-13N:
-  name: Nuclear and missile operations
-  subcategories:
-    X: General
-13O:
-  name: Multi-domain warfare officer
-  subcategories:
-    X: General
-13P:
-  name: Space operations
-  subcategories:
-    X: General
-    A: Orbital warfare
-    B: Space electronic warfare
-    D: Space battle management
-    E: Space access and sustainment
-13Q:
-  name: Rated multi-domain warfare officer
-  subcategories:
-    X: General
-13R:
-  name: Rated foreign area officer (FAO)
-  subcategories:
-    X: General
-    C: SOUTHCOM
-    D: INDOPACOM
-    F: CENTCOM
-    G: AFRICOM
-    H: EUCOM
-    L: Generalist (applies only to billets)
-13S:
-  name: Space operations
-  subcategories:
-    X: General
-    A: Orbital warfare
-    B: Space electronic warfare
-    D: Space battle management
-    E: Space access and sustainment
-13T:
-  name: Rated space operations officer
-  subcategories:
-    X: General
-13U:
-  name: Rated space operations officer
-  subcategories:
-    X: General
-13V:
-  name: Rated space operations officer
-  subcategories:
-    X: General
-13W:
-  name: Rated space operations officer
-  subcategories:
-    X: General
-13X:
-  name: Rated space operations officer
-  subcategories:
-    X: General
-13Y:
-  name: Rated space operations officer
-  subcategories:
-    X: General
-13Z:
-  name: Rated space operations officer
-  subcategories:
-    X: General
-14A:
-  name: Information operations
-  subcategories:
-    X: General
-14B:
-  name: Information operations
-  subcategories:
-    X: General
-14C:
-  name: Information operations
-  subcategories:
-    X: General
-14D:
-  name: Information operations
-  subcategories:
-    X: General
-14E:
-  name: Information operations
-  subcategories:
-    X: General
-14F:
-  name: Information operations
-  subcategories:
-    X: General
-14G:
-  name: Information operations
-  subcategories:
-    X: General
-14H:
-  name: Information operations
-  subcategories:
-    X: General
-14I:
-  name: Information operations
-  subcategories:
-    X: General
-14J:
-  name: Information operations
-  subcategories:
-    X: General
-14K:
-  name: Information operations
-  subcategories:
-    X: General
-14L:
-  name: Information operations
-  subcategories:
-    X: General
-14M:
-  name: Information operations
-  subcategories:
-    X: General
-14N:
-  name: Information operations
-  subcategories:
-    X: General
-14O:
-  name: Information operations
-  subcategories:
-    X: General
-14P:
-  name: Information operations
-  subcategories:
-    X: General
-14Q:
-  name: Information operations
-  subcategories:
-    X: General
-14R:
-  name: Information operations
-  subcategories:
-    X: General
-14S:
-  name: Information operations
-  subcategories:
-    X: General
-14T:
-  name: Information operations
-  subcategories:
-    X: General
-14U:
-  name: Information operations
-  subcategories:
-    X: General
-14V:
-  name: Information operations
-  subcategories:
-    X: General
-14W:
-  name: Information operations
-  subcategories:
-    X: General
-14X:
-  name: Information operations
-  subcategories:
-    X: General
-14Y:
-  name: Information operations
-  subcategories:
-    X: General
-14Z:
-  name: Information operations
-  subcategories:
-    X: General
-15A:
-  name: Operations analysis officer
-  subcategories:
-    X: General
-15B: Physical Therapy
-15C:
-  name: Aerospace medicine
-  subcategories:
-    X: General
-15D:
-  name: Aerospace medicine
-  subcategories:
-    X: General
-15E:
-  name: Aerospace medicine
-  subcategories:
-    X: General
-15F:
-  name: Aerospace medicine
-  subcategories:
-    X: General
-15G:
-  name: Aerospace medicine
-  subcategories:
-    X: General
-15H:
-  name: Aerospace medicine
-  subcategories:
-    X: General
-15I:
-  name: Aerospace medicine
-  subcategories:
-    X: General
-15J:
-  name: Aerospace medicine
-  subcategories:
-    X: General
-15K:
-  name: Aerospace medicine
-  subcategories:
-    X: General
-15L:
-  name: Aerospace medicine
-  subcategories:
-    X: General
-15M:
-  name: Aerospace medicine
-  subcategories:
-    X: General
-15N:
-  name: Aerospace medicine
-  subcategories:
-    X: General
-15O:
-  name: Aerospace medicine
-  subcategories:
-    X: General
-15P:
-  name: Aerospace medicine
-  subcategories:
-    X: General
-15Q:
-  name: Aerospace medicine
-  subcategories:
-    X: General
-15R:
-  name: Aerospace medicine
-  subcategories:
-    X: General
-15S:
-  name: Aerospace medicine
-  subcategories:
-    X: General
-15T:
-  name: Aerospace medicine
-  subcategories:
-    X: General
-15U:
-  name: Aerospace medicine
-  subcategories:
-    X: General
-15V:
-  name: Aerospace medicine
-  subcategories:
-    X: General
-15W:
-  name: Weather and environmental sciences
-  subcategories:
-    X: General
-    A: Advanced weather activities
-16A: Judge Advocate
-16B: Chaplain
-16C:
-  name: Operations support
-  subcategories:
-    X: General
-16D:
-  name: Operations support
-  subcategories:
-    X: General
-16E:
-  name: Operations support
-  subcategories:
-    X: General
-16F:
-  name: Foreign area officer (FAO)
-  subcategories:
-    X: General
-    C: SOUTHCOM
-    D: INDOPACOM
-    F: CENTCOM
-    G: AFRICOM
-    H: EUCOM
-    L: Generalist
-16G:
-  name: Air force operations staff officer
-  subcategories:
-    X: General
-16H:
-  name: Operations support
-  subcategories:
-    X: General
-16I:
-  name: Operations support
-  subcategories:
-    X: General
-16J:
-  name: Operations support
-  subcategories:
-    X: General
-16K:
-  name: Software development officer (SDO)
-  subcategories:
-    X: General
-    D: Product designer
-    E: Software engineer
-    M: Product manager
-    S: Data scientist
-16L:
-  name: Operations support
-  subcategories:
-    X: General
-16M:
-  name: Operations support
-  subcategories:
-    X: General
-16N:
-  name: Operations support
-  subcategories:
-    X: General
-16O:
-  name: Operations support
-  subcategories:
-    X: General
-16P:
-  name: Political-military affairs strategist (PAS)
-  subcategories:
-    X: General
-16Q:
-  name: Operations support
-  subcategories:
-    X: General
-16R:
-  name: Planning and programming
-  subcategories:
-    X: General
-16S:
-  name: Operations support
-  subcategories:
-    X: General
-16T:
-  name: Operations support
-  subcategories:
-    X: General
-16U:
-  name: Operations support
-  subcategories:
-    X: General
-16V:
-  name: Operations support
-  subcategories:
-    X: General
-16W:
-  name: Operations support
-  subcategories:
-    X: General
-16X:
-  name: Operations support
-  subcategories:
-    X: General
-16Y:
-  name: Operations support
-  subcategories:
-    X: General
-16Z:
-  name: Rated foreign area officer (FAO)
-  subcategories:
-    X: General
-    C: SOUTHCOM
-    D: INDOPACOM
-    F: CENTCOM
-    G: AFRICOM
-    H: EUCOM
-    L: Generalist (applies only to billets)
-17A:
-  name: Cyberspace warfare operations
-  subcategories:
-    X: General
-17B:
-  name: Cyberspace warfare operations
-  subcategories:
-    X: General
-17C:
-  name: Cyberspace warfare operations commander
-  subcategories:
-    X: General
-17D:
-  name: Warfighter communications operations
-  subcategories:
-    X: General
-    A: Network operations
-    B: Expeditionary communications operations
-    T: Technical track
-    Y: General
-17E:
-  name: Cyberspace warfare operations
-  subcategories:
-    X: General
-17F:
-  name: Cyberspace warfare operations
-  subcategories:
-    X: General
-17G:
-  name: Cyberspace warfare operations
-  subcategories:
-    X: General
-17H:
-  name: Cyberspace warfare operations
-  subcategories:
-    X: General
-17I:
-  name: Cyberspace warfare operations
-  subcategories:
-    X: General
-17J:
-  name: Cyberspace warfare operations
-  subcategories:
-    X: General
-17K:
-  name: Cyberspace warfare operations
-  subcategories:
-    X: General
-17L:
-  name: Cyberspace warfare operations
-  subcategories:
-    X: General
-17M:
-  name: Cyberspace warfare operations
-  subcategories:
-    X: General
-17N:
-  name: Cyberspace warfare operations
-  subcategories:
-    X: General
-17O:
-  name: Cyberspace warfare operations
-  subcategories:
-    X: General
-17P:
-  name: Cyberspace warfare operations
-  subcategories:
-    X: General
-17Q:
-  name: Cyberspace warfare operations
-  subcategories:
-    X: General
-17R:
-  name: Cyberspace warfare operations
-  subcategories:
-    X: General
-17S:
-  name: Cyberspace effects operations
-  subcategories:
-    X: General
-    A: Offensive cyberspace operator
-    B: Defensive cyberspace operator
-    T: Technical track
-17T:
-  name: Cyberspace warfare operations
-  subcategories:
-    X: General
-17U:
-  name: Cyberspace warfare operations
-  subcategories:
-    X: General
-17V:
-  name: Cyberspace warfare operations
-  subcategories:
-    X: General
-17W:
-  name: Warfighter communications & IT systems operations
-  subcategories:
-    X: General
-    C: Cybersecurity specialist
-    D: Data operations specialist
-    I: Information technology specialist
-17X:
-  name: Cyberspace warfare operations
-  subcategories:
-    X: General
-17Y:
-  name: Cyber effects & warfare
-  subcategories:
-    X: General
-    A: Cyber warfare analyst
-    C: Cyber capability developer
-    D: Cyber threat defense analyst
-    O: Cyber attack operator
-    I: Cyber threat defense integrator
-17Z:
-  name: Cyberspace warfare operations
-  subcategories:
-    X: General
-18A:
-  name: Attack remotely piloted aircraft pilot
-  subcategories:
-    X: General
-    A: MQ-1
-    B: MQ-9
-    U: Air liaison officer (ALO)
-    Y: General
-    Z: Other
-18B:
-  name: Attack remotely piloted aircraft pilot
-  subcategories:
-    X: General
-    A: MQ-1
-    B: MQ-9
-    U: Air liaison officer (ALO)
-    Y: General
-    Z: Other
-18C:
-  name: Attack remotely piloted aircraft pilot
-  subcategories:
-    X: General
-    A: MQ-1
-    B: MQ-9
-    U: Air liaison officer (ALO)
-    Y: General
-    Z: Other
-18D:
-  name: Attack remotely piloted aircraft pilot
-  subcategories:
-    X: General
-    A: MQ-1
-    B: MQ-9
-    U: Air liaison officer (ALO)
-    Y: General
-    Z: Other
-18E:
-  name: Experimental test remotely piloted aircraft pilot
-  subcategories:
-    X: General
-    A: Attack
-    B: Reconnaissance
-    C: Special operations
-    Y: General
-    Z: Other
-18F:
-  name: Experimental test remotely piloted aircraft pilot
-  subcategories:
-    X: General
-    A: Attack
-    B: Reconnaissance
-    C: Special operations
-    Y: General
-    Z: Other
-18G:
-  name: Generalist remotely piloted aircraft pilot
-  subcategories:
-    X: General
-18H:
-  name: Generalist remotely piloted aircraft pilot
-  subcategories:
-    X: General
-18I:
-  name: Generalist remotely piloted aircraft pilot
-  subcategories:
-    X: General
-18J:
-  name: Generalist remotely piloted aircraft pilot
-  subcategories:
-    X: General
-18K:
-  name: Generalist remotely piloted aircraft pilot
-  subcategories:
-    X: General
-18L:
-  name: Generalist remotely piloted aircraft pilot
-  subcategories:
-    X: General
-18M:
-  name: Generalist remotely piloted aircraft pilot
-  subcategories:
-    X: General
-18N:
-  name: Generalist remotely piloted aircraft pilot
-  subcategories:
-    X: General
-18O:
-  name: Generalist remotely piloted aircraft pilot
-  subcategories:
-    X: General
-18P:
-  name: Generalist remotely piloted aircraft pilot
-  subcategories:
-    X: General
-18Q:
-  name: Generalist remotely piloted aircraft pilot
-  subcategories:
-    X: General
-18R:
-  name: Reconnaissance remotely piloted aircraft pilot
-  subcategories:
-    X: General
-    C: RQ-4
-    E: RQ-170
-    Y: General
-    Z: Other
-18S:
-  name: Special operations remotely piloted aircraft pilot
-  subcategories:
-    X: General
-    A: MQ-1
-    B: MQ-9
-    U: Air liaison officer (ALO)
-    Y: General
-    Z: Other
-18T:
-  name: Special operations remotely piloted aircraft pilot
-  subcategories:
-    X: General
-    A: MQ-1
-    B: MQ-9
-    U: Air liaison officer (ALO)
-    Y: General
-    Z: Other
-18U:
-  name: Special operations remotely piloted aircraft pilot
-  subcategories:
-    X: General
-    A: MQ-1
-    B: MQ-9
-    U: Air liaison officer (ALO)
-    Y: General
-    Z: Other
-18V:
-  name: Special operations remotely piloted aircraft pilot
-  subcategories:
-    X: General
-    A: MQ-1
-    B: MQ-9
-    U: Air liaison officer (ALO)
-    Y: General
-    Z: Other
-18W:
-  name: Special operations remotely piloted aircraft pilot
-  subcategories:
-    X: General
-    A: MQ-1
-    B: MQ-9
-    U: Air liaison officer (ALO)
-    Y: General
-    Z: Other
-18X:
-  name: Special investigations
-  subcategories:
-    A: Special agent
-18Y:
-  name: Special investigations
-  subcategories:
-    A: Special agent
-18Z:
-  name: Special investigations
-  subcategories:
-    A: Special agent
-19A:
-  name: Air Force special warfare
-  subcategories:
-    X: General
-19B:
-  name: Air Force special warfare
-  subcategories:
-    X: General
-19C:
-  name: Air Force special warfare
-  subcategories:
-    X: General
-19D:
-  name: Air Force special warfare
-  subcategories:
-    X: General
-19E:
-  name: Air Force special warfare
-  subcategories:
-    X: General
-19F:
-  name: Air Force special warfare
-  subcategories:
-    X: General
-19G:
-  name: Air Force special warfare
-  subcategories:
-    X: General
-19H:
-  name: Air Force special warfare
-  subcategories:
-    X: General
-19I:
-  name: Air Force special warfare
-  subcategories:
-    X: General
-19J:
-  name: Air Force special warfare
-  subcategories:
-    X: General
-19K:
-  name: Air Force special warfare
-  subcategories:
-    X: General
-19L:
-  name: Air Force special warfare
-  subcategories:
-    X: General
-19M:
-  name: Air Force special warfare
-  subcategories:
-    X: General
-19N:
-  name: Air Force special warfare
-  subcategories:
-    X: General
-19O:
-  name: Air Force special warfare
-  subcategories:
-    X: General
-19P:
-  name: Air Force special warfare
-  subcategories:
-    X: General
-19Q:
-  name: Air Force special warfare
-  subcategories:
-    X: General
-19R:
-  name: Air Force special warfare
-  subcategories:
-    X: General
-19S:
-  name: Air Force special warfare
-  subcategories:
-    X: General
-19T:
-  name: Air Force special warfare
-  subcategories:
-    X: General
-19U:
-  name: Air Force special warfare
-  subcategories:
-    X: General
-19V:
-  name: Air Force special warfare
-  subcategories:
-    X: General
-19W:
-  name: Air Force special warfare
-  subcategories:
-    X: General
-19X:
-  name: Air Force special warfare
-  subcategories:
-    X: General
-19Y:
-  name: Air Force special warfare
-  subcategories:
-    X: General
-19Z:
-  name: Special warfare
-  subcategories:
-    X: General
-    A: Special tactics
-    B: Tactical air control party
-    C: Combat rescue
+:10C0:
+  :name: Operations commander
+  :subcategories: {}
+:11BX:
+  :name: Bomber pilot
+  :subcategories:
+    :A: B-1
+    :B: B-2
+    :C: B-52
+    :D: B-21
+    :U: Air liaison officer (ALO)
+    :Y: General
+    :Z: Other
+:11EX:
+  :name: Experimental test pilot
+  :subcategories:
+    :A: Airlift/tanker/bomber
+    :B: Fighter
+    :C: Helicopter/VSTOL
+    :D: Airlift
+    :E: Tanker
+    :F: Bomber
+    :G: RPA
+    :Q: Mission support (T-38, etc.)
+    :Y: General
+    :Z: Other
+:11FX:
+  :name: Fighter pilot
+  :subcategories:
+    :B: A-10
+    :F: F-15
+    :G: F-15E
+    :H: F-16
+    :J: F-22
+    :N: F-35
+    :Q: IFF (AT-38/T-38C)
+    :U: Air liaison officer (ALO)
+    :Y: General
+    :Z: Other
+:11GX:
+  :name: Generalist pilot
+  :subcategories: {}
+:11HX:
+  :name: Rescue pilot
+  :subcategories:
+    :C: UH-1N
+    :E: HH-60
+    :F: CSAR-X
+    :G: MH-139
+    :J: HC-130J
+    :P: HC-130P/N
+    :W: Combat search and rescue, general
+    :Y: General
+    :Z: Other
+:11KX:
+  :name: Trainer pilot
+  :subcategories:
+    :A: T-1
+    :D: T-38
+    :F: T-6
+    :H: T-44/TC-12
+    :J: SUPT-H
+    :M: AETC air mobility fundamentals course instructor
+    :Q: T-7
+    :Y: General
+    :Z: Other
+:11MX:
+  :name: Mobility pilot
+  :subcategories:
+    :A: C-5
+    :B: C-130E/H
+    :C: C-130J
+    :D: C-27J (JCA)
+    :E: VC-25
+    :F: KC-135
+    :G: KC-10
+    :J: C-12
+    :K: C-17
+    :L: C-20/C-37
+    :M: C-21
+    :N: C-26
+    :P: C-32
+    :Q: C-40
+    :R: KC-46
+    :S: Airlift, general
+    :T: Tanker, general
+    :U: Air mobility liaison officer
+    :V: Inter-theater airlift, general
+    :W: Intra-theater airlift, general
+    :Y: General
+    :Z: Other
+:11RX:
+  :name: Reconnaissance/surveillance/electronic warfare pilot
+  :subcategories:
+    :A: E-3
+    :B: E-4
+    :C: EC-130
+    :E: WC-130
+    :G: RC-135
+    :H: WC/OC-135
+    :J: TR-1/U-2
+    :L: E-8
+    :M: MC-12
+    :N: RC-26B
+    :S: E-7
+    :Y: General
+    :Z: Other
+:11SX:
+  :name: Special operations pilot
+  :subcategories:
+    :C: AC-130H
+    :D: AC-130U
+    :E: MC-130P
+    :F: MC-130E
+    :G: MC-130H
+    :I: CAA (fixed wing)
+    :J: CV-22
+    :M: Air commando (NSAv, DM)
+    :N: AC-130W
+    :P: MC-130J
+    :Q: AC-130J
+    :S: EC-130J
+    :U: Air liaison officer (ALO)
+    :X: U-28
+    :Y: General
+    :Z: Other
+:11TX:
+  :name: Student pilot
+  :subcategories:
+    :A: T-1
+    :D: T-38
+    :F: T-6
+    :G: T-7
+    :H: T-96
+    :J: TH-1
+    :Z: Other
+:11UX:
+  :name: Remotely piloted aircraft (RPA) pilot
+  :subcategories:
+    :A: MQ-1
+    :B: MQ-9
+    :C: RQ-4
+    :E: RQ-170
+    :S: Special operations
+    :U: Air liaison officer (ALO)
+:11UXY:
+  :name: General
+  :subcategories:
+    :Z: Other
+:12BX:
+  :name: Bomber combat systems officer
+  :subcategories:
+    :C: B-1 WSO
+    :D: B-52 EWO
+    :E: B-52 WSO
+    :U: Air liaison officer (ALO)
+    :W: EWO, general
+    :Y: General
+    :Z: Other
+:12EX:
+  :name: Experimental test combat systems officer
+  :subcategories:
+    :A: Airlift/tanker/bomber
+    :B: Fighter
+    :D: Airlift
+    :E: Tanker
+    :F: Bomber
+    :G: RPA
+    :W: EWO, general
+    :Y: General
+    :Z: Other
+:12FX:
+  :name: Fighter weapon systems officer
+  :subcategories:
+    :F: F-15E WSO
+    :G: F-15E EWO
+    :Q: T-7
+    :U: Air liaison officer (ALO)
+    :V: EA-18G
+    :W: EWO, general
+    :Y: General
+    :Z: Other
+:12GX:
+  :name: Generalist combat systems officer
+  :subcategories:
+    :W: EWO
+:12HX:
+  :name: Rescue combat systems officer
+  :subcategories:
+    :J: HC-130J
+    :P: HC-130
+    :Y: General
+    :Z: Other
+:12KX:
+  :name: Trainer combat systems officer
+  :subcategories:
+    :A: SUNT, navigator general
+    :B: SUNT, EWO
+    :C: SUNT, WSO
+    :D: Instructor, undergraduate CSO training
+    :Y: General
+    :Z: Other
+:12MX:
+  :name: Mobility combat systems officer
+  :subcategories:
+    :B: C-130E/H
+    :E: VC-25
+    :F: KC-135
+    :S: Airlift, general
+    :T: Tanker, general
+    :U: Air mobility liaison officer (AMLO)
+    :V: Inter-theater airlift, general
+    :W: Intra-theater airlift, general
+    :Y: General
+    :Z: Other
+:12RX:
+  :name: Reconnaissance/surveillance/electronic warfare combat systems officer
+  :subcategories:
+    :A: E-3
+    :B: E-4
+    :C: EC-130 EWO
+    :D: EC-130
+    :F: WC-130
+    :H: RC-135 EWO
+    :J: RC-135
+    :K: WC/OC-135
+    :L: E-8
+    :N: RC-26B
+    :S: E-7 EWO
+    :W: EWO, general
+    :Y: General
+    :Z: Other
+:12SX:
+  :name: Special operations combat systems officer
+  :subcategories:
+    :A: AC-130H EWO
+    :B: AC-130H FCO
+    :C: AC-130H
+    :D: AC-130U EWO
+    :E: AC-130U FCO
+    :F: AC-130U
+    :G: MC-130P
+    :H: MC-130E EWO
+    :J: MC-130E
+    :K: MC-130H EWO
+    :L: MC-130H
+    :M: Air commando (CAA, NSAv, DM)
+    :N: AC-130W
+    :O: AC-130W FCO
+    :P: MC-130J
+    :Q: AC-130J CSO
+    :R: AC-130J WSO
+    :S: EC-130J
+    :U: Air liaison officer
+    :W: EWO, general
+    :X: U-28
+    :Y: General
+    :Z: Other
+:12UX:
+  :name: Remotely piloted aircraft (RPA)
+  :subcategories:
+    :A: MQ-1
+    :B: MQ-9
+    :C: RQ-4
+    :E: RQ-170
+    :S: Special operations
+    :U: Air liaison officer
+    :Y: General
+    :Z: Other
+:13AX:
+  :name: Astronaut
+  :subcategories: {}
+:13BX:
+  :name: Air battle manager
+  :subcategories:
+    :B: AWACS
+    :C: Air defense
+    :D: Mobile air control
+    :K: JSTARS
+    :M: Trainer (UABMT)
+    :S: E-7
+    :U: Air liaison officer (ALO)
+    :Y: General
+    :Z: Other
+    :X: Flight test
+:14FX:
+  :name: Information operations
+  :subcategories: {}
+:14NX:
+  :name: Intelligence
+  :subcategories: {}
+:15AX:
+  :name: Operations analysis officer
+  :subcategories: {}
+:15WX:
+  :name: Weather and environmental sciences
+  :subcategories:
+    :A: Advanced weather activities
+:16FX:
+  :name: Foreign area officer (FAO)
+  :subcategories:
+    :C: SOUTHCOM
+    :D: INDOPACOM
+    :F: CENTCOM
+    :G: AFRICOM
+    :H: EUCOM
+    :L: Generalist
+:16GX:
+  :name: Air force operations staff officer
+  :subcategories: {}
+:16KX:
+  :name: Software development officer (SDO)
+  :subcategories:
+    :D: Product designer
+    :E: Software engineer
+    :M: Product manager
+    :S: Data scientist
+:16PX:
+  :name: Political-military affairs strategist (PAS)
+  :subcategories: {}
+:16RX:
+  :name: Planning and programming
+  :subcategories: {}
+:16ZX:
+  :name: Rated foreign area officer (FAO)
+  :subcategories:
+    :C: SOUTHCOM
+    :D: INDOPACOM
+    :F: CENTCOM
+    :G: AFRICOM
+    :H: EUCOM
+    :L: Generalist (applies only to billets)
+:17CX:
+  :name: Cyberspace warfare operations commander
+  :subcategories: {}
+:17DX:
+  :name: Warfighter communications operations
+  :subcategories:
+    :A: Network operations
+    :B: Expeditionary communications operations
+    :T: Technical track
+    :Y: General
+:17SX:
+  :name: Cyberspace effects operations
+  :subcategories:
+    :A: Offensive cyberspace operator
+    :B: Defensive cyberspace operator
+    :T: Technical track
+:17WX:
+  :name: Warfighter communications & IT systems operations
+  :subcategories:
+    :C: Cybersecurity specialist
+    :D: Data operations specialist
+    :I: Information technology specialist
+:17YX:
+  :name: Cyber effects & warfare
+  :subcategories:
+    :A: Cyber warfare analyst
+    :C: Cyber capability developer
+    :D: Cyber threat defense analyst
+    :O: Cyber attack operator
+    :I: Cyber threat defense integrator
+:18AX:
+  :name: Attack remotely piloted aircraft pilot
+  :subcategories:
+    :A: MQ-1
+    :B: MQ-9
+    :U: Air liaison officer (ALO)
+    :Y: General
+    :Z: Other
+:18EX:
+  :name: Experimental test remotely piloted aircraft pilot
+  :subcategories:
+    :A: Attack
+    :B: Reconnaissance
+    :C: Special operations
+    :Y: General
+    :Z: Other
+:18GX:
+  :name: Generalist remotely piloted aircraft pilot
+  :subcategories: {}
+:18RX:
+  :name: Reconnaissance remotely piloted aircraft pilot
+  :subcategories:
+    :C: RQ-4
+    :E: RQ-170
+    :Y: General
+    :Z: Other
+:18SX:
+  :name: Special operations remotely piloted aircraft pilot
+  :subcategories:
+    :A: MQ-1
+    :B: MQ-9
+    :U: Air liaison officer (ALO)
+    :Y: General
+    :Z: Other
+:19ZX:
+  :name: Special warfare
+  :subcategories:
+    :A: Special tactics
+    :B: Tactical air control party
+    :C: Combat rescue
+:30C0:
+  :name: Support commander
+  :subcategories: {}
+:31PX:
+  :name: Security forces
+  :subcategories: {}
+:32EX:
+  :name: Civil engineer
+  :subcategories:
+    :A: Architect/architectural engineer
+    :B: Civil engineer
+    :E: Electrical engineer
+    :F: Mechanical engineer
+    :G: General engineer
+    :H: Explosive ordnance disposal engineer
+    :I: Industrial engineer
+    :J: Environmental engineer
+:35BX:
+  :name: Band
+  :subcategories: {}
+:35PX:
+  :name: Public affairs
+  :subcategories: {}
+:38FX:
+  :name: Force support
+  :subcategories:
+    :A: Analyst
+    :Q: Section commander
+:40C0:
+  :name: Medical commander
+  :subcategories: {}
+:41XX:
+  :name: Health Services Utilization Field
+  :subcategories:
+    :X: Health services administrator
+:42XX:
+  :name: Biomedical Clinician Utilization Field
+  :subcategories:
+    :X: Biomedical scientist
+:43XX:
+  :name: Biomedical Specialists Utilization Field
+  :subcategories:
+    :X: Biomedical laboratory
+:44XX:
+  :name: Physician Utilization Field
+  :subcategories:
+    :X: Allergist and immunologist
+:45XX:
+  :name: Surgery Utilization Field
+  :subcategories:
+    :X: Urologist
+:46XX:
+  :name: Nurse Utilization Field
+  :subcategories:
+    :X: Advanced practice registered nurse (APRN)
+:47XX:
+  :name: Dental Utilization Field
+  :subcategories:
+    :X: Oral and maxillofacial surgeon
+:48XX:
+  :name: Aerospace Medicine Utilization Field
+  :subcategories:
+    :X: Pilot-physician

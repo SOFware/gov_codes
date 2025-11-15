@@ -34,8 +34,8 @@ module GovCodes
           return result unless functional_area
           result[:functional_area] = functional_area.to_sym
 
-          # Scan for qualification level (digit 0-4)
-          qualification_level = scanner.scan(/[0-4]/)
+          # Scan for qualification level (digit 0-4 or letter X-Z)
+          qualification_level = scanner.scan(/[0-4A-Z]/)
           return result unless qualification_level
           result[:qualification_level] = qualification_level.to_sym
 
@@ -71,29 +71,19 @@ module GovCodes
         name = nil
         data = DATA
 
-        # For officer codes, the structure uses combined career group and functional area
-        # like "11B" where "11" is career group and "B" is functional area
+        # For officer codes, build the lookup key from career group + functional area + qual level
+        # like "11BX" where "11" is career group, "B" is functional area, "X" is qual level
         career_group = result[:career_group].to_s
         functional_area = result[:functional_area].to_s
-        combined_key = :"#{career_group}#{functional_area}"
+        qual_level = result[:qualification_level].to_s
+        combined_key = :"#{career_group}#{functional_area}#{qual_level}"
 
-        # Look for the combined key first
+        # Look for the full code (e.g., "11BX", "11MX")
         if data[combined_key]
           name = data[combined_key][:name]
           data = data[combined_key][:subcategories]
 
-          # Then look for qualification level
-          if data && result[:qualification_level]
-            qual_level = result[:qualification_level]
-            # Try Integer first (for numeric keys 0-4), then Symbol, then String
-            lookup_value = data[qual_level.to_s.to_i] || data[qual_level] || data[qual_level.to_s]
-            if lookup_value
-              name = lookup_value.is_a?(Hash) ? (lookup_value[:name] || name) : (lookup_value || name)
-              data = lookup_value[:subcategories] if lookup_value.is_a?(Hash)
-            end
-          end
-
-          # Finally look for shredout
+          # Then look for shredout
           if data && result[:shredout]
             shred = result[:shredout]
             # Try Symbol first (most shredouts are letters), then Integer, then String

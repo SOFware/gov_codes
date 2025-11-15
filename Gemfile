@@ -16,3 +16,5 @@ gem "standard"
 gem "simplecov"
 
 gem "reissue"
+
+gem "nokogiri"
