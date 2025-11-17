@@ -1,0 +1,237 @@
+# Reporting Identifiers (RI) and Special Duty Identifiers (SDI)
+# Source: https://en.wikipedia.org/wiki/Air_Force_Specialty_Code
+# Wikipedia Revision: 1318430021
+# Extracted: 2025-11-17
+#
+# IMPORTANT: This file contains ONLY codes explicitly listed on Wikipedia.
+# No predictions, no assumptions, no hallucinations.
+# See .agent-os/product/decisions.md (DEC-003) for anti-hallucination policy.
+#
+# Format: Career field (digit + letter) + identifier (3 digits) + optional suffix
+# Examples: 8A400, 9Z200, 8G000B, 8R300A
+
+:8A:
+  :name: Enlisted aide and protocol
+  :subcategories:
+    :200: Enlisted aide
+    :300: Protocol
+    :400: Talent management consultant
+:8B:
+  :name: Military training
+  :subcategories:
+    :000: Military training instructor
+    :100: Military Training leader
+    :200: Academy military training NCO
+    :300: Officer accessions instructor
+:8C:
+  :name: Military and family readiness
+  :subcategories:
+    :000: Military and family readiness non-commissioned officer (RNCO)
+:8D:
+  :name: Language and culture
+  :subcategories:
+    :100: Language & culture advisor
+:8F:
+  :name: First sergeant
+  :subcategories:
+    :000: First sergeant
+:8G:
+  :name: Honor guard
+  :subcategories:
+    :000:
+      :name: Premier honor guard
+      :subcategories:
+        :B: Pallbearer
+        :C: Color guard
+        :D: Drill team
+    :100: Base honor guard program manager
+:8H:
+  :name: Airmen dorm leader
+  :subcategories:
+    :000: Airmen dorm leader
+:8I:
+  :name: Inspector general
+  :subcategories:
+    :000: Superintendent, inspector general
+    :100: Inspections coordinator
+    :200: Complaints & resolution coordinator
+:8K:
+  :name: Software development
+  :subcategories:
+    :000: Software development specialist
+:8L:
+  :name: Air advisor
+  :subcategories:
+    :100: Air advisor basic
+    :200: Air advisor basic, team sergeant
+    :300: Air advisor basic, team leader
+    :400: Air advisor advanced
+    :500: Air advisor advanced, team sergeant
+    :600: Air advisor advanced, team leader
+    :700: Combat aviation advisor
+    :800: Combat aviation advisor team sergeant
+    :900: Combat aviation advisor team leader
+:8P:
+  :name: Courier and defense attaché
+  :subcategories:
+    :000: Courier
+    :100: Defense attaché
+:8R:
+  :name: Recruiting
+  :subcategories:
+    :000: Enlisted accessions recruiter
+    :200: Second-tier recruiter
+    :300:
+      :name: Third-tier recruiter
+      :subcategories:
+        :A: Flight chief
+        :B: Graduated, flight chief
+        :C: Production superintendent
+        :E: Senior enlisted leader
+:8S:
+  :name: Missile facility
+  :subcategories:
+    :000: Missile facility manager
+    :200: Combat crew communications
+:8T:
+  :name: Professional military education
+  :subcategories:
+    :000: Professional military education instructor
+    :100: Enlisted professional military education instructional system designer
+    :200: Development advisor
+:8U:
+  :name: Unit deployment
+  :subcategories:
+    :000: Unit deployment manager
+    :100: Weapons of mass destruction civil support team (WMD-CST)
+:8W:
+  :name: Weapons safety
+  :subcategories:
+    :000: Weapons safety manager – wing level
+:8Y:
+  :name: Pathfinder
+  :subcategories:
+    :000: Pathfinder
+:9A:
+  :name: Disqualified/awaiting separation
+  :subcategories:
+    :000: Enlisted airman/guardian – disqualified for reasons beyond control
+    :100: Enlisted airman/guardian – disqualified for reasons within control
+    :200: Enlisted airman/guardian awaiting discharge, separation, or retirement for reasons within their control
+    :300: Enlisted airman/guardian awaiting discharge, separation, or retirement for reasons beyond their control
+    :400: Disqualified airman/guardian, return to duty program
+    :500: Enlisted airman/guardian temporarily ineligible for retraining – disqualified for reasons beyond control
+:9B:
+  :name: Senior enlisted advisor
+  :subcategories:
+    :000: Senior enlisted advisor to the chairman of the joint chiefs of staff
+    :100: Senior enlisted advisor to the chief of the National Guard Bureau
+:9C:
+  :name: Chief Master Sergeant of the Air Force
+  :subcategories:
+    :000: Chief Master Sergeant of the Air Force
+    :100: Executive assistant to the Chief Master Sergeant of the Air Force
+:9D:
+  :name: Developmental positions
+  :subcategories:
+    :100: AF developmental senior enlisted positions
+    :200: Key developmental senior enlisted positions
+:9E:
+  :name: Command Chief Master Sergeant
+  :subcategories:
+    :000: Command Chief Master Sergeant
+    :100: Command chief executive assistant
+    :200: Individual Mobilization Augmentee to Command Chief Master Sergeant
+:9F:
+  :name: First term airmen center
+  :subcategories:
+    :000: First term airmen center (FTAC) NCOIC
+:9G:
+  :name: Group senior enlisted leader
+  :subcategories:
+    :100: Group senior enlisted leader
+:9H:
+  :name: Academic and WHCA
+  :subcategories:
+    :000: Academic faculty instructor
+    :100: White House communications agency technician (WHCA)
+:9I:
+  :name: Futures airmen
+  :subcategories:
+    :000: Futures airmen
+:9J:
+  :name: Prisoner
+  :subcategories:
+    :000: Prisoner
+:9L:
+  :name: Interpreter/translator
+  :subcategories:
+    :000: Interpreter/translator
+    :100: Enlisted international affairs manager
+:9M:
+  :name: Military entrance and health
+  :subcategories:
+    :000: Military entrance processing command (MEPCOM) senior enlisted advisor
+    :200: International health specialists (IHS)
+    :400: Chief, medical enlisted force (CMEF)
+:9N:
+  :name: Legislative fellows
+  :subcategories:
+    :000: Secretary of the Air Force enlisted legislative fellows
+:9P:
+  :name: Patient
+  :subcategories:
+    :000: Patient
+:9Q:
+  :name: Reserve force
+  :subcategories:
+    :000: Reserve force generation and oversight NCO
+:9R:
+  :name: Civil Air Patrol
+  :subcategories:
+    :000: Civil Air Patrol (CAP) – USAF reserve assistance NCO
+:9S:
+  :name: Scientific applications
+  :subcategories:
+    :100: Scientific applications specialist
+:9T:
+  :name: Trainee
+  :subcategories:
+    :000: Basic enlisted airman
+    :100: Officer trainee
+    :200: Precadet assignee
+    :400: AFIT/EWI enlisted student
+    :500: Basic special warfare enlisted airman
+:9U:
+  :name: Ineligible/unallotted
+  :subcategories:
+    :000: Enlisted airman/guardian ineligible for local utilization
+    :100: Unallotted enlisted authorization
+:9V:
+  :name: Joint senior enlisted
+  :subcategories:
+    :000: Key developmental joint senior enlisted position
+    :100: Executive assistant to the senior enlisted advisor to the Chairman of the Joint Chiefs of Staff
+:9W:
+  :name: Wounded warrior
+  :subcategories:
+    :000: Combat wounded warrior
+    :100: Reserved for future use
+    :200: Combat wounded warrior with exemptions
+    :300: Non-combat wounded warrior
+    :400: Wounded warrior – limited assignment status (LAS)
+    :500: Reserved for future use
+    :600: Reserved for future use
+    :700: Reserved for future use
+    :800: Wounded warrior – ambassador
+    :900: Wounded warrior – project planner/officer
+:9Y:
+  :name: Air Force parachute team
+  :subcategories:
+    :000: Air force parachute team (AFPT) instructor
+:9Z:
+  :name: Special warfare mission support
+  :subcategories:
+    :000: Special warfare mission support (SWMS) career field manager (CFM) on headquarters Air Force staff, Air Force Special Warfare Division
+    :100: Special warfare mission support (SWMS) senior enlisted leader, Air Force Special Warfare (AFSPECWAR)
+    :200: Special warfare mission support (SWMS) superintendent, Air Force Special Warfare (AFSPECWAR)
