@@ -112,6 +112,33 @@ module GovCodes
 
         Code.new(**result)
       end
+
+      def self.search(prefix)
+        results = []
+        prefix = prefix.to_s.upcase
+        collect_codes_recursive(DATA, "", prefix, results)
+        results.map { |code| find(code) }.compact
+      end
+
+      def self.collect_codes_recursive(data, current_code, prefix, results)
+        return unless data.is_a?(Hash)
+
+        data.each do |key, value|
+          code = "#{current_code}#{key}"
+
+          if value.is_a?(Hash) && value[:name]
+            # This is a node with a name and possibly subcategories
+            results << code if code.start_with?(prefix)
+            collect_codes_recursive(value[:subcategories], code, prefix, results) if value[:subcategories]
+          elsif value.is_a?(String)
+            # This is a leaf node (simple string value)
+            results << code if code.start_with?(prefix)
+          elsif value.is_a?(Hash)
+            # Nested subcategories without a name at this level
+            collect_codes_recursive(value, current_code, prefix, results)
+          end
+        end
+      end
     end
   end
 end
