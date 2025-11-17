@@ -10,6 +10,14 @@ module GovCodes
         AFSC::RI.find(code)
     end
 
+    def self.search(prefix)
+      results = []
+      results.concat(Enlisted.search(prefix))
+      results.concat(Officer.search(prefix))
+      results.concat(RI.search(prefix))
+      results
+    end
+
     def self.reset_data(lookup: $LOAD_PATH)
       Enlisted.reset_data(lookup:)
       Officer.reset_data(lookup:)
