@@ -155,9 +155,7 @@
     :E: RQ-170
     :S: Special operations
     :U: Air liaison officer (ALO)
-:11UXY:
-  :name: General
-  :subcategories:
+    :Y: General
     :Z: Other
 :12BX:
   :name: Bomber combat systems officer
@@ -295,6 +293,28 @@
     :Y: General
     :Z: Other
     :X: Flight test
+:13HX:
+  :name: Aerospace physiologist
+  :subcategories: {}
+:13MX:
+  :name: Airfield operations
+  :subcategories: {}
+:13NX:
+  :name: Nuclear and missile operations
+  :subcategories: {}
+:13OX:
+  :name: Multi-domain warfare officer
+  :subcategories: {}
+:13SX:
+  :name: Space operations
+  :subcategories:
+    :A: Orbital warfare
+    :B: Space electronic warfare
+    :D: Space battle management
+    :E: Space access and sustainment
+:13ZX:
+  :name: Rated multi-domain warfare officer
+  :subcategories: {}
 :14FX:
   :name: Information operations
   :subcategories: {}
@@ -443,35 +463,610 @@
 :40C0:
   :name: Medical commander
   :subcategories: {}
-:41XX:
-  :name: Health Services Utilization Field
+:41AX:
+  :name: Health services administrator
   :subcategories:
-    :X: Health services administrator
-:42XX:
-  :name: Biomedical Clinician Utilization Field
+    :A: Health facilities architect/engineer/construction manager
+:42BX:
+  :name: Biomedical scientist
   :subcategories:
-    :X: Biomedical scientist
-:43XX:
-  :name: Biomedical Specialists Utilization Field
+    :Z: Special warfare
+:42EX:
+  :name: Optometrist
+  :subcategories: {}
+:42FX:
+  :name: Podiatric surgeon
+  :subcategories: {}
+:42GX:
+  :name: Physician assistant
   :subcategories:
-    :X: Biomedical laboratory
-:44XX:
-  :name: Physician Utilization Field
+    :A: Orthopedics
+    :B: Otolaryngology
+    :C: General surgery
+    :E: Emergency medicine
+    :N: Psychiatry
+    :P: Aeromedical
+:42NX:
+  :name: Audiologist
+  :subcategories: {}
+:42PX:
+  :name: Clinical psychologist
   :subcategories:
-    :X: Allergist and immunologist
-:45XX:
-  :name: Surgery Utilization Field
+    :A: Clinical neuropsychologist
+    :B: Clinical health psychologist
+    :C: Child & adolescent psychologist
+    :D: Aviation psychologist
+    :E: Operational psychologist
+    :F: Investigative psychologist
+:42SX:
+  :name: Clinical social worker
+  :subcategories: {}
+:42TX:
+  :name: Occupational therapist
+  :subcategories: {}
+:43BX:
+  :name: Biomedical scientist
+  :subcategories: {}
+:43DX:
+  :name: Dietitian
+  :subcategories: {}
+:43EX:
+  :name: Bioenvironmental engineer
   :subcategories:
-    :X: Urologist
-:46XX:
-  :name: Nurse Utilization Field
+    :A: General
+    :B: Industrial hygiene
+    :D: Environmental engineering and science
+    :G: Health physics
+    :M: Medical physics
+    :R: Radiation
+:43HX:
+  :name: Public health officer
   :subcategories:
-    :X: Advanced practice registered nurse (APRN)
-:47XX:
-  :name: Dental Utilization Field
+    :E: Medical entomologist
+:43PX:
+  :name: Pharmacist
   :subcategories:
-    :X: Oral and maxillofacial surgeon
-:48XX:
-  :name: Aerospace Medicine Utilization Field
+    :A: Clinical pharmacy
+:43TX:
+  :name: Biomedical laboratory
   :subcategories:
-    :X: Pilot-physician
+    :A: Biomedical laboratory science
+    :B: Microbiology
+    :C: Clinical chemistry
+    :D: Environmental and industrial hygiene chemistry
+    :E: Blood bank
+    :F: Toxicologist
+    :H: Hematology
+:44AX:
+  :name: Chief of medical staff
+  :subcategories: {}
+:44BX:
+  :name: Preventive medicine physician
+  :subcategories: {}
+:44DX:
+  :name: Pathologist
+  :subcategories:
+    :A: Hematology
+    :B: Cytology
+    :C: Gynecology
+    :D: Forensic
+    :E: Neuropathology
+    :F: Pediatric
+    :G: Transfusion medicine
+    :K: Dermatology
+:44EX:
+  :name: Emergency services physician
+  :subcategories:
+    :A: Emergency medicine specialist
+    :E: Emergency medicine services physician
+:44FX:
+  :name: Family physician
+  :subcategories:
+    :A: Sports medicine
+    :B: Obstetrics
+    :C: Pain management
+:44GX:
+  :name: General practice physician
+  :subcategories: {}
+:44HX:
+  :name: Nuclear medicine physician
+  :subcategories: {}
+:44JX:
+  :name: Medical geneticist and genomicist
+  :subcategories: {}
+:44KX:
+  :name: Pediatrician
+  :subcategories:
+    :A: Adolescent medicine
+    :B: Cardiology
+    :C: Developmental pediatrics
+    :D: Endocrinology
+    :E: Neonatology
+    :F: Gastroenterology
+    :G: Hematology
+    :H: Neurology
+    :J: Pulmonology
+    :K: Infectious diseases
+    :M: Nephrology
+    :N: Child abuse
+    :P: Sleep medicine
+:44MX:
+  :name: Internal medicine physician
+  :subcategories:
+    :A: Hematology/oncology
+    :B: Cardiology
+    :C: Endocrinology
+    :D: Gastroenterology
+    :E: Hematology
+    :F: Rheumatology
+    :G: Pulmonary diseases
+    :H: Infectious diseases
+    :J: Nephrology
+    :K: Geriatrics/palliative care medicine
+    :L: Sleep medicine
+:44NX:
+  :name: Neurologist
+  :subcategories:
+    :A: Sleep medicine
+    :B: Pain management
+:44OX:
+  :name: Physician (reserved for positions requiring a physician without specific specialty training).
+  :subcategories: {}
+:44PX:
+  :name: Psychiatrist
+  :subcategories:
+    :A: Child psychiatry
+    :B: Forensic psychiatry
+    :C: Addictions psychiatry
+    :D: Psychosomatic psychiatry
+    :E: Neuropsychiatry
+    :F: Sleep pathology
+:44RX:
+  :name: Radiologist
+  :subcategories:
+    :A: Neuroradiology
+    :B: Special procedures
+    :C: Pediatric
+    :D: Nuclear medicine
+    :E: Musculoskeletal
+    :F: Magnetic resonance imaging (MRI)
+    :G: Body imaging
+    :H: Cardiothoracic imaging
+    :J: Women's imaging
+:44SX:
+  :name: Dermatologist
+  :subcategories:
+    :A: Dermatologic surgery
+    :B: Dermatopathology
+    :C: Pediatric dermatology
+:44TX:
+  :name: Radiation oncologist
+  :subcategories: {}
+:44UX:
+  :name: Occupational medicine physician
+  :subcategories: {}
+:44YX:
+  :name: Critical care medicine physician
+  :subcategories:
+    :A: Anesthesia
+    :E: Emergency medicine
+    :K: Pediatrics
+    :M: Internal medicine
+    :N: Neurology
+    :S: Surgery
+:44ZX:
+  :name: Allergist and immunologist
+  :subcategories: {}
+:45AX:
+  :name: Anesthesiologist
+  :subcategories:
+    :A: Cardiothoracic
+    :B: Pain management
+:45BX:
+  :name: Orthopedic surgeon
+  :subcategories:
+    :A: Traumatology
+:45EX:
+  :name: Ophthalmologist
+  :subcategories:
+    :A: Oculoplastics
+    :B: Comea/external disease
+    :C: Glaucoma
+    :D: Neuro-ophthalmology
+    :E: Pathology
+    :F: Strabismus/pediatrics
+    :G: Vitreous/retina
+:45GX:
+  :name: Gynecologic surgery and obstetrics
+  :subcategories:
+    :A: Endocrinology
+    :B: Oncology
+    :D: Maternal–fetal medicine
+    :E: Urogynecology/pelvic reconstructive surgery
+    :F: Minimally invasive gynecologic surgery (MIGS)
+:45NX:
+  :name: Otolaryngologist – head and neck surgeon
+  :subcategories:
+    :A: Otology/neurotology
+    :B: Head & neck surgical oncology
+    :C: Pediatric otolaryngology
+    :D: Facial plastic surgery
+    :E: Rhinology & cranial base surgery
+    :F: Laryngology
+    :G: Sleep surgeon
+:45PX:
+  :name: Physical medicine physician
+  :subcategories: {}
+:45SX:
+  :name: Surgeon
+  :subcategories:
+    :A: Thoracic
+    :B: Colon and rectal
+    :C: Cardiac
+    :D: Pediatric
+    :E: Peripheral vascular
+    :F: Neurological
+    :G: Plastic
+    :H: Oncology
+    :K: Trauma/critical care
+:45UX:
+  :name: Urologist
+  :subcategories:
+    :A: Pediatrics
+    :B: Oncology
+    :D: Endourology/robotics
+    :E: Female urology/reconstruction
+:46AX:
+  :name: Nurse administrator
+  :subcategories: {}
+:46FX:
+  :name: Flight nurse
+  :subcategories: {}
+:46NX:
+  :name: Clinical nurse
+  :subcategories:
+    :D: Staff development
+    :E: Critical care
+    :F: Neonatal intensive care
+    :G: Obstetrical
+    :J: Emergency/trauma
+    :R: Post-anesthesia care unit
+:46PX:
+  :name: Mental health nurse
+  :subcategories: {}
+:46SX:
+  :name: Operating room nurse
+  :subcategories: {}
+:46YX:
+  :name: Advanced practice registered nurse (APRN)
+  :subcategories:
+    :A: Women's health care nurse practitioner
+    :B: Pediatric nurse practitioner
+    :C: Acute care nurse practitioner
+    :F: Aeromedical nurse practitioner
+    :G: Certified nurse midwife
+    :H: Family nurse practitioner
+    :M: Certified registered nurse anesthetist
+    :P: Adult psychiatric & mental health nurse practitioner
+:47BX:
+  :name: Orthodontist
+  :subcategories: {}
+:47DX:
+  :name: Oral and maxillofacial pathologist
+  :subcategories: {}
+:47EX:
+  :name: Endodontist
+  :subcategories: {}
+:47GX:
+  :name: Dentist
+  :subcategories:
+    :A: Comprehensive
+    :B: Advanced clinical
+    :C: General clinical
+    :D: Public health
+    :E: Dental materials science
+    :F: Oral and maxillofacial radiology
+    :G: Temporomandibular disorders
+    :H: Hospital dentistry
+:47HX:
+  :name: Periodontist
+  :subcategories: {}
+:47KX:
+  :name: Pediatric dentist
+  :subcategories: {}
+:47PX:
+  :name: Prosthodontist
+  :subcategories:
+    :A: Maxillofacial prosthetics
+    :B: Area dental laboratory
+    :C: Dental materials
+:47SX:
+  :name: Oral and maxillofacial surgeon
+  :subcategories:
+    :A: Temporomandibular joint
+    :B: Facial esthetics
+    :C: Maxillofacial reconstruction
+:48AX:
+  :name: Aerospace medicine physician specialist
+  :subcategories:
+    :X: Space medical operations experienced
+:48GX:
+  :name: General medical officer (GMO), flight surgeon
+  :subcategories:
+    :X: Space medical operations experienced
+:48OX:
+  :name: Aeromedical physician
+  :subcategories: {}
+:48RX:
+  :name: Residency trained flight surgeon
+  :subcategories:
+    :E: Board eligible in emergency medicine
+    :F: Board eligible in family medicine
+    :K: Board eligible in pediatric medicine
+    :M: Board eligible in internal medicine
+    :X: Space nedical operations experienced
+:48VX:
+  :name: Pilot-physician
+  :subcategories: {}
+:51JX:
+  :name: Judge advocate
+  :subcategories: {}
+:52RX:
+  :name: Chaplain
+  :subcategories: {}
+:60C0:
+  :name: Senior material leader – upper echelon
+  :subcategories: {}
+:61CX:
+  :name: Chemist/nuclear chemist
+  :subcategories:
+    :N: Nuclear
+:61DX:
+  :name: Physicist/nuclear engineer
+  :subcategories:
+    :N: Nuclear
+:62EX:
+  :name: Developmental engineer
+  :subcategories:
+    :A: Aeronautical
+    :B: Astronautical
+    :C: Computer systems
+    :E: Electrical/electronic
+    :F: Flight test
+    :G: Project
+    :H: Mechanical
+    :I: Systems/industrial/human factors
+:62S0:
+  :name: Materiel leader
+  :subcategories: {}
+:63AX:
+  :name: Acquisition manager
+  :subcategories: {}
+:63G0:
+  :name: Senior materiel leader – lower echelon
+  :subcategories: {}
+:63S0:
+  :name: Materiel leader
+  :subcategories: {}
+:64PX:
+  :name: Contracting
+  :subcategories: {}
+:65FX:
+  :name: Financial management
+  :subcategories: {}
+:65WX:
+  :name: Cost analysis
+  :subcategories: {}
+:71SX:
+  :name: Special investigator
+  :subcategories: {}
+:80C0:
+  :name: Commander, cadet squadron, USAF academy
+  :subcategories: {}
+:81C0:
+  :name: Instructor, officer training school
+  :subcategories: {}
+:81D0:
+  :name: Air Force reserve officer training corps detachment commander and professor of aerospace studies
+  :subcategories: {}
+:81L0:
+  :name: Education and training leader
+  :subcategories: {}
+:81T0:
+  :name: Instructor
+  :subcategories: {}
+:82A0:
+  :name: Academic program manager
+  :subcategories: {}
+:83R0:
+  :name: Recruiting service
+  :subcategories: {}
+:84H0:
+  :name: Historian
+  :subcategories: {}
+:85G0:
+  :name: USAF Honor Guard
+  :subcategories: {}
+:86M0:
+  :name: Operations management
+  :subcategories: {}
+:86P0:
+  :name: Command and control
+  :subcategories: {}
+:87G0:
+  :name: Wing inspector general
+  :subcategories: {}
+:87I0:
+  :name: Director, wing inspections
+  :subcategories: {}
+:87Q0:
+  :name: Director, complaints resolution
+  :subcategories: {}
+:88A0:
+  :name: Aide-de-camp
+  :subcategories: {}
+:88B0:
+  :name: Protocol officer
+  :subcategories: {}
+:88C0:
+  :name: Sexual assault response coordinator
+  :subcategories: {}
+:88I0:
+  :name: Innovation officer
+  :subcategories: {}
+:88M0:
+  :name: United States Air Force medical pinnacle position
+  :subcategories: {}
+:88Y0:
+  :name: Pathfinder officer
+  :subcategories: {}
+:89A0:
+  :name: Air advisor (basic)
+  :subcategories: {}
+:89B0:
+  :name: Air advisor (basic) team leader
+  :subcategories: {}
+:89C0:
+  :name: Air advisor (basic) mission commander
+  :subcategories: {}
+:89D0:
+  :name: Air advisor (advanced)
+  :subcategories: {}
+:89E0:
+  :name: Air advisor (advanced) team leader
+  :subcategories: {}
+:89F0:
+  :name: Air advisor (advanced) mission commander
+  :subcategories: {}
+:89G0:
+  :name: Combat aviation advisor
+  :subcategories: {}
+:89H0:
+  :name: Combat aviation advisor team leader
+  :subcategories: {}
+:89I0:
+  :name: Combat aviation advisor mission commander
+  :subcategories: {}
+:89W0:
+  :name: Weapons of mass destruction civil support team (WMD-CST)
+  :subcategories: {}
+:90G0:
+  :name: General officer
+  :subcategories: {}
+:91C0:
+  :name: Commander
+  :subcategories: {}
+:91E0:
+  :name: Wing commander equivalent
+  :subcategories: {}
+:91W0:
+  :name: Wing commander
+  :subcategories: {}
+:92F0:
+  :name: Foreign area officer (FAO) trainee
+  :subcategories: {}
+:92J0:
+  :name: Non-designated lawyer
+  :subcategories: {}
+:92J1:
+  :name: AFROTC educational delay law student
+  :subcategories: {}
+:92J2:
+  :name: Funded legal education program law student
+  :subcategories: {}
+:92J3:
+  :name: Excess leave law student
+  :subcategories: {}
+:92M0:
+  :name: Health Professions Scholarship Program (HPSP) medical student
+  :subcategories: {}
+:92M1:
+  :name: Uniformed Services University of Health Sciences (USUHS) student
+  :subcategories: {}
+:92M2:
+  :name: HPSP biomedical science student
+  :subcategories: {}
+:92P0:
+  :name: Physician assistant student
+  :subcategories: {}
+:92R0:
+  :name: Chaplain candidate
+  :subcategories: {}
+:92S0:
+  :name: Student officer authorization
+  :subcategories: {}
+:92T0:
+  :name: Pilot trainee
+  :subcategories: {}
+:92T1:
+  :name: Combat systems officer trainee
+  :subcategories: {}
+:92T2:
+  :name: Air battle manager trainee
+  :subcategories: {}
+:92T3:
+  :name: Remotely piloted aircraft pilot trainee
+  :subcategories: {}
+:92W0:
+  :name: Combat wounded warrior
+  :subcategories: {}
+:92W1:
+  :name: Reserved for future use
+  :subcategories: {}
+:92W2:
+  :name: Combat wounded warrior with exemptions
+  :subcategories: {}
+:92W3:
+  :name: Non-combat wounded warrior
+  :subcategories: {}
+:92W4:
+  :name: Wounded warrior – limited assignment status (LAS)
+  :subcategories: {}
+:92W5:
+  :name: Wounded warrior – retired/discharged
+  :subcategories: {}
+:92W6:
+  :name: Reserved for future use
+  :subcategories: {}
+:92W7:
+  :name: Reserved for future use
+  :subcategories: {}
+:92W8:
+  :name: Wounded warrior – ambassador
+  :subcategories: {}
+:92W9:
+  :name: Wounded warrior – project planner/officer
+  :subcategories: {}
+:93P0:
+  :name: Patient
+  :subcategories: {}
+:94N0:
+  :name: Nuclear weapons custodian
+  :subcategories: {}
+:95A0:
+  :name: Non-EAD USAFR academy liaison officer (ALO) or civil air patrol reserve assistance program (CAPRAP) officer
+  :subcategories: {}
+:96A0:
+  :name: Disqualified officer, reasons beyond their control
+  :subcategories: {}
+:96B0:
+  :name: Disqualified officer, reasons within their control
+  :subcategories: {}
+:96D0:
+  :name: Officer not available in awarded AFSC for cause
+  :subcategories: {}
+:96U0:
+  :name: Unclassified officer
+  :subcategories: {}
+:96V0:
+  :name: Un-allotted
+  :subcategories: {}
+:97E0:
+  :name: Executive officer
+  :subcategories: {}
+:99A0:
+  :name: Unspecified AFSC
+  :subcategories: {}
+:99G0:
+  :name: Gold bar diversity recruiter
+  :subcategories: {}
