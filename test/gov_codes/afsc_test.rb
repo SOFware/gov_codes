@@ -114,5 +114,46 @@ module GovCodes
 
       assert_equal results_upper.map(&:name), results_lower.map(&:name)
     end
+
+    def test_find_contracting_afsc
+      code = AFSC.find("6C0X1")
+
+      assert_instance_of GovCodes::AFSC::Enlisted::Code, code
+      assert_equal :"6C", code.career_field
+      assert_equal "Contracting", code.name
+    end
+
+    def test_find_financial_management_afsc
+      code = AFSC.find("6F0X1")
+
+      assert_instance_of GovCodes::AFSC::Enlisted::Code, code
+      assert_equal :"6F", code.career_field
+      assert_equal "Financial management and comptroller", code.name
+    end
+
+    def test_find_special_investigations_afsc
+      code = AFSC.find("7S0X1")
+
+      assert_instance_of GovCodes::AFSC::Enlisted::Code, code
+      assert_equal :"7S", code.career_field
+      assert_equal "Special investigations", code.name
+    end
+
+    def test_find_chief_enlisted_manager_codes
+      # First sergeant (E-7)
+      code = AFSC.find("5Z700")
+      assert_instance_of GovCodes::AFSC::RI::Code, code
+      assert_equal "First sergeant", code.name
+
+      # Command chief master sergeant (E-8)
+      code = AFSC.find("5Z800")
+      assert_instance_of GovCodes::AFSC::RI::Code, code
+      assert_equal "Command chief master sergeant", code.name
+
+      # Senior enlisted manager (E-9)
+      code = AFSC.find("5Z900")
+      assert_instance_of GovCodes::AFSC::RI::Code, code
+      assert_equal "Senior enlisted manager", code.name
+    end
   end
 end
