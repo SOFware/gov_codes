@@ -527,6 +527,18 @@
   :name: Religious affairs
   :subcategories:
     :0X1: Religious affairs
+:6C:
+  :name: Contracting
+  :subcategories:
+    :0X1: Contracting
+:6F:
+  :name: Financial management
+  :subcategories:
+    :0X1: Financial management and comptroller
+:7S:
+  :name: Special investigations
+  :subcategories:
+    :0X1: Special investigations
 # Note: 8X (Special Duty Identifiers) and 9X (Reporting Identifiers) series
 # are in ri.yml as they follow a different code structure (digit + letter + 3 digits)
 # Use GovCodes::AFSC::RI.find() for codes like 8A400, 9Z200, etc.

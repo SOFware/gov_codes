@@ -3,13 +3,22 @@
 # Wikipedia Revision: 1318430021
 # Extracted: 2025-11-17
 #
-# IMPORTANT: This file contains ONLY codes explicitly listed on Wikipedia.
+# Additional codes from official DAFECD (Department of the Air Force Enlisted
+# Classification Directory) verified against static.e-publishing.af.mil
+#
+# IMPORTANT: This file contains ONLY codes from verified official sources.
 # No predictions, no assumptions, no hallucinations.
 # See .agent-os/product/decisions.md (DEC-003) for anti-hallucination policy.
 #
 # Format: Career field (digit + letter) + identifier (3 digits) + optional suffix
 # Examples: 8A400, 9Z200, 8G000B, 8R300A
 
+:5Z:
+  :name: Chief enlisted manager
+  :subcategories:
+    :700: First sergeant
+    :800: Command chief master sergeant
+    :900: Senior enlisted manager
 :8A:
   :name: Enlisted aide and protocol
   :subcategories:
