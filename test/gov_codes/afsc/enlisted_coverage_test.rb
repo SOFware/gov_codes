@@ -1,5 +1,5 @@
+require "test_helper"
 require "minitest/autorun"
-require_relative "../../../lib/gov_codes/afsc"
 
 class EnlistedCoverageTest < Minitest::Test
   def test_find_with_nil_and_empty

@@ -3,7 +3,11 @@
 require "bundler/gem_tasks"
 require "minitest/test_task"
 
-Minitest::TestTask.create
+Minitest::TestTask.create do |t|
+  # Load test_helper before minitest/autorun to ensure SimpleCov's at_exit
+  # handler runs AFTER tests complete (at_exit runs in LIFO order)
+  t.test_prelude = 'require "test_helper"'
+end
 
 require "standard/rake"
 

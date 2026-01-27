@@ -1,3 +1,6 @@
+# Set command name before starting to ensure consistent tracking
+SimpleCov.command_name "Unit Tests"
+
 SimpleCov.start do
   # enable_coverage :branch
 
@@ -12,6 +15,15 @@ SimpleCov.start do
   track_files "lib/**/*.rb"
 
   # Group files by module
-
   add_group "AFSC", "lib/gov_codes/afsc"
+
+  # Add JSON formatter for easier parsing
+  require "simplecov_json_formatter"
+  formatter SimpleCov::Formatter::MultiFormatter.new([
+    SimpleCov::Formatter::HTMLFormatter,
+    SimpleCov::Formatter::JSONFormatter
+  ])
+
+  # Enable result merging
+  enable_coverage_for_eval
 end
