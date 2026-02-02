@@ -17,5 +17,6 @@ require "reissue/gem"
 
 Reissue::Task.create :reissue do |task|
   task.version_file = "lib/gov_codes/version.rb"
-  task.fragment = :git # Enable git trailer extraction for changelog
+  task.fragment = :git
+  task.push_finalize = :branch
 end
