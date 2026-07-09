@@ -1,0 +1,142 @@
+# De-glued specialty titles for DAFECD, effective 2025-10-31.
+# Each value is the source PDF title with ONLY spacing/case adjusted --
+# no letters, digits, or punctuation changed. Enforced at build time:
+# the IndexBuilder verifies each override against the raw source title
+# (whitespace-and-case-insensitive equality) and fails the build on drift.
+# Produced as the governed de-gluing step for pdf-reader space loss.
+:1A1X2: Mobility Force Aviator
+:1A1X3: Special Mission Aviator
+:1A1X4: Multi-Domain Operations Aviator
+:1A1X8: Executive Mission Aviator
+:1A8X0: SEL Airborne Intelligence, Surveillance and Reconnaissance (ISR)
+:1A8X1: Airborne Cryptologic Language Analyst (ACLA)
+:1A8X2: Airborne Intelligence, Surveillance, and Reconnaissance (ISR) Operator
+:1B4X1: Cyber Warfare Operations
+:1C0X2: Aviation Resource Management
+:1C1X1: Air Traffic Control
+:1C3X1: All-Domain Command and Control Operations
+:1C5X1: Battle Management Operations
+:1C6X1: Space Systems Operations
+:1C7X1: Airfield Management
+:1C8X3: Radar, Airfield & Weather Systems (RAWS)
+:1D7X1: Warfighter Communications
+:1D7X2: Radio Frequency Transmissions and Electromagnetic Activities (EMA)
+:1D7X3: Cable and Antenna
+:1D7X4: Data Engineering
+:1D7X5: Cybersecurity
+:1H0X1: Aerospace Physiology
+:1N0X1: All Source Intelligence Analyst
+:1N0X2: Intelligence Superintendent
+:1N1X1: Geospatial Intelligence (GEOINT)
+:1N2X1: Signals Intelligence
+:1N2X2: Cryptologic Intelligence Superintendent
+:1N3X1: Cryptologic Language Analyst
+:1N4X1: Cyber Intelligence
+:1N4X2: Cryptologic Analyst & Reporter
+:1N7X1: Human Intelligence Specialist
+:1N8X1: Targeting Analyst
+:1P0X1: Aircrew Flight Equipment
+:1S0X1: Safety
+:1T0X1: Survival, Evasion, Resistance, Escape (SERE) Specialist
+:1U1X1: Remotely Piloted Aircraft (RPA) Pilot
+:1W0X1: Weather
+:1Z1X1: Pararescue
+:1Z2X1: Combat Control
+:1Z3X1: Tactical Air Control Party (TACP)
+:1Z4X1: Special Reconnaissance
+:2A0X0: Avionics
+:2A0X1: Avionics Test Station, Components, and Electronic Warfare Systems
+:2A2X1: MHU-139 Electrical, Environmental and Avionics Technician
+:2A3X0: Fighter Aircraft Maintenance
+:2A3X3: Tactical Aircraft Maintenance
+:2A3X4: Fighter Aircraft Integrated Avionics
+:2A3X5: Advanced Fighter Aircraft Integrated Avionics
+:2A3X7: Tactical Aircraft Maintenance (5th Generation)
+:2A5X0: Airlift/Special Mission Aircraft Maintenance Superintendent
+:2A5X1: Airlift/Special Mission Aircraft Maintenance
+:2A5X2: Helicopter/Tiltrotor Aircraft Maintenance
+:2A5X4: Refuel/Bomber Aircraft Maintenance
+:2A6X0: Aircraft Accessories
+:2A6X1: Aerospace Propulsion
+:2A6X2: Aerospace Ground Equipment
+:2A6X3: Aircrew Egress Systems
+:2A6X4: Aircraft Fuel Systems
+:2A6X5: Aircraft Hydraulic Systems
+:2A6X6: Aircraft Electrical and Environmental Systems
+:2A7X0: Aircraft Fabrication
+:2A7X1: Aircraft Metals Technology
+:2A7X2: Nondestructive Inspection
+:2A7X3: Aircraft Structural Maintenance
+:2A9X4: Heavy Aircraft Integrated Avionics
+:2F0X1: Fuels
+:2G0X1: Logistics Plans
+:2M0X0: Missile and Space Systems Maintenance
+:2M0X1: Missile and Space Systems Electronic Maintenance
+:2M0X2: Missile and Space Systems Maintenance
+:2M0X3: Missile and Space Facilities
+:2P0X1: Precision Measurement Equipment Laboratory
+:2R2X1: Maintenance Management
+:2S0X1: Materiel Management
+:2T0X1: Traffic Management Operations
+:2T1X1: Ground Transportation
+:2T2X1: Air Transportation
+:2T3X0: Vehicle Management
+:2T3X1: Mission Generation Vehicular Equipment Maintenance
+:2T3X7: Fleet Management and Analysis
+:2W0X1: Munitions Systems
+:2W1X1: Aircraft Armament Systems
+:2W2X1: Nuclear Weapons
+:3E0X0: Facility Systems
+:3E0X1: Electrical Systems
+:3E0X2: Electrical Power Production
+:3E1X1: Heating, Ventilation, Air Conditioning, and Refrigeration
+:3E2X0: Heavy Repair
+:3E2X1: Pavements and Construction Equipment
+:3E3X1: Structural
+:3E4X0: Infrastructure Systems
+:3E4X1: Water and Fuel Systems Maintenance
+:3E4X3: Pest Management
+:3E5X1: Engineering
+:3E6X1: Operations Management
+:3E7X1: Fire Protection
+:3E8X1: Explosive Ordnance Disposal
+:3E9X1: Emergency Management
+:3F0X1: Human Resources and Administration
+:3F1X1: Services
+:3F2X1: Education and Training
+:3F3X1: Manpower
+:3F4X1: Equal Opportunity
+:3G0X1: Talent Acquisition
+:3H0X1: Historian
+:3N0X0: Public Affairs
+:3N0X6: Public Affairs
+:3N1X1: Regional Band
+:3N2X1: Premier Band - The USAF Band
+:3N3X1: Premier Band - The USAF Academy Band
+:3P0X1: Security Forces
+:4A0X1: Health Services Management
+:4A1X1: Medical Materiel
+:4A2X1: Biomedical Equipment
+:4B0X1: Bioenvironmental Engineering (BE)
+:4C0X1: Mental Health Service
+:4D0X1: Diet Therapy
+:4E0X1: Public Health
+:4H0X1: Respiratory Care Practitioner
+:4J0X2: Physical Medicine
+:4N0X1: Aerospace Medical Service
+:4N1X1: Surgical Technologist
+:4P0X1: Pharmacy
+:4R0X1: Diagnostic Imaging
+:4T0X0: Medical Laboratory
+:4T0X1: Medical Laboratory
+:4T0X2: Histopathology
+:4V0X1: Ophthalmic
+:4Y0X0: Dental
+:4Y0X1: Dental Assistant
+:4Y0X2: Dental Laboratory
+:5J0X1: Paralegal
+:5R0X1: Religious Affairs
+:6C0X1: Contracting
+:6F0X1: Financial Management and Comptroller
+:7S0X1: Special Investigations
+:8G0X1: Premier Honor Guard

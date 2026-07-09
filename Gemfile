@@ -18,3 +18,5 @@ gem "simplecov"
 gem "reissue"
 
 gem "nokogiri"
+
+gem "pdf-reader"
