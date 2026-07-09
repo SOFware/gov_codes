@@ -19,7 +19,7 @@ module GovCodes
       assert_equal :X, code.skill_level
       assert_equal :"1A1X2", code.specific_afsc
       assert_nil code.shredout
-      assert_equal "Mobility force aviator", code.name
+      assert_equal "Mobility Force Aviator", code.name
     end
 
     def test_find_returns_officer_code_for_valid_officer_afsc
@@ -128,7 +128,7 @@ module GovCodes
 
       assert_instance_of GovCodes::AFSC::Enlisted::Code, code
       assert_equal :"6F", code.career_field
-      assert_equal "Financial management and comptroller", code.name
+      assert_equal "Financial Management and Comptroller", code.name
     end
 
     def test_find_special_investigations_afsc
@@ -136,7 +136,7 @@ module GovCodes
 
       assert_instance_of GovCodes::AFSC::Enlisted::Code, code
       assert_equal :"7S", code.career_field
-      assert_equal "Special investigations", code.name
+      assert_equal "Special Investigations", code.name
     end
 
     def test_find_chief_enlisted_manager_codes

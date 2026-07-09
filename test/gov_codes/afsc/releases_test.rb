@@ -1,0 +1,178 @@
+# frozen_string_literal: true
+
+require "test_helper"
+require "tmpdir"
+require "fileutils"
+require "date"
+require "gov_codes/afsc/releases"
+
+module GovCodes
+  module AFSC
+    describe Releases do
+      before do
+        @temp_dir = Dir.mktmpdir
+        release_dir = File.join(@temp_dir, "gov_codes", "afsc", "releases", "dafecd")
+        afsc_dir = File.join(@temp_dir, "gov_codes", "afsc")
+        FileUtils.mkdir_p(afsc_dir)
+        FileUtils.mkdir_p(File.join(release_dir, "2025-04-30"))
+        FileUtils.mkdir_p(File.join(release_dir, "2025-10-31"))
+
+        File.write(File.join(afsc_dir, "releases.yml"), <<~YAML)
+          :dafecd:
+          - :effective_date: '2025-04-30'
+            :version_label: v3.4
+            :source: synthetic-apr.pdf
+            :name: Synthetic April Directory
+          - :effective_date: '2025-10-31'
+            :version_label: v3.5
+            :source: synthetic-oct.pdf
+            :name: Synthetic October Directory
+        YAML
+
+        File.write(File.join(release_dir, "2025-04-30", "enlisted.yml"), <<~YAML)
+          :"9Y9X9":
+            :name: Apr Synthetic
+            :career_field: :"9Y"
+            :skill_levels: {}
+            :shredouts: {}
+        YAML
+
+        File.write(File.join(release_dir, "2025-10-31", "enlisted.yml"), <<~YAML)
+          :"9Z9X9":
+            :name: Oct Synthetic
+            :career_field: :"9Z"
+            :skill_levels: {}
+            :shredouts: {}
+        YAML
+      end
+
+      after do
+        FileUtils.rm_rf(@temp_dir)
+        Releases.reset!
+      end
+
+      describe ".manifest" do
+        it "merges the release manifest from the lookup path" do
+          manifest = Releases.manifest(lookup: [@temp_dir])
+          dates = manifest[:dafecd].map { |r| r[:effective_date] }
+          _(dates).must_include "2025-04-30"
+          _(dates).must_include "2025-10-31"
+        end
+      end
+
+      describe ".enlisted_index" do
+        it "resolves the latest release when as_of is nil" do
+          index = Releases.enlisted_index(as_of: nil, lookup: [@temp_dir])
+          _(index.key?(:"9Z9X9")).must_equal true
+          _(index.key?(:"9Y9X9")).must_equal false
+        end
+
+        it "resolves the release effective on the given date" do
+          index = Releases.enlisted_index(as_of: "2025-10-31", lookup: [@temp_dir])
+          _(index.key?(:"9Z9X9")).must_equal true
+          _(index.key?(:"9Y9X9")).must_equal false
+        end
+
+        it "resolves the prior release for a date between releases" do
+          index = Releases.enlisted_index(as_of: "2025-05-01", lookup: [@temp_dir])
+          _(index.key?(:"9Y9X9")).must_equal true
+          _(index.key?(:"9Z9X9")).must_equal false
+        end
+
+        it "returns an empty hash for a date before the earliest release" do
+          index = Releases.enlisted_index(as_of: "2025-01-01", lookup: [@temp_dir])
+          _(index).must_equal({})
+        end
+
+        it "accepts a Date object for as_of" do
+          index = Releases.enlisted_index(as_of: Date.new(2025, 5, 1), lookup: [@temp_dir])
+          _(index.key?(:"9Y9X9")).must_equal true
+        end
+      end
+
+      describe ".effective_date_for" do
+        it "returns the latest release date when as_of is nil" do
+          _(Releases.effective_date_for(as_of: nil, lookup: [@temp_dir]))
+            .must_equal Date.new(2025, 10, 31)
+        end
+
+        it "returns the resolved release date for a date between releases" do
+          _(Releases.effective_date_for(as_of: "2025-05-01", lookup: [@temp_dir]))
+            .must_equal Date.new(2025, 4, 30)
+        end
+
+        it "returns nil for a date before the earliest release" do
+          _(Releases.effective_date_for(as_of: "2025-01-01", lookup: [@temp_dir]))
+            .must_be_nil
+        end
+      end
+
+      describe "invalid as_of" do
+        it "raises a clear ArgumentError naming the bad value" do
+          error = _ { Releases.enlisted_index(as_of: "not-a-date", lookup: [@temp_dir]) }
+            .must_raise ArgumentError
+          _(error.message).must_include "not-a-date"
+          _(error.message).must_include "as_of"
+        end
+
+        it "raises for an invalid as_of in effective_date_for" do
+          _ { Releases.effective_date_for(as_of: "nonsense", lookup: [@temp_dir]) }
+            .must_raise ArgumentError
+        end
+      end
+    end
+
+    # DEC-004: a consumer manifest must MERGE its releases into the shipped list
+    # (union by effective_date), not replace it. Adding a release must not hide
+    # the gem's shipped 2025-10-31 release.
+    describe "Releases manifest merging" do
+      before do
+        @temp_dir = Dir.mktmpdir
+        afsc_dir = File.join(@temp_dir, "gov_codes", "afsc")
+        future_dir = File.join(afsc_dir, "releases", "dafecd", "2099-12-31")
+        FileUtils.mkdir_p(future_dir)
+
+        # Consumer lists ONLY their own (future) release, omitting the shipped one.
+        File.write(File.join(afsc_dir, "releases.yml"), <<~YAML)
+          :dafecd:
+          - :effective_date: '2099-12-31'
+            :version_label: future
+            :source: synthetic-future.pdf
+            :name: Synthetic Future Directory
+        YAML
+
+        File.write(File.join(future_dir, "enlisted.yml"), <<~YAML)
+          :"9Q9X9":
+            :name: Future Synthetic
+            :career_field: :"9Q"
+            :skill_levels: {}
+            :shredouts: {}
+        YAML
+      end
+
+      after do
+        FileUtils.rm_rf(@temp_dir)
+        Releases.reset!
+      end
+
+      it "unions the consumer release list with the shipped list" do
+        dates = Releases.manifest(lookup: [@temp_dir])[:dafecd].map { |r| r[:effective_date] }
+        _(dates).must_include "2025-10-31" # shipped, not hidden
+        _(dates).must_include "2099-12-31" # consumer-added
+      end
+
+      it "keeps the shipped release resolvable after a consumer adds a release" do
+        index = Releases.enlisted_index(as_of: "2025-11-01", lookup: [@temp_dir])
+        _(index.key?(:"1A1X2")).must_equal true
+        _(index.dig(:"1A1X2", :name)).must_equal "Mobility Force Aviator"
+      end
+
+      it "resolves the consumer-added release as the latest" do
+        index = Releases.enlisted_index(as_of: nil, lookup: [@temp_dir])
+        _(index.key?(:"9Q9X9")).must_equal true
+        _(Releases.effective_date_for(as_of: nil, lookup: [@temp_dir]))
+          .must_equal Date.new(2099, 12, 31)
+      end
+    end
+  end
+end

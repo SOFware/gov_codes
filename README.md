@@ -31,12 +31,34 @@ require 'gov_codes/afsc'
 
 # Find an enlisted AFSC code
 code = GovCodes::AFSC.find("1A1X2")
-puts code.name # => "Mobility force aviator"
+puts code.name # => "Mobility Force Aviator"
 puts code.career_field # => "1A"
 puts code.career_field_subdivision # => "1A1"
 puts code.skill_level # => "X"
 puts code.specific_afsc # => "1A1X2"
 puts code.shredout # => nil
+puts code.effective_date # => #<Date: 2025-10-31>
+
+# Look up the concrete code an HR system actually stores
+# (the "7" is the airman's skill level: Craftsman)
+code = GovCodes::AFSC.find("1A172Y")
+code.specialty_name     # => "Mobility Force Aviator"
+code.skill_level_number # => 7
+code.skill_level_name   # => "Craftsman" (title comes from the directory)
+code.specialty          # => :"1A1X2"
+
+# shredout_name resolves the shredout's meaning when that shredout
+# exists in the data (nil otherwise)
+code = GovCodes::AFSC.find("1A172A")
+code.shredout_name      # => "C-5 Flight Engineer"
+
+# Enlisted lookups are versioned by DAFECD release (published each 30 Apr and
+# 31 Oct). `find`/`search` default to the latest shipped release; pass `as_of:`
+# (a Date or "YYYY-MM-DD" string) to resolve the release in effect on that date.
+code = GovCodes::AFSC.find("1A172Y", as_of: "2025-11-01")
+code.effective_date     # => #<Date: 2025-10-31>
+# A date before the earliest shipped release has no data and returns nil.
+GovCodes::AFSC.find("1A172Y", as_of: "2000-01-01") # => nil
 
 # Find an officer AFSC code
 code = GovCodes::AFSC.find("11MX")
@@ -72,9 +94,9 @@ results.each do |code|
 end
 # Output:
 # 1Z1X1: Pararescue
-# 1Z2X1: Combat control
-# 1Z3X1: Tactical air control party (TACP)
-# 1Z4X1: Special reconnaissance
+# 1Z2X1: Combat Control
+# 1Z3X1: Tactical Air Control Party (TACP)
+# 1Z4X1: Special Reconnaissance
 
 # Search for Bomber Pilot shredouts
 results = GovCodes::AFSC.search("11BX")
@@ -95,21 +117,56 @@ GovCodes::AFSC.search("1z1") # Same as search("1Z1")
 
 ### Extending with Custom AFSC Codes
 
-You can extend the default AFSC codes with your own custom codes by placing a YAML file in your application's load path:
+Enlisted codes are stored as a specialty-keyed index per DAFECD release. You can
+extend or override a release by dropping an index file for that release's
+effective date onto your application's load path:
 
-```ruby
-# In your application's lib/gov_codes/afsc/enlisted.yml
-9Z:
-  name: Custom AFSC
-  subcategories:
-    0X1:
-      name: Custom Subcategory
-      subcategories:
-        A:
-          name: Custom Shredout
+```yaml
+# In your application's lib/gov_codes/afsc/releases/dafecd/2025-10-31/enlisted.yml
+:"9Z9X9":
+  :name: Custom Specialty
+  :career_field: :"9Z"
+  :skill_levels:
+    7:
+      :code: 9Z979
+      :title: Craftsman
+  :shredouts:
+    :A: Custom Shredout
 ```
 
-The gem will automatically merge your custom codes with the default codes, overriding any existing codes.
+The gem merges your index over the shipped index for the matching release,
+adding new specialties and overriding existing ones.
+
+You can also add a whole new release (e.g. a newer directory the gem has not
+shipped yet) by listing it in a `releases.yml` on your load path. Release lists
+are unioned by effective date, so adding a release never hides the shipped ones;
+a same-date entry from your file overrides the shipped manifest entry:
+
+```yaml
+# In your application's lib/gov_codes/afsc/releases.yml
+:dafecd:
+- :effective_date: '2026-04-30'
+  :version_label: v3.6
+  :source: DAFECD-30-April-26.pdf
+  :name: Department of the Air Force Enlisted Classification Directory
+```
+
+Pair it with a matching `releases/dafecd/2026-04-30/enlisted.yml` index, and
+`find(code, as_of: "2026-04-30")` will resolve against it.
+
+## Data source & provenance
+
+AFSC data is extracted from the official **Department of the Air Force classification directories** — the DAFECD (enlisted) and DAFOCD (officer) — not third-party sources. Extraction is deterministic, and every code is verified to appear verbatim in the source directory: no predicted or hallucinated codes.
+
+The data is **versioned by each directory's effective date** (the directories are republished roughly semi-annually, on 30 April and 31 October). Look a code up as it stood for a given release, or take the latest:
+
+```ruby
+GovCodes::AFSC.find("1A172Y")                        # latest shipped release
+GovCodes::AFSC.find("1A172Y", as_of: "2025-11-01")   # the release in effect on that date
+GovCodes::AFSC.find("1A172Y").effective_date         # => the release the result came from
+```
+
+**Currently shipped:** enlisted AFSCs from the DAFECD effective 31 October 2025. Officer (DAFOCD), reporting/special-duty identifiers, SEIs, prefixes, and Space Force codes are planned.
 
 ## Development
 
