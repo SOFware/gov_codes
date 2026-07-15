@@ -279,15 +279,16 @@ module GovCodes
         verify_acronym(entry)
       end
 
-      # The acronym gate (DEC-003): an emitted :acronym must appear in the
-      # specialty's raw source title under the same whitespace/case tolerance
-      # the de-glue gate uses. A drifting/absent acronym is unverified.
+      # The acronym gate (DEC-003): an emitted :acronym must appear as a
+      # parenthetical `(ACRONYM)` in the specialty's raw source title -- not
+      # merely as some substring of it -- under the same whitespace/case
+      # tolerance the de-glue gate uses. A drifting/absent acronym is unverified.
       def verify_acronym(entry)
         acronym = entry[:acronym]
         return if acronym.nil?
 
         source = TitleDegluer.norm(entry[:raw_title])
-        @unverified_acronyms << acronym unless source.include?(TitleDegluer.norm(acronym))
+        @unverified_acronyms << acronym unless source.include?(TitleDegluer.norm("(#{acronym})"))
       end
 
       # Hook for future value-transforming steps (e.g. the C.2 title de-gluer):

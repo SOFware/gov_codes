@@ -17,6 +17,10 @@ module GovCodes
     # in effect on +as_of+ (default: the latest shipped release). Searches the
     # enlisted tier (source-verified acronyms + that release's overlay), then the
     # unversioned Officer/RI overlays. Returns a single Code or nil.
+    #
+    # Acronyms are expected to be unique. If a consumer overlay maps two codes to
+    # the same acronym, the first match wins in a defined order: enlisted before
+    # officer before RI, and within a tier by the data's key order.
     def self.find_by_acronym(acronym, as_of: nil)
       AFSC::Enlisted.find_by_acronym(acronym, as_of: as_of) ||
         AFSC::Officer.find_by_acronym(acronym) ||

@@ -26,6 +26,16 @@ class FabricatedAcronymBuilder < GovCodes::Dafecd::IndexBuilder
   end
 end
 
+# Fabricates an acronym that IS a substring of the source title but is NOT the
+# parenthetical acronym, to prove the gate verifies `(ACRONYM)` specifically.
+class SubstringAcronymBuilder < GovCodes::Dafecd::IndexBuilder
+  private
+
+  def capture_acronym(specialty, entry)
+    entry[:acronym] = "PARTY" if entry[:name]
+  end
+end
+
 describe GovCodes::Dafecd::IndexBuilder do
   # Inline "full text" combining two real specialty records: 1A1X2 (glued title,
   # with a shredout table) and 1B4X1 (cleanly spaced title).
@@ -289,6 +299,15 @@ describe GovCodes::Dafecd::IndexBuilder do
     builder = FabricatedAcronymBuilder.new(acronym_text)
     builder.build
     _(builder.unverified_acronyms).must_include "ZZZ"
+    _(builder.unverified?).must_equal true
+  end
+
+  # The gate verifies the parenthetical `(ACRONYM)` specifically, not any
+  # substring: "PARTY" appears in "...CONTROL PARTY (TACP)" but not as "(PARTY)".
+  it "gate fires on a substring that is not the parenthetical acronym" do
+    builder = SubstringAcronymBuilder.new(acronym_text)
+    builder.build
+    _(builder.unverified_acronyms).must_include "PARTY"
     _(builder.unverified?).must_equal true
   end
 end
