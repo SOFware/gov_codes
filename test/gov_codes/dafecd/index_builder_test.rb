@@ -16,6 +16,16 @@ class TransformingBuilder < GovCodes::Dafecd::IndexBuilder
   end
 end
 
+# Fabricates an acronym that does NOT appear in the source title, to prove the
+# acronym verification gate rejects a drifting/ungrounded acronym.
+class FabricatedAcronymBuilder < GovCodes::Dafecd::IndexBuilder
+  private
+
+  def capture_acronym(specialty, entry)
+    entry[:acronym] = "ZZZ" if entry[:name]
+  end
+end
+
 describe GovCodes::Dafecd::IndexBuilder do
   # Inline "full text" combining two real specialty records: 1A1X2 (glued title,
   # with a shredout table) and 1B4X1 (cleanly spaced title).
@@ -202,5 +212,83 @@ describe GovCodes::Dafecd::IndexBuilder do
     _(index[:"1A1X2"][:name]).must_equal "Mobility Forceaviator"
     _(builder.specialties_needing_deglue).must_include :"1A1X2"
     _(builder.specialties_needing_deglue).must_include :"1B4X1"
+  end
+
+  # --- Specialty acronyms (trailing parenthetical) -------------------------
+
+  # A real specialty whose de-glued title ends in a parenthesized acronym:
+  # "TACTICAL AIR CONTROL PARTY (TACP)" -> acronym TACP.
+  let(:acronym_text) {
+    <<~TXT
+      DAFECD, 31 Oct 25
+      CEM Code 1Z300
+      AFSC 1Z391, Superintendent
+      AFSC 1Z371, Craftsman
+      AFSC 1Z351, Journeyman
+      AFSC 1Z331, Apprentice
+      AFSC 1Z311, Helper
+                            TACTICAL AIR CONTROL PARTY (TACP)
+                                 (Changed 31 Oct 25)
+
+      1. Specialty Summary. Directs air power.
+    TXT
+  }
+
+  it "captures a trailing parenthetical acronym into :acronym" do
+    index = GovCodes::Dafecd::IndexBuilder.new(acronym_text).build
+    _(index[:"1Z3X1"][:acronym]).must_equal "TACP"
+  end
+
+  it "leaves the name unchanged (retains the parenthetical)" do
+    index = GovCodes::Dafecd::IndexBuilder.new(acronym_text).build
+    _(index[:"1Z3X1"][:name]).must_equal "Tactical Air Control Party (TACP)"
+  end
+
+  it "reports no unverified acronyms for a grounded acronym" do
+    builder = GovCodes::Dafecd::IndexBuilder.new(acronym_text)
+    builder.build
+    _(builder.unverified_acronyms).must_be_empty
+    _(builder.unverified?).must_equal false
+  end
+
+  it "omits :acronym when the title has no trailing parenthetical" do
+    index = GovCodes::Dafecd::IndexBuilder.new(full_text).build
+    _(index[:"1B4X1"].key?(:acronym)).must_equal false
+  end
+
+  it "does not capture a non-trailing (mid-title) parenthetical" do
+    text = <<~TXT
+      AFSC 1T051, Journeyman
+      AFSC 1T031, Apprentice
+      AFSC 1T011, Helper
+      SURVIVAL, EVASION, RESISTANCE, ESCAPE (SERE) SPECIALIST
+      (Changed 31 Oct 25)
+      1. Specialty Summary.
+    TXT
+    index = GovCodes::Dafecd::IndexBuilder.new(text).build
+    _(index[:"1T0X1"].key?(:acronym)).must_equal false
+  end
+
+  it "excludes documented phrase-abbreviation specialties (1D7X2, 1A8X0)" do
+    text = <<~TXT
+      AFSC 1D752, Journeyman
+      AFSC 1D732, Apprentice
+      AFSC 1D712, Helper
+      RADIO FREQUENCY TRANSMISSIONS AND ELECTROMAGNETIC ACTIVITIES (EMA)
+      (Changed 31 Oct 25)
+      1. Specialty Summary.
+    TXT
+    index = GovCodes::Dafecd::IndexBuilder.new(text).build
+    _(index[:"1D7X2"][:name]).must_match(/\(EMA\)\z/)
+    _(index[:"1D7X2"].key?(:acronym)).must_equal false
+  end
+
+  # The acronym gate is anti-hallucination (DEC-003): an emitted acronym absent
+  # from the source title must be rejected and fail the build.
+  it "gate fires on a fabricated acronym absent from the source title" do
+    builder = FabricatedAcronymBuilder.new(acronym_text)
+    builder.build
+    _(builder.unverified_acronyms).must_include "ZZZ"
+    _(builder.unverified?).must_equal true
   end
 end

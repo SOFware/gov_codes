@@ -32,6 +32,20 @@ module GovCodes
     # #unverified_titles and must fail the build. Specialties without an override
     # keep the auto-titlecased name and are listed in #specialties_needing_deglue.
     class IndexBuilder
+      # A specialty acronym is a trailing parenthetical whose sole token is an
+      # uppercase abbreviation, e.g. "... (TACP)" -> TACP. Only trailing parens
+      # qualify; a mid-title paren ("... (SERE) Specialist") is prose, not the
+      # specialty's acronym.
+      ACRONYM_PATTERN = /\(([A-Z][A-Z0-9]{1,7})\)\s*\z/
+
+      # Specialties whose trailing parenthetical is a phrase-abbreviation, NOT a
+      # specialty acronym, and so must NOT be emitted as :acronym:
+      #   1D7X2 "... Electromagnetic Activities (EMA)"  -- abbreviates the phrase
+      #   1A8X0 "... Surveillance and Reconnaissance (ISR)" -- abbreviates ISR
+      # Both are excluded by decision (Task 1 finding); their curated specialty
+      # acronyms, if any, come from the consumer overlay, never the source title.
+      ACRONYM_EXCLUSIONS = %i[1D7X2 1A8X0].freeze
+
       def initialize(source_text, degluer: TitleDegluer.empty)
         @source_text = source_text
         @degluer = degluer
@@ -44,6 +58,7 @@ module GovCodes
         @index = {}
         @unverified_codes = []
         @unverified_titles = []
+        @unverified_acronyms = []
         @needs_deglue = []
         @dropped_records = []
         @merged_count = 0
@@ -67,6 +82,7 @@ module GovCodes
 
         @index.each do |specialty, entry|
           apply_override(specialty, entry)
+          capture_acronym(specialty, entry)
           verify(entry)
         end
         @index
@@ -98,10 +114,18 @@ module GovCodes
         @needs_deglue
       end
 
-      # True if any emitted value (code or applied title) failed verification.
-      # The CLI must fail the build when this is true.
+      # Emitted :acronym values that could NOT be found (whitespace/case
+      # tolerant) in their specialty's raw source title. Non-empty means a
+      # drifting/hallucinated acronym; the build must fail. See #unverified?.
+      def unverified_acronyms
+        build if @unverified_acronyms.nil?
+        @unverified_acronyms
+      end
+
+      # True if any emitted value (code, applied title, or acronym) failed
+      # verification. The CLI must fail the build when this is true.
       def unverified?
-        unverified_codes.any? || unverified_titles.any?
+        unverified_codes.any? || unverified_titles.any? || unverified_acronyms.any?
       end
 
       # Records that carried a specialty signal but produced no ladder codes,
@@ -230,6 +254,19 @@ module GovCodes
         end
       end
 
+      # Capture the specialty acronym from the (de-glued) name: a trailing
+      # parenthetical uppercase token. Excluded specialties (phrase
+      # abbreviations, not specialty acronyms) never receive an :acronym. The
+      # name is left unchanged; it retains the parenthetical.
+      def capture_acronym(specialty, entry)
+        return if ACRONYM_EXCLUSIONS.include?(specialty)
+        name = entry[:name]
+        return if name.nil?
+
+        match = name.match(ACRONYM_PATTERN)
+        entry[:acronym] = match[1] if match
+      end
+
       def verify(entry)
         entry[:skill_levels].each_value do |level|
           @unverified_codes << level[:code] unless verified?(level[:code])
@@ -239,6 +276,18 @@ module GovCodes
         emitted_values_to_verify(entry).each do |value|
           @unverified_codes << value unless verified?(value)
         end
+        verify_acronym(entry)
+      end
+
+      # The acronym gate (DEC-003): an emitted :acronym must appear in the
+      # specialty's raw source title under the same whitespace/case tolerance
+      # the de-glue gate uses. A drifting/absent acronym is unverified.
+      def verify_acronym(entry)
+        acronym = entry[:acronym]
+        return if acronym.nil?
+
+        source = TitleDegluer.norm(entry[:raw_title])
+        @unverified_acronyms << acronym unless source.include?(TitleDegluer.norm(acronym))
       end
 
       # Hook for future value-transforming steps (e.g. the C.2 title de-gluer):

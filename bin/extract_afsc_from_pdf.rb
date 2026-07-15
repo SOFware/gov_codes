@@ -38,6 +38,7 @@ end
 def clean_entry(entry)
   {
     name: entry[:name],
+    acronym: entry[:acronym],
     career_field: entry[:career_field],
     cem_code: entry[:cem_code],
     changed_date: entry[:changed_date],
@@ -76,13 +77,15 @@ index = builder.build
 # ungrounded code must abort the build rather than emit a stale/hallucinated
 # value.
 if builder.unverified?
-  warn "\nBUILD FAILED: verification gate rejected #{builder.unverified_codes.size} code(s) " \
-       "and #{builder.unverified_titles.size} title override(s)."
+  warn "\nBUILD FAILED: verification gate rejected #{builder.unverified_codes.size} code(s), " \
+       "#{builder.unverified_titles.size} title override(s), and " \
+       "#{builder.unverified_acronyms.size} acronym(s)."
   builder.unverified_codes.uniq.sort.each { |c| warn "  ungrounded code: #{c}" }
   builder.unverified_titles.each do |t|
     warn "  drifting title override #{t[:specialty]}: applied=#{t[:applied].inspect} " \
          "source=#{t[:raw_title].inspect} (#{t[:reason]})"
   end
+  builder.unverified_acronyms.uniq.sort.each { |a| warn "  ungrounded acronym: #{a}" }
   warn "Nothing was written. Fix the overrides (lib/gov_codes/dafecd/title_overrides.yml)."
   exit 1
 end
