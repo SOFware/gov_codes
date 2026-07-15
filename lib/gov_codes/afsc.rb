@@ -13,6 +13,16 @@ module GovCodes
         AFSC::RI.find(code)
     end
 
+    # Resolve a code by its acronym (case-insensitive) as of the DAFECD release
+    # in effect on +as_of+ (default: the latest shipped release). Searches the
+    # enlisted tier (source-verified acronyms + that release's overlay), then the
+    # unversioned Officer/RI overlays. Returns a single Code or nil.
+    def self.find_by_acronym(acronym, as_of: nil)
+      AFSC::Enlisted.find_by_acronym(acronym, as_of: as_of) ||
+        AFSC::Officer.find_by_acronym(acronym) ||
+        AFSC::RI.find_by_acronym(acronym)
+    end
+
     def self.search(prefix, as_of: nil)
       results = []
       results.concat(Enlisted.search(prefix, as_of: as_of))

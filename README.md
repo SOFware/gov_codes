@@ -176,6 +176,14 @@ A resolved code carries an `acronym` field:
 GovCodes::AFSC.find("1C8X3").acronym   # => "RAWS"
 GovCodes::AFSC.find("1Z3X1").acronym   # => "TACP"
 GovCodes::AFSC.find("1A1X2").acronym   # => nil (no acronym)
+
+# Reverse lookup by acronym (case-insensitive, and `as_of`-aware — it searches
+# the acronyms of the release in effect on that date, so overlays never leak
+# across document dates):
+GovCodes::AFSC.find_by_acronym("RAWS")                     # => the 1C8X3 Code
+GovCodes::AFSC.find_by_acronym("raws")                     # => same (case-insensitive)
+GovCodes::AFSC.find_by_acronym("PJ", as_of: "2025-11-01")  # => resolves that release's overlay
+GovCodes::AFSC.find_by_acronym("nope")                     # => nil
 ```
 
 Shipped acronyms are **source-verified**: they are captured only from a trailing parenthetical in the directory title (e.g. `Radar, Airfield & Weather Systems (RAWS)`) and the build gate rejects any acronym that does not appear verbatim in the source title. Five enlisted specialties ship an acronym this way (`1A8X1`, `1C8X3`, `1N1X1`, `1Z3X1`, `4B0X1`); nothing else is invented.

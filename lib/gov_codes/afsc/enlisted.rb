@@ -166,6 +166,23 @@ module GovCodes
         end
       end
 
+      # Resolve the enlisted specialty whose acronym matches +acronym+
+      # (case-insensitive) in the release in effect on +as_of+. Returns the
+      # generic (X-form) Code for that specialty, or nil when no specialty in the
+      # resolved release carries the acronym. Acronyms come from the shipped,
+      # source-verified data and any consumer overlay for that release, so the
+      # match is scoped to that release (no leakage across document dates).
+      def self.find_by_acronym(acronym, as_of: nil)
+        acronym = acronym.to_s.upcase
+        return nil if acronym.empty?
+
+        index = Releases.enlisted_index(as_of: as_of)
+        match = index.find { |_specialty, entry| entry[:acronym].to_s.upcase == acronym }
+        return nil unless match
+
+        find(match.first.to_s, as_of: as_of)
+      end
+
       # Clears the memoized lookups and resets the versioned release loader.
       # The +lookup+ keyword is accepted for interface parity with Officer/RI;
       # the versioned index is resolved from the load path at lookup time.

@@ -118,6 +118,17 @@ module GovCodes
         Code.new(**result)
       end
 
+      # Resolve the officer code whose consumer-overlay acronym matches +acronym+
+      # (case-insensitive), or nil. Officer acronyms come only from the
+      # officer_acronyms.yml overlay (none are extracted from source).
+      def self.find_by_acronym(acronym)
+        acronym = acronym.to_s.upcase
+        return nil if acronym.empty?
+
+        match = acronym_overlay.find { |_code, acr| acr.to_s.upcase == acronym }
+        match && find(match.first.to_s)
+      end
+
       # Consumer acronym overlay: a flat map keyed by the officer code, loaded
       # once from the load path (gov_codes/afsc/officer_acronyms.yml). The gem
       # ships none, so this is {} unless a consumer supplies one.

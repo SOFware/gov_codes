@@ -140,6 +140,17 @@ module GovCodes
         end
       end
 
+      # Resolve the RI code whose consumer-overlay acronym matches +acronym+
+      # (case-insensitive), or nil. RI acronyms come only from the
+      # ri_acronyms.yml overlay (none are extracted from source).
+      def self.find_by_acronym(acronym)
+        acronym = acronym.to_s.upcase
+        return nil if acronym.empty?
+
+        match = acronym_overlay.find { |_code, acr| acr.to_s.upcase == acronym }
+        match && find(match.first.to_s)
+      end
+
       # Consumer acronym overlay: a flat map keyed by the RI code, loaded once
       # from the load path (gov_codes/afsc/ri_acronyms.yml). The gem ships none,
       # so this is {} unless a consumer supplies one.
