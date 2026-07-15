@@ -3,6 +3,7 @@
 require "test_helper"
 require "minitest/autorun"
 require "gov_codes/dafecd/title_degluer"
+require "gov_codes/dafecd/publication"
 
 describe GovCodes::Dafecd::TitleDegluer do
   let(:degluer) {
@@ -42,5 +43,17 @@ describe GovCodes::Dafecd::TitleDegluer do
     loaded = GovCodes::Dafecd::TitleDegluer.load
     _(loaded.override_for(:"1A1X2")).must_equal "Mobility Force Aviator"
     _(loaded.override_for(:"1C3X1")).must_equal "All-Domain Command and Control Operations"
+  end
+
+  describe ".for a publication" do
+    it "loads the enlisted overrides for the enlisted publication" do
+      loaded = GovCodes::Dafecd::TitleDegluer.for(GovCodes::Dafecd::Publication.dafecd)
+      _(loaded.override_for(:"1A1X2")).must_equal "Mobility Force Aviator"
+    end
+
+    it "loads the officer overrides file for the officer publication" do
+      loaded = GovCodes::Dafecd::TitleDegluer.for(GovCodes::Dafecd::Publication.dafocd)
+      _(loaded).must_be_instance_of GovCodes::Dafecd::TitleDegluer
+    end
   end
 end

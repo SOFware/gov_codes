@@ -1,0 +1,2300 @@
+# DAFOCD officer AFSC index (specialty-keyed, X-form)
+# Source: DAFOCD 31 Oct 25 v3.pdf
+# Directory: Department of the Air Force Officer Classification Directory
+# Effective date: 2025-10-31  (v3)
+# Generated deterministically by bin/extract_afsc_from_pdf.rb (Phase C.1a).
+# Do not edit by hand; re-run the extractor against the source PDF.
+---
+:10C0:
+  :name: Operations Commander
+  :career_field: :10
+  :changed_date: '2008-10-31'
+  :qual_levels: {}
+  :shredouts: {}
+:11BX:
+  :name: Bomber Pilot
+  :career_field: :11
+  :changed_date: '2023-04-30'
+  :qual_levels:
+    1:
+      :code: 11B1
+      :title: Entry/Student
+    2:
+      :code: 11B2
+      :title: Qualified Pilot/Copilot
+    3:
+      :code: 11B3
+      :title: Aircraft Commander
+    4:
+      :code: 11B4
+      :title: Staff
+  :shredouts:
+    :A: B-1
+    :B: B-2
+    :C: B-52
+    :D: B-21
+    :U: Air Liaison Officer (ALO)
+    :Y: General
+    :Z: Other
+  :shredout_acronyms:
+    :U: ALO
+:11EX:
+  :name: Experimental Test Pilot
+  :career_field: :11
+  :changed_date: '2017-04-30'
+  :qual_levels:
+    1:
+      :code: 11E1
+      :title: Entry/Student
+    3:
+      :code: 11E3
+      :title: Aircraft Commander
+    4:
+      :code: 11E4
+      :title: Staff
+  :shredouts:
+    :A: Airlift/Tanker/Bomber
+    :B: Fighter
+    :C: Helicopter/VSTOL
+    :D: Airlift
+    :E: Tanker
+    :F: Bomber
+    :G: RPA
+    :Y: General
+    :Z: Other
+:11FX:
+  :name: Fighter Pilot
+  :career_field: :11
+  :changed_date: '2023-04-30'
+  :qual_levels:
+    1:
+      :code: 11F1
+      :title: Entry/Student
+    2:
+      :code: 11F2
+      :title: Wingman
+    3:
+      :code: 11F3
+      :title: Flight Lead
+    4:
+      :code: 11F4
+      :title: Staff
+  :shredouts:
+    :B: A-10
+    :F: F-15
+    :G: F-15E
+    :H: F-16
+    :J: F-22
+    :N: F-35
+    :Q: IFF (AT-38/T-38C)
+    :U: Air Liaison Officer (ALO)
+    :Y: General
+    :Z: Other
+  :shredout_acronyms:
+    :U: ALO
+:11GX:
+  :name: Generalist Pilot
+  :career_field: :11
+  :changed_date: '2014-04-30'
+  :qual_levels:
+    3:
+      :code: 11G3
+      :title: Qualified
+    4:
+      :code: 11G4
+      :title: Staff
+  :shredouts: {}
+:11HX:
+  :name: Rescue Pilot
+  :career_field: :11
+  :changed_date: '2025-10-31'
+  :qual_levels:
+    1:
+      :code: 11H1
+      :title: Entry/Student
+    2:
+      :code: 11H2
+      :title: Qualified Pilot/Copilot
+    3:
+      :code: 11H3
+      :title: Aircraft Commander
+    4:
+      :code: 11H4
+      :title: Staff
+  :shredouts:
+    :C: UH-1N
+    :E: HH-60
+    :F: CSAR-X
+    :G: MH-139
+    :J: HC-130J
+    :P: HC-130 P/N
+    :Y: General
+    :Z: Other
+:11KX:
+  :name: Trainer Pilot
+  :career_field: :11
+  :changed_date: '2024-04-30'
+  :qual_levels:
+    1:
+      :code: 11K1
+      :title: Entry/Student
+    3:
+      :code: 11K3
+      :title: Aircraft Commander
+    4:
+      :code: 11K4
+      :title: Staff
+  :shredouts:
+    :A: T-1
+    :D: T-38
+    :F: T-6
+    :H: T-44/TC-12
+    :J: SUPT-H
+    :Q: T-7
+    :Y: General
+    :Z: Other
+:11MX:
+  :name: Mobility Pilot
+  :career_field: :11
+  :changed_date: '2019-04-30'
+  :qual_levels:
+    1:
+      :code: 11M1
+      :title: Entry/Student
+    2:
+      :code: 11M2
+      :title: Qualified Pilot/Copilot
+    3:
+      :code: 11M3
+      :title: Aircraft Commander
+    4:
+      :code: 11M4
+      :title: Staff
+  :shredouts:
+    :A: C-5
+    :B: C-130E/H
+    :C: C-130J
+    :D: C-27J (JCA)
+    :E: VC-25
+    :F: KC-135
+    :G: KC-10
+    :J: C-12
+    :K: C-17
+    :L: C-20/C-37
+    :M: C-21
+    :N: C-26
+    :P: C-32
+    :Q: C-40
+    :R: KC-46
+    :U: Air Mobility Liaison Officer
+    :Y: Other
+    :Z: General
+  :shredout_acronyms:
+    :D: JCA
+:11RX:
+  :name: Reconnaissance/Surveillance/Electronic Warfare Pilot
+  :career_field: :11
+  :changed_date: '2023-04-30'
+  :qual_levels:
+    1:
+      :code: 11R1
+      :title: Entry/Student
+    2:
+      :code: 11R2
+      :title: Qualified Pilot/Copilot
+    3:
+      :code: 11R3
+      :title: Aircraft Commander
+    4:
+      :code: 11R4
+      :title: Staff
+  :shredouts:
+    :A: E-3
+    :B: E-4
+    :C: EC-130
+    :E: WC-130
+    :G: RC-135
+    :H: WC/OC-135
+    :J: TR-1/U-2
+    :L: E-8
+    :M: MC-12
+    :N: RC-26B
+    :S: E-7
+    :Y: General
+    :Z: Other
+:11SX:
+  :name: Special Operations Pilot
+  :career_field: :11
+  :changed_date: '2025-04-30'
+  :qual_levels:
+    1:
+      :code: 11S1
+      :title: Entry/Student
+    2:
+      :code: 11S2
+      :title: Qualified Pilot/Copilot
+    3:
+      :code: 11S3
+      :title: Aircraft Commander
+    4:
+      :code: 11S4
+      :title: Staff
+  :shredouts:
+    :C: AC-130H
+    :D: AC-130U
+    :E: MC-130P
+    :F: MC-130E
+    :G: MC-130H
+    :I: CAA(Fixed Wing)
+    :J: CV-22
+    :N: AC-130W
+    :P: MC-130J
+    :Q: AC-130J
+    :S: EC-130J
+    :T: OA-1K
+    :U: Air Liaison Officer (ALO)
+    :X: U-28
+    :Y: General
+    :Z: Other
+  :shredout_acronyms:
+    :U: ALO
+:11TX:
+  :name: Student Pilot
+  :career_field: :11
+  :changed_date: '2023-10-31'
+  :qual_levels:
+    1:
+      :code: 11T1
+      :title: Entry/Student
+  :shredouts:
+    :A: T-1
+    :D: T-38
+    :F: T-6
+    :G: T-7
+    :H: T-96
+    :J: TH-1
+    :Z: Other
+:11UX:
+  :name: Remotely Piloted Aircraft (RPA) Pilot
+  :career_field: :11
+  :changed_date: '2025-04-30'
+  :qual_levels:
+    1:
+      :code: 11U1
+      :title: Entry/Student
+    3:
+      :code: 11U3
+      :title: Qualified
+    4:
+      :code: 11U4
+      :title: Staff
+  :shredouts:
+    :A: Operational Warfare Instructor
+    :B: Squadron Operations/Operations Support
+    :C: Commander
+    :E: Electronic Warfare
+    :F: Aircraft Systems Flight Evaluation
+    :G: Automated Systems Program Designer
+    :H: Military Consultant to the Surgeon General
+    :J: Parachutist
+    :K: Instructor for weapon system designated by AFSC
+    :L: Aircrew Flight Equipment
+    :R: Contingency/War Plans
+    :S: Safety
+    :T: Formal Training Instructor
+    :U: Information Operations
+    :V: Automated Functional Applications Analyst
+    :Y: Analytical Studies
+    :Z: Other
+:12BX:
+  :name: Bomber Combat Systems Officer
+  :career_field: :12
+  :changed_date: '2021-10-31'
+  :qual_levels:
+    1:
+      :code: 12B1
+      :title: Entry/Student
+    2:
+      :code: 12B2
+      :title: Intermediate
+    3:
+      :code: 12B3
+      :title: Qualified
+    4:
+      :code: 12B4
+      :title: Staff
+  :shredouts:
+    :C: B-1 WSO
+    :D: B-52 EWO
+    :E: B-52 WSO
+    :U: Air Liaison (ALO)
+    :Y: General
+    :Z: Other
+  :shredout_acronyms:
+    :U: ALO
+:12EX:
+  :name: Experimental Test Combat Systems Officer
+  :career_field: :12
+  :changed_date: '2017-04-30'
+  :qual_levels:
+    1:
+      :code: 12E1
+      :title: Entry/Student
+    3:
+      :code: 12E3
+      :title: Qualified
+    4:
+      :code: 12E4
+      :title: Staff
+  :shredouts:
+    :A: Airlift/Tanker/Bomber
+    :B: Fighter
+    :D: Airlift
+    :E: Tanker
+    :F: Bomber
+    :G: RPA
+    :Y: General
+    :Z: Other
+:12FX:
+  :name: Fighter Combat Systems Officer
+  :career_field: :12
+  :changed_date: '2024-10-31'
+  :qual_levels:
+    1:
+      :code: 12F1
+      :title: Entry/Student
+    3:
+      :code: 12F3
+      :title: Qualified
+    4:
+      :code: 12F4
+      :title: Staff
+  :shredouts:
+    :F: F-15E WSO
+    :G: F-15 EWO
+    :U: Air Liaison Officer (ALO)
+    :V: EA-18G
+    :Y: General
+    :Z: Other
+  :shredout_acronyms:
+    :U: ALO
+:12GX:
+  :name: Generalist Combat Systems Officer
+  :career_field: :12
+  :changed_date: '2012-04-30'
+  :qual_levels:
+    3:
+      :code: 12G3
+      :title: Qualified
+    4:
+      :code: 12G4
+      :title: Staff
+  :shredouts:
+    :W: EWO
+:12HX:
+  :name: Rescue Combat Systems Officer
+  :career_field: :12
+  :changed_date: '2012-01-31'
+  :qual_levels:
+    1:
+      :code: 12H1
+      :title: Entry/Student
+    3:
+      :code: 12H3
+      :title: Qualified
+    4:
+      :code: 12H4
+      :title: Staff
+  :shredouts:
+    :J: HC-130J
+    :P: HC-130
+    :Y: General
+    :Z: Other
+:12KX:
+  :name: Trainer Combat Systems Officer
+  :career_field: :12
+  :changed_date: '2024-10-31'
+  :qual_levels:
+    1:
+      :code: 12K1
+      :title: Entry/Student
+    3:
+      :code: 12K3
+      :title: Qualified
+    4:
+      :code: 12K4
+      :title: Staff
+  :shredouts:
+    :Q: T-7
+    :Y: General
+    :Z: Other
+:12MX:
+  :name: Mobility Combat Systems Officer
+  :career_field: :12
+  :changed_date: '2025-04-30'
+  :qual_levels:
+    1:
+      :code: 12M1
+      :title: Entry/Student
+    3:
+      :code: 12M3
+      :title: Qualified
+    4:
+      :code: 12M4
+      :title: Staff
+  :shredouts:
+    :B: C-130E/H
+    :E: VC-25
+    :F: KC-135
+    :U: Air Mobility Liaison Officer (AMLO)
+    :Y: General
+    :Z: Other
+  :shredout_acronyms:
+    :U: AMLO
+:12RX:
+  :name: Reconnaissance/Surveillance/Electronic Warfare Combat Systems Officer
+  :career_field: :12
+  :changed_date: '2023-04-30'
+  :qual_levels:
+    1:
+      :code: 12R1
+      :title: Entry/Student
+    3:
+      :code: 12R3
+      :title: Qualified
+    4:
+      :code: 12R4
+      :title: Staff
+  :shredouts:
+    :A: E-3
+    :B: E-4
+    :C: EC-130 EWO
+    :D: EC-130
+    :F: WC-130
+    :H: RC-135 EWO
+    :J: RC-135
+    :K: WC/OC-135
+    :L: E-8
+    :N: RC-26B
+    :S: E-7 EWO
+    :Y: General
+    :Z: Other
+:12SX:
+  :name: Special Operations Combat Systems Officer
+  :career_field: :12
+  :changed_date: '2025-04-30'
+  :qual_levels:
+    1:
+      :code: 12S1
+      :title: Entry/Student
+    3:
+      :code: 12S3
+      :title: Qualified
+    4:
+      :code: 12S4
+      :title: Staff
+  :shredouts:
+    :A: AC-130H EWO
+    :B: AC-130H FCO
+    :C: AC-130H
+    :D: AC-130U EWO
+    :E: AC-130U FCO
+    :F: AC-130U
+    :G: MC-130P
+    :H: MC-130E EWO
+    :J: MC-130E
+    :K: MC-130H EWO
+    :L: MC-130H
+    :N: AC-130W
+    :O: AC-130W FCO
+    :P: MC-130J
+    :Q: AC-130J CSO
+    :R: AC-130J WSO
+    :S: EC-130J
+    :T: OA-1K WSO
+    :U: Air Liaison Officer
+    :X: U-28
+    :Y: General
+    :Z: Other
+:12UX:
+  :name: Remotely Piloted Aircraft (RPA) Combat Systems Officer
+  :career_field: :12
+  :changed_date: '2025-04-30'
+  :qual_levels:
+    1:
+      :code: 12U1
+      :title: Entry/Student
+    3:
+      :code: 12U3
+      :title: Qualified
+    4:
+      :code: 12U4
+      :title: Staff
+  :shredouts:
+    :A: MQ-1
+    :B: MQ-9
+    :C: RQ-4
+    :E: RQ-170
+    :L: MPRIS
+    :S: Special Operations
+    :U: Air Liaison Officer
+    :Y: General
+    :Z: Other
+:13AX:
+  :name: Astronaut
+  :career_field: :13
+  :changed_date: '2019-04-30'
+  :qual_levels:
+    1:
+      :code: 13A1
+      :title: Entry
+    3:
+      :code: 13A3
+      :title: Qualified
+    4:
+      :code: 13A4
+      :title: Staff
+  :shredouts: {}
+:13BX:
+  :name: Air Battle Manager
+  :career_field: :13
+  :changed_date: '2025-10-31'
+  :qual_levels:
+    1:
+      :code: 13B1
+      :title: Entry
+    3:
+      :code: 13B3
+      :title: Qualified
+    4:
+      :code: 13B4
+      :title: Staff
+  :shredouts:
+    :B: AWACS
+    :C: Fixed BMC2
+    :D: Mobile Air Control
+    :E: Flight Test
+    :K: JSTARS
+    :M: Trainer (UABMT)
+    :S: E-7
+    :U: Air Liaison Officer
+    :Y: General
+    :Z: Other
+  :shredout_acronyms:
+    :M: UABMT
+:13HX:
+  :name: Aerospace Physiologist
+  :career_field: :13
+  :changed_date: '2025-04-30'
+  :qual_levels:
+    1:
+      :code: 13H1
+      :title: Entry
+    3:
+      :code: 13H3
+      :title: Qualified
+    4:
+      :code: 13H4
+      :title: Staff
+  :shredouts: {}
+:13MX:
+  :name: Airfield Operations
+  :career_field: :13
+  :changed_date: '2022-04-30'
+  :qual_levels:
+    1:
+      :code: 13M1
+      :title: Entry
+    3:
+      :code: 13M3
+      :title: Qualified
+    4:
+      :code: 13M4
+      :title: Staff
+  :shredouts: {}
+:13NX:
+  :name: Nuclear and Missile Operations
+  :career_field: :13
+  :changed_date: '2015-10-31'
+  :qual_levels:
+    1:
+      :code: 13N1
+      :title: Entry
+    2:
+      :code: 13N2
+      :title: Intermediate
+    3:
+      :code: 13N3
+      :title: Qualified
+    4:
+      :code: 13N4
+      :title: Staff
+  :shredouts: {}
+:13OX:
+  :name: Multi-Domain Warfare Officer
+  :career_field: :13
+  :changed_date: '2018-04-30'
+  :qual_levels:
+    1:
+      :code: 13O1
+      :title: Entry Level
+    3:
+      :code: 13O3
+      :title: Qualified
+    4:
+      :code: 13O4
+      :title: Staff
+  :shredouts: {}
+:13SX:
+  :name: Space Operations
+  :career_field: :13
+  :changed_date: '2019-04-30'
+  :qual_levels:
+    1:
+      :code: 13S1
+      :title: Entry
+    3:
+      :code: 13S3
+      :title: Qualified
+    4:
+      :code: 13S4
+      :title: Staff
+  :shredouts:
+    :A: Orbital Warfare
+    :B: Space Electronic Warfare
+    :D: Space Battle Management
+    :E: Space Access and Sustainment
+:13ZX:
+  :name: Rated Multi-Domain Warfare Officer
+  :career_field: :13
+  :changed_date: '2021-10-31'
+  :qual_levels:
+    1:
+      :code: 13Z1
+      :title: Entry Level
+    3:
+      :code: 13Z3
+      :title: Qualified
+    4:
+      :code: 13Z4
+      :title: Staff
+  :shredouts: {}
+:14FX:
+  :name: Information Operations
+  :career_field: :14
+  :changed_date: '2025-04-30'
+  :qual_levels:
+    1:
+      :code: 14F1
+      :title: Entry
+    3:
+      :code: 14F3
+      :title: Qualified
+    4:
+      :code: 14F4
+      :title: Staff
+  :shredouts: {}
+:14NX:
+  :name: Intelligence
+  :career_field: :14
+  :changed_date: '2021-04-30'
+  :qual_levels:
+    1:
+      :code: 14N1
+      :title: Entry
+    3:
+      :code: 14N3
+      :title: Qualified
+    4:
+      :code: 14N4
+      :title: Staff
+  :shredouts: {}
+:15AX:
+  :name: Operations Analysis Officer
+  :career_field: :15
+  :changed_date: '2025-04-30'
+  :qual_levels:
+    1:
+      :code: 15A1
+      :title: Entry
+    3:
+      :code: 15A3
+      :title: Qualified
+    4:
+      :code: 15A4
+      :title: Staff
+  :shredouts: {}
+:15WX:
+  :name: Weather and Environmental Sciences
+  :career_field: :15
+  :changed_date: '2024-04-30'
+  :qual_levels:
+    1:
+      :code: 15W1
+      :title: Entry
+    3:
+      :code: 15W3
+      :title: Qualified
+    4:
+      :code: 15W4
+      :title: Staff
+  :shredouts:
+    :A: Advanced Weather Activities
+:16FX:
+  :name: Foreign Area Officer (FAO)
+  :acronym: FAO
+  :career_field: :16
+  :changed_date: '2021-04-30'
+  :qual_levels:
+    1:
+      :code: 16F1
+      :title: Entry
+    3:
+      :code: 16F3
+      :title: Qualified
+    4:
+      :code: 16F4
+      :title: Staff
+  :shredouts:
+    :C: SOUTHCOM
+    :D: INDOPACOM
+    :F: CENTCOM
+    :G: AFRICOM
+    :H: EUCOM
+    :J: Generalist
+:16GX:
+  :name: Air Force Operations Staff Officer
+  :career_field: :16
+  :changed_date: '2023-10-31'
+  :qual_levels:
+    1:
+      :code: 16G1
+      :title: Entry
+    3:
+      :code: 16G3
+      :title: Qualified
+    4:
+      :code: 16G4
+      :title: Staff
+  :shredouts: {}
+:16KX:
+  :name: Software Development Officer (SDO)
+  :acronym: SDO
+  :career_field: :16
+  :changed_date: '2019-04-30'
+  :qual_levels:
+    1:
+      :code: 16K1
+      :title: Entry
+    3:
+      :code: 16K3
+      :title: Qualified
+    4:
+      :code: 16K4
+      :title: Staff
+  :shredouts:
+    :D: Product Designer
+    :E: Software Engineer
+    :M: Product Manager
+    :S: Data Scientist
+:16PX:
+  :name: Political-Military Affairs Strategist (PAS)
+  :acronym: PAS
+  :career_field: :16
+  :changed_date: '2019-10-31'
+  :qual_levels:
+    1:
+      :code: 16P1
+      :title: Entry
+    3:
+      :code: 16P3
+      :title: Qualified
+    4:
+      :code: 16P4
+      :title: Staff
+  :shredouts: {}
+:16RX:
+  :name: Planning and Programming
+  :career_field: :16
+  :qual_levels:
+    1:
+      :code: 16R1
+      :title: Entry
+    3:
+      :code: 16R3
+      :title: Qualified
+    4:
+      :code: 16R4
+      :title: Staff
+  :shredouts: {}
+:16ZX:
+  :name: Rated Foreign Area Officer (FAO)
+  :acronym: FAO
+  :career_field: :16
+  :changed_date: '2021-04-30'
+  :qual_levels:
+    1:
+      :code: 16Z1
+      :title: Entry
+    3:
+      :code: 16Z3
+      :title: Qualified
+    4:
+      :code: 16Z4
+      :title: Staff
+  :shredouts:
+    :C: SOUTHCOM
+    :D: INDOPACOM
+    :F: CENTCOM
+    :G: AFRICOM
+    :H: EUCOM
+    :L: Generalist (applies only to billets)
+:17SX:
+  :name: Cyberspace Effects Operations
+  :career_field: :17
+  :changed_date: '2025-10-31'
+  :qual_levels:
+    1:
+      :code: 17S1
+      :title: Entry
+    3:
+      :code: 17S3
+      :title: Qualified
+    4:
+      :code: 17S4
+      :title: Staff
+  :shredouts:
+    :A: Offensive Cyberspace Operator
+    :B: Defensive Cyberspace Operator
+    :T: Technical Track
+:17WX:
+  :name: Warfighter Communications & IT Systems
+  :career_field: :17
+  :changed_date: '2025-10-31'
+  :qual_levels:
+    1:
+      :code: 17W1
+      :title: Entry
+    3:
+      :code: 17W3
+      :title: Qualified
+    4:
+      :code: 17W4
+      :title: Staff
+  :shredouts:
+    :C: Cybersecurity Specialist
+    :D: Data Operations Specialist
+    :I: Information Technology Specialist
+:17YX:
+  :name: Cyber Effects & Warfare Operations
+  :career_field: :17
+  :changed_date: '2025-10-31'
+  :qual_levels:
+    1:
+      :code: 17Y1
+      :title: Entry
+    3:
+      :code: 17Y3
+      :title: Qualified
+    4:
+      :code: 17Y4
+      :title: Staff
+  :shredouts:
+    :A: Cyber Warfare Analyst
+    :C: Cyber Capability Developer
+    :D: Cyber Threat Defense Analyst
+    :I: Cyber Threat Defense Integrator
+    :O: Cyber Attack Operator
+:18AX:
+  :name: Attack Remotely Piloted Aircraft Pilot
+  :career_field: :18
+  :changed_date: '2025-04-30'
+  :qual_levels:
+    1:
+      :code: 18A1
+      :title: Entry/Student
+    3:
+      :code: 18A3
+      :title: Qualified
+    4:
+      :code: 18A4
+      :title: Staff
+  :shredouts:
+    :A: MQ-1
+    :B: MQ-9
+    :U: Air Liaison Officer (ALO)
+    :Y: General
+    :Z: Other
+  :shredout_acronyms:
+    :U: ALO
+:18EX:
+  :name: Experimental Test Remotely Piloted Aircraft Pilot
+  :career_field: :18
+  :changed_date: '2025-04-30'
+  :qual_levels:
+    1:
+      :code: 18E1
+      :title: Entry/Student
+    3:
+      :code: 18E3
+      :title: Qualified
+    4:
+      :code: 18E4
+      :title: Staff
+  :shredouts:
+    :A: Attack
+    :B: Reconnaissance
+    :C: Special Operations
+    :Y: General
+    :Z: Other
+:18GX:
+  :name: Generalist Remotely Piloted Aircraft Pilot
+  :career_field: :18
+  :changed_date: '2012-04-30'
+  :qual_levels:
+    3:
+      :code: 18G3
+      :title: Qualified
+    4:
+      :code: 18G4
+      :title: Staff
+  :shredouts: {}
+:18RX:
+  :name: Reconnaissance Remotely Piloted Aircraft Pilot
+  :career_field: :18
+  :changed_date: '2025-04-30'
+  :qual_levels:
+    1:
+      :code: 18R1
+      :title: Entry/Student
+    3:
+      :code: 18R3
+      :title: Qualified
+    4:
+      :code: 18R4
+      :title: Staff
+  :shredouts:
+    :C: RQ-4
+    :E: RQ-170
+    :L: MPRIS
+    :Y: General
+    :Z: Other
+:18SX:
+  :name: Special Operations Remotely Piloted Aircraft Pilot
+  :career_field: :18
+  :changed_date: '2025-04-30'
+  :qual_levels:
+    1:
+      :code: 18S1
+      :title: Entry/Student
+    3:
+      :code: 18S3
+      :title: Qualified
+    4:
+      :code: 18S4
+      :title: Staff
+  :shredouts:
+    :A: MQ-1
+    :B: MQ-9
+    :U: Air Liaison Officer (ALO
+    :Y: General
+    :Z: Other
+:19ZX:
+  :name: Special Warfare
+  :career_field: :19
+  :changed_date: '2025-04-30'
+  :qual_levels:
+    1:
+      :code: 19Z1
+      :title: Entry
+    2:
+      :code: 19Z2
+      :title: Intermediate
+    3:
+      :code: 19Z3
+      :title: Qualified
+    4:
+      :code: 19Z4
+      :title: Staff
+  :shredouts:
+    :A: Special Tactics Officer
+    :B: Tactical Air Control Party Officer
+    :C: Combat Rescue Officer
+  :shredout_acronyms:
+    :A: STO
+    :B: TACPO
+    :C: CRO
+:20C0:
+  :name: Logistics Commander
+  :career_field: :20
+  :changed_date: '2018-10-31'
+  :qual_levels: {}
+  :shredouts: {}
+:21AX:
+  :name: Aircraft Maintenance
+  :career_field: :21
+  :changed_date: '2015-10-31'
+  :qual_levels:
+    1:
+      :code: 21A1
+      :title: Entry
+    3:
+      :code: 21A3
+      :title: Qualified
+    4:
+      :code: 21A4
+      :title: Staff
+  :shredouts: {}
+:21MX:
+  :name: Munitions and Missile Maintenance
+  :career_field: :21
+  :changed_date: '2025-04-30'
+  :qual_levels:
+    1:
+      :code: 21M1
+      :title: Entry
+    3:
+      :code: 21M3
+      :title: Qualified
+    4:
+      :code: 21M4
+      :title: Staff
+  :shredouts:
+    :A: Conventional
+    :I: ICBM
+    :N: Nuclear
+:21RX:
+  :name: Logistics Readiness
+  :career_field: :21
+  :changed_date: '2022-04-30'
+  :qual_levels:
+    1:
+      :code: 21R1
+      :title: Entry
+    3:
+      :code: 21R3
+      :title: Qualified
+    4:
+      :code: 21R4
+      :title: Staff
+  :shredouts: {}
+:30C0:
+  :name: Support Commander
+  :career_field: :30
+  :changed_date: '2025-10-31'
+  :qual_levels: {}
+  :shredouts: {}
+:31PX:
+  :name: Security Forces
+  :career_field: :31
+  :changed_date: '2025-10-30'
+  :qual_levels:
+    1:
+      :code: 31P1
+      :title: Entry
+    3:
+      :code: 31P3
+      :title: Qualified
+    4:
+      :code: 31P4
+      :title: Staff
+  :shredouts: {}
+:32EX:
+  :name: Civil Engineer
+  :career_field: :32
+  :changed_date: '2025-10-31'
+  :qual_levels:
+    1:
+      :code: 32E1
+      :title: Entry
+    3:
+      :code: 32E3
+      :title: Qualified
+    4:
+      :code: 32E4
+      :title: Staff
+  :shredouts:
+    :A: Architect/Architectural Engineer
+    :C: Civil Engineer
+    :E: Electrical Engineer
+    :F: Mechanical Engineer
+    :G: General Engineer
+    :H: Explosive Ordnance Disposal Engineer
+    :I: Industrial Engineer
+    :J: Environmental Engineer
+:35BX:
+  :name: Band
+  :career_field: :35
+  :changed_date: '2014-04-30'
+  :qual_levels:
+    1:
+      :code: 35B1
+      :title: Entry
+    3:
+      :code: 35B3
+      :title: Qualified
+    4:
+      :code: 35B4
+      :title: Staff
+  :shredouts: {}
+:35PX:
+  :name: Public Affairs
+  :career_field: :35
+  :changed_date: '2015-10-31'
+  :qual_levels:
+    1:
+      :code: 35P1
+      :title: Entry
+    3:
+      :code: 35P3
+      :title: Qualified
+    4:
+      :code: 35P4
+      :title: Staff
+  :shredouts: {}
+:38FX:
+  :name: Force Support
+  :career_field: :38
+  :changed_date: '2023-04-30'
+  :qual_levels:
+    1:
+      :code: 38F1
+      :title: Entry
+    3:
+      :code: 38F3
+      :title: Qualified
+    4:
+      :code: 38F4
+      :title: Staff
+  :shredouts:
+    :A: Analyst
+    :Q: Section Commander
+:40C0:
+  :name: Medical Commander
+  :career_field: :40
+  :changed_date: '2025-10-31'
+  :qual_levels: {}
+  :shredouts: {}
+:41AX:
+  :name: Healthcare Administrator
+  :career_field: :41
+  :changed_date: '2025-10-31'
+  :qual_levels:
+    1:
+      :code: 41A1
+      :title: Entry
+    3:
+      :code: 41A3
+      :title: Qualified
+    4:
+      :code: 41A4
+      :title: Staff
+  :shredouts: {}
+:42BX:
+  :name: Physical Therapist
+  :career_field: :42
+  :changed_date: '2025-10-31'
+  :qual_levels:
+    1:
+      :code: 42B1
+      :title: Entry
+    3:
+      :code: 42B3
+      :title: Qualified
+    4:
+      :code: 42B4
+      :title: Staff
+  :shredouts: {}
+:42EX:
+  :name: Optometrist
+  :career_field: :42
+  :changed_date: '2025-10-31'
+  :qual_levels:
+    1:
+      :code: 42E1
+      :title: Entry
+    3:
+      :code: 42E3
+      :title: Qualified
+    4:
+      :code: 42E4
+      :title: Staff
+  :shredouts: {}
+:42FX:
+  :name: Podiatric Surgeon
+  :career_field: :42
+  :changed_date: '2025-10-31'
+  :qual_levels:
+    1:
+      :code: 42F1
+      :title: Entry
+    3:
+      :code: 42F3
+      :title: Qualified
+    4:
+      :code: 42F4
+      :title: Staff
+  :shredouts: {}
+:42GX:
+  :name: Physician Assistant
+  :career_field: :42
+  :changed_date: '2025-10-31'
+  :qual_levels:
+    1:
+      :code: 42G1
+      :title: Entry
+    3:
+      :code: 42G3
+      :title: Qualified
+    4:
+      :code: 42G4
+      :title: Staff
+  :shredouts:
+    :A: Orthopedics
+    :B: Otolaryngology
+    :C: General Surgery
+    :E: Emergency Medicine
+    :N: Psychiatry
+    :P: Aeromedical
+:42NX:
+  :name: Audiologist
+  :career_field: :42
+  :changed_date: '2025-10-31'
+  :qual_levels:
+    1:
+      :code: 42N1
+      :title: Entry
+    3:
+      :code: 42N3
+      :title: Qualified
+    4:
+      :code: 42N4
+      :title: Staff
+  :shredouts: {}
+:42PX:
+  :name: Clinical Psychologist
+  :career_field: :42
+  :changed_date: '2025-10-31'
+  :qual_levels:
+    1:
+      :code: 42P1
+      :title: Entry
+    3:
+      :code: 42P3
+      :title: Qualified
+    4:
+      :code: 42P4
+      :title: Staff
+  :shredouts: {}
+:42SX:
+  :name: Clinical Social Worker
+  :career_field: :42
+  :changed_date: '2025-10-31'
+  :qual_levels:
+    1:
+      :code: 42S1
+      :title: Entry
+    3:
+      :code: 42S3
+      :title: Qualified
+    4:
+      :code: 42S4
+      :title: Staff
+  :shredouts: {}
+:42TX:
+  :name: Occupational Therapist
+  :career_field: :42
+  :changed_date: '2025-10-31'
+  :qual_levels:
+    1:
+      :code: 42T1
+      :title: Entry
+    3:
+      :code: 42T3
+      :title: Qualified
+    4:
+      :code: 42T4
+      :title: Staff
+  :shredouts: {}
+:43BX:
+  :name: Biomedical Scientist
+  :career_field: :43
+  :changed_date: '2017-10-31'
+  :qual_levels:
+    3:
+      :code: 43B3
+      :title: Qualified
+    4:
+      :code: 43B4
+      :title: Staff
+  :shredouts: {}
+:43DX:
+  :name: Dietitian
+  :career_field: :43
+  :changed_date: '2025-10-31'
+  :qual_levels:
+    1:
+      :code: 43D1
+      :title: Entry
+    3:
+      :code: 43D3
+      :title: Qualified
+    4:
+      :code: 43D4
+      :title: Staff
+  :shredouts: {}
+:43EX:
+  :name: Bioenvironmental Engineer
+  :career_field: :43
+  :changed_date: '2025-10-31'
+  :qual_levels:
+    1:
+      :code: 43E1
+      :title: Entry
+    3:
+      :code: 43E3
+      :title: Qualified
+    4:
+      :code: 43E4
+      :title: Staff
+  :shredouts: {}
+:43HX:
+  :name: Public Health Officer
+  :career_field: :43
+  :changed_date: '2025-10-31'
+  :qual_levels:
+    1:
+      :code: 43H1
+      :title: Entry
+    3:
+      :code: 43H3
+      :title: Qualified
+    4:
+      :code: 43H4
+      :title: Staff
+  :shredouts: {}
+:43PX:
+  :name: Pharmacist
+  :career_field: :43
+  :changed_date: '2025-10-31'
+  :qual_levels:
+    1:
+      :code: 43P1
+      :title: Entry
+    3:
+      :code: 43P3
+      :title: Qualified
+    4:
+      :code: 43P4
+      :title: Staff
+  :shredouts: {}
+:43TX:
+  :name: Biomedical Laboratory
+  :career_field: :43
+  :changed_date: '2025-10-31'
+  :qual_levels:
+    1:
+      :code: 43T1
+      :title: Entry
+    3:
+      :code: 43T3
+      :title: Qualified
+  :shredouts: {}
+:44AX:
+  :name: Chief of Medical Staff
+  :career_field: :44
+  :changed_date: '2025-04-30'
+  :qual_levels:
+    1:
+      :code: 44A1
+      :title: Entry
+    3:
+      :code: 44A3
+      :title: Qualified
+  :shredouts: {}
+:44DX:
+  :name: Pathologist
+  :career_field: :44
+  :changed_date: '2025-04-30'
+  :qual_levels:
+    1:
+      :code: 44D1
+      :title: Entry
+    3:
+      :code: 44D3
+      :title: Qualified
+    4:
+      :code: 44D4
+      :title: Staff
+  :shredouts:
+    :A: Hematology
+    :B: Cytology
+    :C: Gynecology
+    :D: Forensic
+    :E: Neuropathology
+    :F: Pediatric
+    :G: Transfusion Medicine
+    :K: Dermatology
+:44EX:
+  :name: Emergency Medicine Physician
+  :career_field: :44
+  :changed_date: '2025-04-30'
+  :qual_levels:
+    1:
+      :code: 44E1
+      :title: Entry
+    3:
+      :code: 44E3
+      :title: Qualified
+    4:
+      :code: 44E4
+      :title: Staff
+  :shredouts:
+    :E: Emergency Medicine Services Physician
+    :T: Medical Toxicology
+    :U: Ultrasound
+:44FX:
+  :name: Family Physician
+  :career_field: :44
+  :changed_date: '2025-04-30'
+  :qual_levels:
+    1:
+      :code: 44F1
+      :title: Entry
+    3:
+      :code: 44F3
+      :title: Qualified
+    4:
+      :code: 44F4
+      :title: Staff
+  :shredouts:
+    :A: Sports Medicine
+    :B: Obstetrics
+    :C: Pain Management
+:44GX:
+  :name: General Practice Physician
+  :career_field: :44
+  :changed_date: '2025-04-30'
+  :qual_levels:
+    1:
+      :code: 44G1
+      :title: Entry
+    3:
+      :code: 44G3
+      :title: Qualified
+    4:
+      :code: 44G4
+      :title: Staff
+  :shredouts: {}
+:44HX:
+  :name: Nuclear Medicine Physician
+  :career_field: :44
+  :changed_date: '2025-04-30'
+  :qual_levels:
+    1:
+      :code: 44H1
+      :title: Entry
+    3:
+      :code: 44H3
+      :title: Qualified
+    4:
+      :code: 44H4
+      :title: Staff
+  :shredouts: {}
+:44JX:
+  :name: Medical Geneticist and Genomicist
+  :career_field: :44
+  :changed_date: '2025-04-30'
+  :qual_levels:
+    1:
+      :code: 44J1
+      :title: Entry
+    3:
+      :code: 44J3
+      :title: Qualified
+    4:
+      :code: 44J4
+      :title: Staff
+  :shredouts: {}
+:44KX:
+  :name: Pediatrician
+  :career_field: :44
+  :changed_date: '2025-04-30'
+  :qual_levels:
+    1:
+      :code: 44K1
+      :title: Entry
+    3:
+      :code: 44K3
+      :title: Qualified
+    4:
+      :code: 44K4
+      :title: Staff
+  :shredouts:
+    :A: Adolescent Medicine
+    :B: Cardiology
+    :C: Developmental Pediatrics
+    :D: Endocrinology
+    :E: Neonatology
+    :F: Gastroenterology
+    :G: Hematology
+    :H: Neurology
+    :J: Pulmonology
+    :K: Infectious Diseases
+    :M: Nephrology
+    :N: Child Abuse
+    :P: Sleep Medicine
+:44MX:
+  :name: Internal Medicine Physician
+  :career_field: :44
+  :changed_date: '2025-10-31'
+  :qual_levels:
+    1:
+      :code: 44M1
+      :title: Entry
+    3:
+      :code: 44M3
+      :title: Qualified
+    4:
+      :code: 44M4
+      :title: Staff
+  :shredouts: {}
+:44NX:
+  :name: Neurologist
+  :career_field: :44
+  :changed_date: '2025-04-30'
+  :qual_levels:
+    1:
+      :code: 44N1
+      :title: Entry
+    3:
+      :code: 44N3
+      :title: Qualified
+    4:
+      :code: 44N4
+      :title: Staff
+  :shredouts:
+    :A: Sleep Medicine
+    :B: Pain Management
+:44OX:
+  :name: Physician
+  :career_field: :44
+  :changed_date: '2025-04-30'
+  :qual_levels:
+    3:
+      :code: 44O3
+      :title: Qualified
+    4:
+      :code: 44O4
+      :title: Staff
+  :shredouts: {}
+:44PX:
+  :name: Psychiatrist
+  :career_field: :44
+  :changed_date: '2025-10-31'
+  :qual_levels:
+    1:
+      :code: 44P1
+      :title: Entry
+    3:
+      :code: 44P3
+      :title: Qualified
+    4:
+      :code: 44P4
+      :title: Staff
+  :shredouts:
+    :A: Child Psychiatry
+    :B: Forensic Psychiatry
+    :C: Addictions Psychiatry
+    :D: Psychosomatic Psychiatry
+    :E: Brain Injury Medicine
+    :F: Sleep Pathology
+:44RX:
+  :name: Radiologist
+  :career_field: :44
+  :changed_date: '2025-04-30'
+  :qual_levels:
+    1:
+      :code: 44R1
+      :title: Entry
+    3:
+      :code: 44R3
+      :title: Qualified
+    4:
+      :code: 44R4
+      :title: Staff
+  :shredouts:
+    :A: Neuroradiology
+    :B: Special Procedures
+    :C: Pediatric
+    :D: Nuclear Medicine
+    :E: Musculoskeletal
+    :F: Magnetic Resonance Imaging (MRI)
+    :G: Body Imaging
+    :H: Cardiothoracic Imaging
+  :shredout_acronyms:
+    :F: MRI
+:44SX:
+  :name: Dermatologist
+  :career_field: :44
+  :changed_date: '2025-04-30'
+  :qual_levels:
+    1:
+      :code: 44S1
+      :title: Entry
+    3:
+      :code: 44S3
+      :title: Qualified
+    4:
+      :code: 44S4
+      :title: Staff
+  :shredouts:
+    :A: Dermatologic Surgery
+    :B: Dermatopathology
+    :C: Pediatric Dermatology
+:44TX:
+  :name: Radiation Oncologist
+  :career_field: :44
+  :changed_date: '2025-04-30'
+  :qual_levels:
+    1:
+      :code: 44T1
+      :title: Entry
+    3:
+      :code: 44T3
+      :title: Qualified
+    4:
+      :code: 44T4
+      :title: Staff
+  :shredouts: {}
+:44UX:
+  :name: Occupational Medicine Physician
+  :career_field: :44
+  :changed_date: '2025-04-30'
+  :qual_levels:
+    1:
+      :code: 44U1
+      :title: Entry
+    3:
+      :code: 44U3
+      :title: Qualified
+    4:
+      :code: 44U4
+      :title: Staff
+  :shredouts: {}
+:44YX:
+  :name: Critical Care Medicine Physician
+  :career_field: :44
+  :changed_date: '2025-04-30'
+  :qual_levels:
+    1:
+      :code: 44Y1
+      :title: Entry
+    3:
+      :code: 44Y3
+      :title: Qualified
+    4:
+      :code: 44Y4
+      :title: Staff
+  :shredouts:
+    :A: Anesthesia
+    :E: Emergency Medicine
+    :K: Pediatrics
+    :M: Internal Medicine
+    :N: Neurology
+    :S: Surgery
+:44ZX:
+  :name: Allergist and Immunologist
+  :career_field: :44
+  :changed_date: '2025-04-30'
+  :qual_levels:
+    1:
+      :code: 44Z1
+      :title: Entry
+    3:
+      :code: 44Z3
+      :title: Qualified
+    4:
+      :code: 44Z4
+      :title: Staff
+  :shredouts:
+    :A: Cardiothoracic
+    :B: Pain Management
+:45BX:
+  :name: Orthopaedic Surgeon
+  :career_field: :45
+  :changed_date: '2025-04-30'
+  :qual_levels:
+    1:
+      :code: 45B1
+      :title: Entry
+    3:
+      :code: 45B3
+      :title: Qualified
+    4:
+      :code: 45B4
+      :title: Staff
+  :shredouts:
+    :A: Hand Surgery
+    :B: Pediatrics
+    :D: Sports Medicine
+    :E: Spine Surgery
+    :F: Oncology
+    :G: Replacement Arthroplasty
+    :H: Traumatology
+    :J: Foot and Ankle Surgery
+:45EX:
+  :name: Ophthalmologist
+  :career_field: :45
+  :changed_date: '2025-04-30'
+  :qual_levels:
+    1:
+      :code: 45E1
+      :title: Entry
+    3:
+      :code: 45E3
+      :title: Qualified
+    4:
+      :code: 45E4
+      :title: Staff
+  :shredouts:
+    :A: Oculoplastics
+    :B: Comea/External Disease
+    :C: Glaucoma
+    :D: Neuro-Opthalmology
+    :E: Pathology
+    :F: Strabismus/Pediatrics
+    :G: Vitreous/Retina
+:45GX:
+  :name: Gynecologic Surgeon and Obstetrician
+  :career_field: :45
+  :changed_date: '2025-04-30'
+  :qual_levels:
+    1:
+      :code: 45G1
+      :title: Entry
+    3:
+      :code: 45G3
+      :title: Qualified
+    4:
+      :code: 45G4
+      :title: Staff
+  :shredouts:
+    :A: Endocrinology
+    :B: Oncology
+    :D: Maternal-Fetal Medicine
+    :E: Urogynecology/Pelvic Reconstructive Surgery
+    :F: Minimally Invasive Gynecologic Surgery (MIGS)
+  :shredout_acronyms:
+    :F: MIGS
+:45NX:
+  :name: Otolaryngologist - Head and Neck Surgeon
+  :career_field: :45
+  :changed_date: '2025-04-30'
+  :qual_levels:
+    1:
+      :code: 45N1
+      :title: Entry
+    3:
+      :code: 45N3
+      :title: Qualified
+    4:
+      :code: 45N4
+      :title: Staff
+  :shredouts:
+    :A: Otology/Neurotology
+    :C: Pediatric Otolaryngology
+    :D: Facial Plastic Surgery
+    :F: Laryngology
+    :G: Sleep Surgeon
+:45PX:
+  :name: Physical Medicine Physician
+  :career_field: :45
+  :changed_date: '2025-04-30'
+  :qual_levels:
+    1:
+      :code: 45P1
+      :title: Entry
+    3:
+      :code: 45P3
+      :title: Qualified
+    4:
+      :code: 45P4
+      :title: Staff
+  :shredouts: {}
+:45SX:
+  :name: Surgeon
+  :career_field: :45
+  :changed_date: '2025-04-30'
+  :qual_levels:
+    1:
+      :code: 45S1
+      :title: Entry
+    3:
+      :code: 45S3
+      :title: Qualified
+    4:
+      :code: 45S4
+      :title: Staff
+  :shredouts:
+    :A: Thoracic
+    :B: Colon and Rectal
+    :C: Cardiac
+    :D: Pediatric
+    :E: Peripheral Vascular
+    :F: Neurological
+    :G: Plastic
+    :H: Oncology
+    :K: Trauma/Critical Care
+:45UX:
+  :name: Urologist
+  :career_field: :45
+  :changed_date: '2025-04-30'
+  :qual_levels:
+    1:
+      :code: 45U1
+      :title: Entry
+    3:
+      :code: 45U3
+      :title: Qualified
+    4:
+      :code: 45U4
+      :title: Staff
+  :shredouts:
+    :A: Pediatrics
+    :B: Oncology
+    :D: Endourology/Robotics
+    :E: Female Urology/Reconstruction
+:46AX:
+  :name: Nursing Administrator
+  :career_field: :46
+  :changed_date: '2025-10-31'
+  :qual_levels:
+    3:
+      :code: 46A3
+      :title: Qualified
+    4:
+      :code: 46A4
+      :title: Staff
+  :shredouts: {}
+:46FX:
+  :name: Flight Nurse
+  :career_field: :46
+  :changed_date: '2025-04-30'
+  :qual_levels:
+    1:
+      :code: 46F1
+      :title: Entry
+    3:
+      :code: 46F3
+      :title: Qualified
+    4:
+      :code: 46F4
+      :title: Staff
+  :shredouts: {}
+:46NX:
+  :name: Clinical Nurse
+  :career_field: :46
+  :changed_date: '2025-10-31'
+  :qual_levels:
+    1:
+      :code: 46N1
+      :title: Entry
+    3:
+      :code: 46N3
+      :title: Qualified
+    4:
+      :code: 46N4
+      :title: Staff
+  :shredouts: {}
+:46PX:
+  :name: Mental Health Nurse
+  :career_field: :46
+  :changed_date: '2025-10-31'
+  :qual_levels:
+    1:
+      :code: 46P1
+      :title: Entry
+    3:
+      :code: 46P3
+      :title: Qualified
+    4:
+      :code: 46P4
+      :title: Staff
+  :shredouts: {}
+:46SX:
+  :name: Operating Room Nurse
+  :career_field: :46
+  :changed_date: '2023-10-31'
+  :qual_levels:
+    1:
+      :code: 46S1
+      :title: Entry
+    3:
+      :code: 46S3
+      :title: Qualified
+    4:
+      :code: 46S4
+      :title: Staff
+  :shredouts: {}
+:46YX:
+  :name: Advanced Practice Registered Nurse (APRN)
+  :acronym: APRN
+  :career_field: :46
+  :changed_date: '2025-10-31'
+  :qual_levels:
+    1:
+      :code: 46Y1
+      :title: Entry
+    3:
+      :code: 46Y3
+      :title: Qualified
+    4:
+      :code: 46Y4
+      :title: Staff
+  :shredouts: {}
+:47DX:
+  :name: Oral and Maxillofacial Pathologist
+  :career_field: :47
+  :changed_date: '2023-10-31'
+  :qual_levels:
+    1:
+      :code: 47D1
+      :title: Entry
+    3:
+      :code: 47D3
+      :title: Qualified
+    4:
+      :code: 47D4
+      :title: Staff
+  :shredouts: {}
+:47EX:
+  :name: Endodontist
+  :career_field: :47
+  :changed_date: '2023-10-31'
+  :qual_levels:
+    1:
+      :code: 47E1
+      :title: Entry
+    3:
+      :code: 47E3
+      :title: Qualified
+    4:
+      :code: 47E4
+      :title: Staff
+  :shredouts: {}
+:47GX:
+  :name: Dentist
+  :career_field: :47
+  :changed_date: '2023-10-31'
+  :qual_levels:
+    1:
+      :code: 47G1
+      :title: Entry
+    3:
+      :code: 47G3
+      :title: Qualified
+    4:
+      :code: 47G4
+      :title: Staff
+  :shredouts:
+    :A: Comprehensive
+    :B: Advanced Clinical
+    :C: General Clinical
+    :D: Public Health
+    :E: Dental Materials Science
+    :F: Oral and Maxillofacial Radiology
+    :G: Temporomandibular Disorders
+    :H: Hospital Dentistry
+:47HX:
+  :name: Periodontist
+  :career_field: :47
+  :changed_date: '2023-10-31'
+  :qual_levels:
+    1:
+      :code: 47H1
+      :title: Entry
+    3:
+      :code: 47H3
+      :title: Qualified
+    4:
+      :code: 47H4
+      :title: Staff
+  :shredouts: {}
+:47KX:
+  :name: Pediatric Dentist
+  :career_field: :47
+  :changed_date: '2023-10-31'
+  :qual_levels:
+    1:
+      :code: 47K1
+      :title: Entry
+    3:
+      :code: 47K3
+      :title: Qualified
+    4:
+      :code: 47K4
+      :title: Staff
+  :shredouts:
+    :A: Maxillofacial Prosthetics
+    :B: Area Dental Laboratory
+    :C: Dental Materials
+:47SX:
+  :name: Oral and Maxillofacial Surgeon
+  :career_field: :47
+  :changed_date: '2023-10-31'
+  :qual_levels:
+    1:
+      :code: 47S1
+      :title: Entry
+    3:
+      :code: 47S3
+      :title: Qualified
+    4:
+      :code: 47S4
+      :title: Staff
+  :shredouts:
+    :B: Facial Esthetics
+:48AX:
+  :name: Aerospace Medicine Physician Specialist
+  :career_field: :48
+  :changed_date: '2025-04-30'
+  :qual_levels:
+    1:
+      :code: 48A1
+      :title: Entry
+    3:
+      :code: 48A3
+      :title: Qualified
+    4:
+      :code: 48A4
+      :title: Staff
+  :shredouts:
+    :X: Space Medical Operations Experienced
+:48OX:
+  :name: Aeromedical Physician
+  :career_field: :48
+  :changed_date: '2025-04-30'
+  :qual_levels:
+    1:
+      :code: 48O1
+      :title: Entry
+    3:
+      :code: 48O3
+      :title: Qualified
+    4:
+      :code: 48O4
+      :title: Staff
+  :shredouts: {}
+:48RX:
+  :name: Residency Trained Flight Surgeon
+  :career_field: :48
+  :changed_date: '2025-04-30'
+  :qual_levels:
+    1:
+      :code: 48R1
+      :title: Entry
+    3:
+      :code: 48R3
+      :title: Qualified
+    4:
+      :code: 48R4
+      :title: Staff
+  :shredouts:
+    :E: Board eligible in emergency medicine
+    :F: Board eligible in family medicine
+    :K: Board eligible in pediatric medicine
+    :M: Board eligible in internal medicine
+    :X: Space Medical Operations Experienced
+:48VX:
+  :name: Pilot-Physician
+  :career_field: :48
+  :changed_date: '2025-04-30'
+  :qual_levels:
+    1:
+      :code: 48V1
+      :title: Entry
+    3:
+      :code: 48V3
+      :title: Qualified
+    4:
+      :code: 48V4
+      :title: Staff
+  :shredouts: {}
+:51JX:
+  :name: Judge Advocate
+  :career_field: :51
+  :changed_date: '2025-04-30'
+  :qual_levels:
+    1:
+      :code: 51J1
+      :title: Entry
+    3:
+      :code: 51J3
+      :title: Qualified
+    4:
+      :code: 51J4
+      :title: Staff
+  :shredouts: {}
+:52RX:
+  :name: Chaplain
+  :career_field: :52
+  :changed_date: '2019-04-30'
+  :qual_levels:
+    1:
+      :code: 52R1
+      :title: Entry
+    3:
+      :code: 52R3
+      :title: Qualified
+    4:
+      :code: 52R4
+      :title: Staff
+  :shredouts: {}
+:60C0:
+  :name: Senior Materiel Leader-Upper Echelon
+  :career_field: :60
+  :changed_date: '2025-10-31'
+  :qual_levels: {}
+  :shredouts: {}
+:61CX:
+  :name: Chemist/Nuclear Chemist
+  :career_field: :61
+  :changed_date: '2025-10-31'
+  :qual_levels:
+    1:
+      :code: 61C1
+      :title: Entry
+    3:
+      :code: 61C3
+      :title: Qualified
+    4:
+      :code: 61C4
+      :title: Staff
+  :shredouts:
+    :N: Nuclear
+:61DX:
+  :name: Physicist/Nuclear Engineer
+  :career_field: :61
+  :changed_date: '2025-10-31'
+  :qual_levels:
+    1:
+      :code: 61D1
+      :title: Entry
+    3:
+      :code: 61D3
+      :title: Qualified
+    4:
+      :code: 61D4
+      :title: Staff
+  :shredouts:
+    :N: Nuclear
+:62EX:
+  :name: Developmental Engineer
+  :career_field: :62
+  :changed_date: '2025-10-31'
+  :qual_levels:
+    1:
+      :code: 62E1
+      :title: Entry
+    3:
+      :code: 62E3
+      :title: Qualified
+    4:
+      :code: 62E4
+      :title: Staff
+  :shredouts:
+    :I: Systems/Industrial/Human Factors
+:62S0:
+  :name: Materiel Leader
+  :career_field: :62
+  :changed_date: '2025-10-31'
+  :qual_levels: {}
+  :shredouts: {}
+:63AX:
+  :name: Acquisition Manager
+  :career_field: :63
+  :changed_date: '2025-10-31'
+  :qual_levels:
+    1:
+      :code: 63A1
+      :title: Entry
+    3:
+      :code: 63A3
+      :title: Qualified
+    4:
+      :code: 63A4
+      :title: Staff
+  :shredouts: {}
+:63G0:
+  :name: Senior Materiel Leader-Lower Echelon
+  :career_field: :63
+  :changed_date: '2025-10-31'
+  :qual_levels: {}
+  :shredouts: {}
+:63S0:
+  :name: Materiel Leader
+  :career_field: :63
+  :changed_date: '2025-10-31'
+  :qual_levels: {}
+  :shredouts: {}
+:64PX:
+  :name: Contracting
+  :career_field: :64
+  :changed_date: '2016-04-30'
+  :qual_levels:
+    1:
+      :code: 64P1
+      :title: Entry
+    3:
+      :code: 64P3
+      :title: Qualified
+    4:
+      :code: 64P4
+      :title: Staff
+  :shredouts: {}
+:65FX:
+  :name: Financial Management
+  :career_field: :65
+  :changed_date: '2015-10-31'
+  :qual_levels:
+    1:
+      :code: 65F1
+      :title: Entry
+    3:
+      :code: 65F3
+      :title: Qualified
+    4:
+      :code: 65F4
+      :title: Staff
+  :shredouts: {}
+:65WX:
+  :name: Cost Analysis
+  :career_field: :65
+  :changed_date: '2015-10-31'
+  :qual_levels:
+    1:
+      :code: 65W1
+      :title: Entry
+    3:
+      :code: 65W3
+      :title: Qualified
+    4:
+      :code: 65W4
+      :title: Staff
+  :shredouts: {}
+:71SX:
+  :name: Special Investigations
+  :career_field: :71
+  :changed_date: '2015-10-31'
+  :qual_levels:
+    1:
+      :code: 71S1
+      :title: Entry
+    3:
+      :code: 71S3
+      :title: Qualified
+    4:
+      :code: 71S4
+      :title: Staff
+  :shredouts: {}

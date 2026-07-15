@@ -1,102 +1,101 @@
 # frozen_string_literal: true
 
 require_relative "patterns"
+require_relative "publication"
 require_relative "text"
 
 module GovCodes
   module Dafecd
-    # Parses a single DAFECD specialty record (as produced by RecordSplitter)
-    # into a structured header: X-form specialty, career field, CEM code,
-    # per-specialty change date, skill ladder, and the (conservatively
-    # normalized) specialty title.
+    # Parses a single specialty record (as produced by RecordSplitter) into a
+    # structured header: X-form specialty, career field, CEM code (enlisted),
+    # per-specialty change date, skill/qualification ladder, and the
+    # (conservatively normalized) specialty title.
+    #
+    # Behavior is publication-specific (injected Publication); the default is the
+    # enlisted directory.
     #
     # Deliberately does NOT attempt to de-glue titles that pdf-reader ran
-    # together (e.g. "FORCEAVIATOR"). Such titles are title-cased verbatim and
-    # flagged via :glued_title so the deferred C.2 LLM despacer can address them.
+    # together (e.g. "FORCEAVIATOR" / "SPECIALWARFARE"). Such titles are
+    # title-cased verbatim and flagged via :glued_title so the deferred LLM
+    # despacer can address them.
     class SpecialtyParser
-      # Ladder line (captures concrete AFSC as group 1, skill-level word as
-      # group 2) and CEM line, shared with RecordSplitter via Patterns.
-      LADDER = Patterns::LADDER
-      CEM = Patterns::CEM
-
-      CHANGE_DATE = /\((?:Changed|Established|Effective)\s+(\d{1,2}\s+\w{3,9}\s+\d{2,4})\)/
-
       DECORATIVE = Patterns::DECORATIVE
       UNICODE_DASHES = Patterns::UNICODE_DASHES
 
-      def initialize(record)
-        @record = Text.split_glued_afsc(record)
+      def initialize(record, publication: Publication.dafecd)
+        @publication = publication
+        @record = Text.split_glued_afsc(record, publication.glued_afsc)
         @lines = @record.lines
       end
 
       def parse
         codes = ladder_codes
         {
-          specialty: x_form(codes),
+          specialty: specialty(codes),
           career_field: career_field(codes),
           cem_code: cem_code,
+          bare_code: bare_code,
           changed_date: changed_date,
-          skill_levels: skill_levels,
           name: name,
           raw_title: raw_title,
           glued_title: glued_title?
-        }
+        }.merge(@publication.levels_key => levels)
       end
 
       private
 
-      # @return [Array<String>] concrete ladder AFSCs in document order
-      def ladder_codes
-        @lines.filter_map { |line| line[LADDER, 1] }
+      def ladder
+        @publication.ladder
       end
 
-      def x_form(codes)
-        basis = specialty_basis(codes)
-        return nil if basis.empty?
-        :"#{basis.first[0, 3]}X#{most_common_specific(basis)}"
+      # @return [Array<String>] concrete ladder AFSCs in document order
+      def ladder_codes
+        @lines.filter_map { |line| line[ladder, 1] }
+      end
+
+      # The specialty key: the ladder-family X-form, or (for a bare single-code
+      # record with no ladder) the literal code.
+      def specialty(codes)
+        return @publication.specialty_key(codes) if codes.any?
+        bare = bare_code
+        bare&.to_sym
       end
 
       def career_field(codes)
-        basis = specialty_basis(codes)
-        return nil if basis.empty?
-        :"#{basis.first[0, 2]}"
+        return @publication.career_field(codes) if codes.any?
+        bare = bare_code
+        bare && :"#{bare[0, 2]}"
       end
 
-      # The ladder codes that define the specialty. A subdivision superintendent
-      # often carries specific digit 0 (e.g. 4J090 atop the 4J0X2 ladder), so the
-      # specialty is defined by its non-superintendent (skill digit != 9) levels;
-      # fall back to all codes when only a superintendent is present.
-      def specialty_basis(codes)
-        non_super = codes.reject { |code| code[3] == "9" }
-        non_super.empty? ? codes : non_super
-      end
-
-      # The most frequent specific (5th) digit among the basis codes.
-      def most_common_specific(basis)
-        basis.map { |code| code[4] }.group_by(&:itself).max_by { |_, v| v.size }.first
+      # The bare standalone code of a single-code record (officer), or nil.
+      def bare_code
+        return @bare_code if defined?(@bare_code)
+        pattern = @publication.bare_code
+        @bare_code = pattern && @record[pattern, 1]
       end
 
       def cem_code
-        @record[CEM, 1]
+        pattern = @publication.cem
+        pattern && @record[pattern, 1]
       end
 
       def changed_date
-        raw = @record[CHANGE_DATE, 1]
+        raw = @record[@publication.change_date, 1]
         return nil unless raw
         Text.parse_date(raw)
       end
 
-      # @return [Hash{Integer=>Hash}] skill-level digit => {code:, title:}
-      def skill_levels
-        levels = {}
+      # @return [Hash{Integer=>Hash}] level digit => {code:, title:}
+      def levels
+        result = {}
         @lines.each do |line|
-          next unless line =~ LADDER
+          next unless line =~ ladder
           code = $1
           title = normalize_level($2)
           digit = code[3].to_i
-          levels[digit] = {code: code, title: title}
+          result[digit] = {code: code, title: title}
         end
-        levels
+        result
       end
 
       def normalize_level(word)
@@ -115,30 +114,28 @@ module GovCodes
         return false if title.nil?
         # Heuristic proxy for pdf-reader glue: an unusually long single token
         # (excluding preserved acronyms). Reported, not relied upon, for the
-        # deferred C.2 despacer. False positives are possible for genuinely
-        # long words; the coverage report lists them for human review.
+        # deferred despacer. False positives are possible for genuinely long
+        # words; the coverage report lists them for human review.
         title.split(/\s+/).any? do |token|
           bare = token.delete("()/-")
           bare.length >= 12 && bare.match?(/\A[A-Za-z]+\z/)
         end
       end
 
-      # The title line(s) between the last ladder line and the change date /
-      # first numbered section, joined and sanitized (pre-titlecase). Accepts
-      # both the common ALL-CAPS titles and the Title-Case titles used by a few
-      # special-duty specialties (e.g. "Multi-domain Operations Aviator").
-      # Exposed verbatim so the C.2 de-gluer can diff against the source.
+      # The title line(s) between the last ladder/bare-code line and the change
+      # date / first numbered section, joined and sanitized (pre-titlecase).
+      # Exposed verbatim so the de-gluer can diff against the source.
       def raw_title
         return @raw_title if defined?(@raw_title)
         @raw_title = compute_raw_title
       end
 
       def compute_raw_title
-        last_ladder = last_ladder_index
-        return nil if last_ladder.nil?
+        last_anchor = last_anchor_index
+        return nil if last_anchor.nil?
 
         collected = []
-        @lines[(last_ladder + 1)..].each do |line|
+        @lines[(last_anchor + 1)..].each do |line|
           stripped = sanitize(line)
           next if stripped.empty?
           next if stripped.match?(/\A\d+\z/)          # bare page number
@@ -158,8 +155,12 @@ module GovCodes
         collected.join(" ")
       end
 
-      def last_ladder_index
-        @lines.each_index.reverse_each.find { |i| @lines[i] =~ LADDER }
+      # The last line that anchors a record: a ladder line, or (for a bare
+      # single-code officer record) the standalone code line.
+      def last_anchor_index
+        @lines.each_index.reverse_each.find do |i|
+          @lines[i] =~ ladder || (@publication.bare_code && @lines[i] =~ @publication.bare_code)
+        end
       end
 
       # Remove decorative symbol glyphs, normalize unicode dashes, and collapse

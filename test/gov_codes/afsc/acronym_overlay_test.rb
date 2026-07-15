@@ -70,37 +70,58 @@ module GovCodes
       end
     end
 
-    # Officer/RI are unversioned: a single non-dated overlay each, a flat map
-    # keyed by the code, loaded from the load path and applied in find.
+    # Officer overlays are per-DAFOCD-release, the same dedicated-tier semantics
+    # as enlisted: a flat SPECIALTY => ACRONYM map at
+    # releases/dafocd/<date>/acronyms.yml that augments :acronym on existing
+    # entries only, resolved for the release in effect on as_of.
     describe "Officer acronym overlay" do
       before do
         @temp_dir = Dir.mktmpdir
-        afsc_dir = File.join(@temp_dir, "gov_codes", "afsc")
-        FileUtils.mkdir_p(afsc_dir)
-        File.write(File.join(afsc_dir, "officer_acronyms.yml"), <<~YAML)
+        release_dir = File.join(@temp_dir, "gov_codes", "afsc", "releases", "dafocd", "2025-10-31")
+        FileUtils.mkdir_p(release_dir)
+        # 11MX (Mobility Pilot) ships no acronym; 16FX ships "FAO" and must be
+        # overridden by the consumer overlay.
+        File.write(File.join(release_dir, "acronyms.yml"), <<~YAML)
           :"11MX": MOBPLT
+          :"16FX": OVERRIDDEN
+          :"99ZX": GHOST
         YAML
 
         $LOAD_PATH.unshift(@temp_dir)
         AFSC.reset_data(lookup: $LOAD_PATH)
+        Releases.reset!
       end
 
       after do
         $LOAD_PATH.delete(@temp_dir)
         FileUtils.rm_rf(@temp_dir)
         AFSC.reset_data(lookup: $LOAD_PATH)
+        Releases.reset!
       end
 
-      it "populates the officer acronym from the consumer overlay" do
+      it "populates a missing acronym from the consumer overlay" do
         _(Officer.find("11MX").acronym).must_equal "MOBPLT"
       end
 
       it "leaves the officer name intact" do
-        _(Officer.find("11MX").name).must_equal "Mobility pilot"
+        _(Officer.find("11MX").name).must_equal "Mobility Pilot"
+      end
+
+      it "lets the consumer overlay win over a shipped specialty acronym" do
+        _(Officer.find("16FX").acronym).must_equal "OVERRIDDEN"
+      end
+
+      it "resolves the overlay for the release in effect on as_of" do
+        _(Officer.find("11MX", as_of: "2025-11-01").acronym).must_equal "MOBPLT"
       end
 
       it "returns a nil acronym for a code absent from the overlay" do
         _(Officer.find("11BX").acronym).must_be_nil
+      end
+
+      it "only augments existing entries (never creates a specialty)" do
+        index = Releases.officer_index(lookup: $LOAD_PATH)
+        _(index.key?(:"99ZX")).must_equal false
       end
     end
 

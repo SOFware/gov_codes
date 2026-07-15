@@ -23,7 +23,7 @@ module GovCodes
     end
 
     def test_find_returns_officer_code_for_valid_officer_afsc
-      # Test with a valid officer AFSC code (from Wikipedia)
+      # Test with a valid officer AFSC code (from the DAFOCD)
       code = AFSC.find("11MX")
 
       # Verify it returns an Officer::Code object
@@ -35,7 +35,8 @@ module GovCodes
       assert_equal :M, code.functional_area
       assert_equal :X, code.qualification_level
       assert_nil code.shredout
-      assert_equal "Mobility pilot", code.name
+      assert_equal "Mobility Pilot", code.name
+      assert_equal Date.new(2025, 10, 31), code.effective_date
     end
 
     def test_find_raises_error_for_invalid_afsc

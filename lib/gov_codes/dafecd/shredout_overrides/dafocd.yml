@@ -1,0 +1,27 @@
+# De-glued shredout values for DAFOCD, effective 2025-10-31.
+# Each value is the source PDF shredout meaning with ONLY spacing/case
+# adjusted -- no letters, digits, or punctuation changed. Enforced at build
+# time: the IndexBuilder verifies each override against the raw extracted
+# shredout value (whitespace-and-case-insensitive equality) and fails the
+# build on drift or on an override targeting a shredout absent from the source.
+# Nested one level deeper than title_overrides: specialty => (suffix => value).
+:11UX:
+  :K: Instructor for weapon system designated by AFSC
+  :V: Automated Functional Applications Analyst
+:13BX:
+  :D: Mobile Air Control
+:13SX:
+  :E: Space Access and Sustainment
+:15WX:
+  :A: Advanced Weather Activities
+:17YX:
+  :A: Cyber Warfare Analyst
+  :D: Cyber Threat Defense Analyst
+  :O: Cyber Attack Operator
+:19ZX:
+  :B: Tactical Air Control Party Officer
+:44KX:
+  :N: Child Abuse
+:45BX:
+  :G: Replacement Arthroplasty
+  :J: Foot and Ankle Surgery

@@ -1,0 +1,27 @@
+# De-glued shredout values for DAFECD, effective 2025-10-31.
+# Each value is the source PDF shredout meaning with ONLY spacing/case
+# adjusted -- no letters, digits, or punctuation changed. Enforced at build
+# time: the IndexBuilder verifies each override against the raw extracted
+# shredout value (whitespace-and-case-insensitive equality) and fails the
+# build on drift or on an override targeting a shredout absent from the source.
+# Nested one level deeper than title_overrides: specialty => (suffix => value).
+:1A1X4:
+  :Z: Multi-domain Operations Aviator Data Mask
+:1A1X8:
+  :A: C-32/C-40B/C Flight Attendant
+  :C: C-37A/B Flight Attendant
+  :H: E-4B Flight Attendant
+:1D7X1:
+  :B: Systems Administration
+:1N1X1:
+  :A: Imagery Analyst
+:1N2X1:
+  :A: Electronic Non-Communications Analyst
+  :C: Signals Analyst
+:1P0X1:
+  :A: Ejection Seat Aircraft
+  :B: Non-Ejection Seat Aircraft
+:3F3X1:
+  :M: Management Engineering/Data Analytics
+:3P0X1:
+  :B: Combat Arms

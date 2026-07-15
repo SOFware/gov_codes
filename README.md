@@ -60,13 +60,34 @@ code.effective_date     # => #<Date: 2025-10-31>
 # A date before the earliest shipped release has no data and returns nil.
 GovCodes::AFSC.find("1A172Y", as_of: "2000-01-01") # => nil
 
-# Find an officer AFSC code
+# Find an officer AFSC code. Officer lookups are versioned by DAFOCD release
+# (like enlisted); `find`/`search` default to the latest shipped release and
+# accept the same `as_of:`.
 code = GovCodes::AFSC.find("11MX")
-puts code.name # => "Mobility pilot"
+puts code.name # => "Mobility Pilot"
 puts code.career_group # => "11"
 puts code.functional_area # => "M"
 puts code.qualification_level # => "X"
 puts code.shredout # => nil
+puts code.effective_date # => #<Date: 2025-10-31>
+
+# A concrete qualification level derives the X-form specialty and its title
+code = GovCodes::AFSC.find("11B3")
+code.specialty                 # => :"11BX"
+code.specialty_name            # => "Bomber Pilot"
+code.qualification_level_number # => 3
+code.qualification_level_name  # => "Aircraft Commander" (title from the directory)
+
+# Some officer specialties are keyed by a literal bare code (a single command/
+# materiel-leader position, not a qualification ladder): 10C0, 62S0, 63G0, 63S0.
+# These resolve ONLY via their literal code -- there is no X-form for them, so
+# find("10CX") / find("62SX") return nil by design.
+GovCodes::AFSC.find("10C0").name # => "Operations Commander"
+GovCodes::AFSC.find("10CX")       # => nil (bare-code specialty; no X-form)
+
+# An officer code carries its acronym; a shredout acronym wins for a shredded code
+GovCodes::AFSC.find("16F3").acronym  # => "FAO"
+GovCodes::AFSC.find("19ZXB").acronym # => "TACPO"
 
 # Find a Reporting Identifier (RI) or Special Duty Identifier (SDI)
 code = GovCodes::AFSC.find("8A400")
@@ -166,7 +187,7 @@ GovCodes::AFSC.find("1A172Y", as_of: "2025-11-01")   # the release in effect on 
 GovCodes::AFSC.find("1A172Y").effective_date         # => the release the result came from
 ```
 
-**Currently shipped:** enlisted AFSCs from the DAFECD effective 31 October 2025. Officer (DAFOCD), reporting/special-duty identifiers, SEIs, prefixes, and Space Force codes are planned.
+**Currently shipped:** enlisted AFSCs from the DAFECD and officer AFSCs from the DAFOCD, both effective 31 October 2025. Reporting/special-duty identifiers (RI/SDI), SEIs, prefixes, and Space Force codes are planned.
 
 ### Specialty acronyms
 
@@ -184,6 +205,11 @@ GovCodes::AFSC.find_by_acronym("RAWS")                     # => the 1C8X3 Code
 GovCodes::AFSC.find_by_acronym("raws")                     # => same (case-insensitive)
 GovCodes::AFSC.find_by_acronym("PJ", as_of: "2025-11-01")  # => resolves that release's overlay
 GovCodes::AFSC.find_by_acronym("nope")                     # => nil
+
+# Officer acronyms resolve too — including shredout acronyms, which return the
+# concrete shredded code:
+GovCodes::AFSC.find_by_acronym("TACPO")  # => the 19ZXB Code (Special Warfare, TACP Officer)
+GovCodes::AFSC.find_by_acronym("FAO")    # => the 16FX Code (Foreign Area Officer)
 ```
 
 Shipped acronyms are **source-verified**: they are captured only from a trailing parenthetical in the directory title (e.g. `Radar, Airfield & Weather Systems (RAWS)`) and the build gate rejects any acronym that does not appear verbatim in the source title. Five enlisted specialties ship an acronym this way (`1A8X1`, `1C8X3`, `1N1X1`, `1Z3X1`, `4B0X1`); nothing else is invented.
@@ -196,8 +222,10 @@ Everything else — colloquial acronyms not printed in the directory (e.g. `PJ` 
 :"1Z1X1": PJ      # augments the Pararescue entry; name/skill_levels/shredouts untouched
 :"1Z3X1": JTAC    # overrides the shipped TACP acronym
 
-# Officer (unversioned):  lib/gov_codes/afsc/officer_acronyms.yml
-:"11MX": MOBPLT
+# Officer, per DAFOCD release date:
+# lib/gov_codes/afsc/releases/dafocd/2025-10-31/acronyms.yml
+:"11MX": MOBPLT   # augments the Mobility Pilot entry (ships no acronym)
+:"16FX": FAREA    # overrides the shipped FAO acronym
 
 # RI/SDI (unversioned):   lib/gov_codes/afsc/ri_acronyms.yml
 :"8A400": TMC
@@ -205,13 +233,32 @@ Everything else — colloquial acronyms not printed in the directory (e.g. `PJ` 
 
 Key points:
 
-- **Enlisted overlays are per-release-date**, scoped by the directory's effective date, so `find(code, as_of: "2025-11-01")` applies that release's overlay. Officer and RI are unversioned (a single overlay file each).
-- The overlay is a **separate tier** — it only sets `:acronym` on entries that already exist and never replaces an entry, so `name`, `skill_levels`, and `shredouts` stay intact.
-- **Precedence:** the consumer overlay wins over the shipped, source-verified acronym. The gem ships no overlay file, so absent one the shipped index is used as-is.
+- **Enlisted and officer overlays are per-release-date**, scoped by the directory's effective date, so `find(code, as_of: "2025-11-01")` applies that release's overlay — and the two publications resolve independently, so an officer overlay never affects an enlisted lookup or vice versa. RI is unversioned (a single overlay file).
+- The overlay is a **separate tier** — it only sets `:acronym` on entries that already exist and never replaces an entry, so `name`, `qual_levels`/`skill_levels`, and `shredouts` stay intact.
+- **Precedence:** the consumer overlay wins over the shipped, source-verified acronym. For officer codes a documented shredout acronym still wins for a shredded code. The gem ships no overlay file, so absent one the shipped index is used as-is.
 
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake test` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+
+### Regenerating the data
+
+Enlisted (DAFECD) and officer (DAFOCD) indexes are regenerated deterministically
+from the official classification-directory PDFs by `bin/extract_afsc_from_pdf.rb`
+(offline dev tooling; never loaded by the gem runtime). It writes the versioned
+release artifact under `lib/gov_codes/afsc/releases/<publication>/<date>/`, updates
+the manifest, and fails loudly before writing if any code, title, acronym, or
+shredout override is not grounded in the source:
+
+```bash
+mise exec -- ruby bin/extract_afsc_from_pdf.rb "DAFECD -31 October 25 v3.5 FINAL.pdf"
+mise exec -- ruby bin/extract_afsc_from_pdf.rb "DAFOCD 31 Oct 25 v3.pdf"
+```
+
+The retired `bin/extract_afsc_from_wikipedia.rb` (which generated the old flat
+enlisted/officer YAML) has been removed in favor of the PDF extractor. RI/SDI
+data (`lib/gov_codes/afsc/ri.yml`) remains Wikipedia-sourced and is currently
+hand-maintained; it is not produced by either extractor.
 
 To install this gem onto your local machine, run `bundle exec rake install`.
 

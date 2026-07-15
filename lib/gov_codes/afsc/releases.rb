@@ -3,15 +3,18 @@ require "yaml"
 
 module GovCodes
   module AFSC
-    # Loads the versioned DAFECD release manifest and per-release specialty
-    # index, and resolves the release in effect on a given date.
+    # Loads the versioned release manifest and per-release specialty index for a
+    # publication (DAFECD enlisted, DAFOCD officer), and resolves the release in
+    # effect on a given date. Both publications share this resolve/merge/cache
+    # machinery and are resolved independently (their release dates may diverge).
     #
     # See docs/plans/2026-07-08-afsc-pdf-representation-design.md
     # "Versioning by document release".
     #
     # Storage layout (per release):
     #   lib/gov_codes/afsc/releases.yml                          # manifest
-    #   lib/gov_codes/afsc/releases/dafecd/<date>/enlisted.yml   # index
+    #   lib/gov_codes/afsc/releases/dafecd/<date>/enlisted.yml   # enlisted index
+    #   lib/gov_codes/afsc/releases/dafocd/<date>/officer.yml    # officer index
     #
     # Resolution: releases are sorted ascending by effective_date. A given
     # `as_of` resolves to the release with the greatest effective_date <= as_of;
@@ -27,7 +30,9 @@ module GovCodes
     # extend or override the shipped index.
     module Releases
       # Publication key for the enlisted directory (DAFECD).
-      PUBLICATION = "dafecd"
+      ENLISTED_PUBLICATION = "dafecd"
+      # Publication key for the officer directory (DAFOCD).
+      OFFICER_PUBLICATION = "dafocd"
 
       class << self
         def manifest(lookup: $LOAD_PATH)
@@ -35,12 +40,18 @@ module GovCodes
         end
 
         def enlisted_index(as_of: nil, lookup: $LOAD_PATH)
-          key = [to_date(as_of), cache_key(lookup)]
-          index_cache[key] ||= load_enlisted_index(as_of: as_of, lookup: lookup)
+          release_index(ENLISTED_PUBLICATION, "enlisted.yml", as_of: as_of, lookup: lookup)
         end
 
-        def effective_date_for(as_of: nil, lookup: $LOAD_PATH)
-          release = resolve_release(as_of: as_of, lookup: lookup)
+        def officer_index(as_of: nil, lookup: $LOAD_PATH)
+          release_index(OFFICER_PUBLICATION, "officer.yml", as_of: as_of, lookup: lookup)
+        end
+
+        # Resolve the effective date for +publication+ (defaults to enlisted).
+        # Publications are resolved independently: an officer release date never
+        # moves the enlisted latest date and vice versa.
+        def effective_date_for(as_of: nil, lookup: $LOAD_PATH, publication: ENLISTED_PUBLICATION)
+          release = resolve_release(publication, as_of: as_of, lookup: lookup)
           release && release[:date]
         end
 
@@ -79,8 +90,16 @@ module GovCodes
           ([gem_lib_dir] + Array(lookup)).uniq
         end
 
-        def resolve_release(as_of:, lookup:)
-          releases = release_list(lookup)
+        # Resolve, merge, and cache the release index for +publication+. The
+        # cache key includes the publication and index filename so enlisted and
+        # officer indexes never collide.
+        def release_index(publication, index_file, as_of:, lookup:)
+          key = [publication, index_file, to_date(as_of), cache_key(lookup)]
+          index_cache[key] ||= load_release_index(publication, index_file, as_of: as_of, lookup: lookup)
+        end
+
+        def resolve_release(publication, as_of:, lookup:)
+          releases = release_list(lookup, publication)
           return nil if releases.empty?
 
           target = to_date(as_of)
@@ -89,10 +108,11 @@ module GovCodes
           releases.reverse.find { |r| r[:date] <= target }
         end
 
-        # Releases from the manifest, each annotated with a parsed :date and the
-        # :dir name used to locate its index, sorted ascending by date.
-        def release_list(lookup)
-          entries = manifest(lookup: lookup)[:dafecd] || []
+        # Releases for +publication+ from the manifest, each annotated with a
+        # parsed :date and the :dir name used to locate its index, sorted
+        # ascending by date.
+        def release_list(lookup, publication)
+          entries = manifest(lookup: lookup)[publication.to_sym] || []
           entries.filter_map do |entry|
             raw = entry[:effective_date]
             next unless raw
@@ -111,14 +131,14 @@ module GovCodes
           merged
         end
 
-        def load_enlisted_index(as_of:, lookup:)
-          release = resolve_release(as_of: as_of, lookup: lookup)
+        def load_release_index(publication, index_file, as_of:, lookup:)
+          release = resolve_release(publication, as_of: as_of, lookup: lookup)
           return {} unless release
 
           merged = {}
-          parts = ["gov_codes", "afsc", "releases", PUBLICATION, release[:dir], "enlisted.yml"]
+          parts = ["gov_codes", "afsc", "releases", publication, release[:dir], index_file]
           each_yaml(lookup, parts) { |data| merged.merge!(data) }
-          apply_acronym_overlay(merged, release, lookup)
+          apply_acronym_overlay(merged, publication, release, lookup)
           merged
         end
 
@@ -130,10 +150,11 @@ module GovCodes
         # (the index merge above is shallow — overlaying whole entries here would
         # drop name/skill_levels/shredouts). The consumer overlay wins over the
         # source-extracted acronym shipped in the index. The gem ships no
-        # acronyms.yml; an absent overlay leaves the index unchanged.
-        def apply_acronym_overlay(merged, release, lookup)
+        # acronyms.yml; an absent overlay leaves the index unchanged. Resolved per
+        # release, so overlays never leak across document dates or publications.
+        def apply_acronym_overlay(merged, publication, release, lookup)
           overlay = {}
-          parts = ["gov_codes", "afsc", "releases", PUBLICATION, release[:dir], "acronyms.yml"]
+          parts = ["gov_codes", "afsc", "releases", publication, release[:dir], "acronyms.yml"]
           each_yaml(lookup, parts) { |data| overlay.merge!(data) }
           overlay.each do |specialty, acronym|
             entry = merged[specialty]

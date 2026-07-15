@@ -38,8 +38,9 @@ module GovCodes
         rel = File.join(@temp_dir, "gov_codes", "afsc", "releases", "dafecd", "2025-10-31")
         FileUtils.mkdir_p(rel)
         File.write(File.join(rel, "acronyms.yml"), %(:"1Z1X1": PJ\n))
-        afsc = File.join(@temp_dir, "gov_codes", "afsc")
-        File.write(File.join(afsc, "officer_acronyms.yml"), %(:"11MX": MOBPLT\n))
+        off = File.join(@temp_dir, "gov_codes", "afsc", "releases", "dafocd", "2025-10-31")
+        FileUtils.mkdir_p(off)
+        File.write(File.join(off, "acronyms.yml"), %(:"11MX": MOBPLT\n))
         $LOAD_PATH.unshift(@temp_dir)
         AFSC.reset_data(lookup: $LOAD_PATH)
         Releases.reset!

@@ -174,5 +174,129 @@ module GovCodes
           .must_equal Date.new(2099, 12, 31)
       end
     end
+
+    # The officer (DAFOCD) publication reuses the same resolve/merge/cache
+    # machinery as enlisted (DAFECD) but reads officer.yml under releases/dafocd.
+    # A future release date keeps the resolved index free of the 130-entry
+    # shipped index so these assertions are self-contained.
+    describe "Releases officer index" do
+      before do
+        @temp_dir = Dir.mktmpdir
+        base = File.join(@temp_dir, "gov_codes", "afsc")
+        release_dir = File.join(base, "releases", "dafocd", "2099-06-30")
+        FileUtils.mkdir_p(release_dir)
+
+        File.write(File.join(base, "releases.yml"), <<~YAML)
+          :dafocd:
+          - :effective_date: '2099-06-30'
+            :version_label: test
+            :source: synthetic-officer.pdf
+            :name: Synthetic Officer Directory
+        YAML
+
+        File.write(File.join(release_dir, "officer.yml"), <<~YAML)
+          :"19ZX":
+            :name: Special Warfare
+            :career_field: :"19"
+            :qual_levels:
+              3:
+                :code: 19Z3
+                :title: Qualified
+            :shredouts:
+              :B: Tactical Air Control Party Officer
+            :shredout_acronyms:
+              :B: TACPO
+          :"16FX":
+            :name: Foreign Area Officer (FAO)
+            :acronym: FAO
+            :career_field: :"16"
+            :qual_levels: {}
+            :shredouts: {}
+        YAML
+      end
+
+      after do
+        FileUtils.rm_rf(@temp_dir)
+        Releases.reset!
+      end
+
+      it "resolves the officer index for the latest release" do
+        index = Releases.officer_index(as_of: nil, lookup: [@temp_dir])
+        _(index.key?(:"19ZX")).must_equal true
+        _(index.dig(:"19ZX", :name)).must_equal "Special Warfare"
+        _(index.dig(:"19ZX", :shredout_acronyms, :B)).must_equal "TACPO"
+      end
+
+      it "resolves the officer effective date via the officer publication" do
+        _(Releases.effective_date_for(as_of: nil, lookup: [@temp_dir],
+          publication: Releases::OFFICER_PUBLICATION))
+          .must_equal Date.new(2099, 6, 30)
+      end
+
+      it "resolves each publication's effective date independently" do
+        # The officer manifest addition must not move the enlisted latest date.
+        _(Releases.effective_date_for(as_of: nil, lookup: [@temp_dir]))
+          .must_equal Date.new(2025, 10, 31)
+      end
+
+      it "returns an empty index before the earliest officer release" do
+        _(Releases.officer_index(as_of: "1900-01-01", lookup: [@temp_dir]))
+          .must_equal({})
+      end
+    end
+
+    # Officer per-release acronym overlay: a flat SPECIALTY => ACRONYM map at
+    # releases/dafocd/<date>/acronyms.yml, resolved for the same release as the
+    # index, augmenting :acronym on existing entries only.
+    describe "Releases officer acronym overlay" do
+      before do
+        @temp_dir = Dir.mktmpdir
+        base = File.join(@temp_dir, "gov_codes", "afsc")
+        release_dir = File.join(base, "releases", "dafocd", "2099-06-30")
+        FileUtils.mkdir_p(release_dir)
+
+        File.write(File.join(base, "releases.yml"), <<~YAML)
+          :dafocd:
+          - :effective_date: '2099-06-30'
+            :version_label: test
+            :source: synthetic-officer.pdf
+            :name: Synthetic Officer Directory
+        YAML
+
+        File.write(File.join(release_dir, "officer.yml"), <<~YAML)
+          :"16FX":
+            :name: Foreign Area Officer (FAO)
+            :acronym: FAO
+            :career_field: :"16"
+            :qual_levels: {}
+            :shredouts: {}
+        YAML
+
+        File.write(File.join(release_dir, "acronyms.yml"), <<~YAML)
+          :"16FX": OVERRIDDEN
+          :"99ZX": GHOST
+        YAML
+      end
+
+      after do
+        FileUtils.rm_rf(@temp_dir)
+        Releases.reset!
+      end
+
+      it "lets the consumer overlay win over the shipped specialty acronym" do
+        index = Releases.officer_index(as_of: nil, lookup: [@temp_dir])
+        _(index.dig(:"16FX", :acronym)).must_equal "OVERRIDDEN"
+      end
+
+      it "only augments existing entries (never creates a specialty)" do
+        index = Releases.officer_index(as_of: nil, lookup: [@temp_dir])
+        _(index.key?(:"99ZX")).must_equal false
+      end
+
+      it "leaves the entry's name and shredouts intact" do
+        index = Releases.officer_index(as_of: nil, lookup: [@temp_dir])
+        _(index.dig(:"16FX", :name)).must_equal "Foreign Area Officer (FAO)"
+      end
+    end
   end
 end

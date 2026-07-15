@@ -3,6 +3,7 @@
 require "test_helper"
 require "minitest/autorun"
 require "gov_codes/dafecd/shredout_parser"
+require "gov_codes/dafecd/publication"
 
 describe GovCodes::Dafecd::ShredoutParser do
   # Real two-column shredout table from the 31 Oct 25 DAFECD (1A1X2).
@@ -76,5 +77,33 @@ describe GovCodes::Dafecd::ShredoutParser do
   it "returns an empty hash when there is no shredout table" do
     result = GovCodes::Dafecd::ShredoutParser.new("1. Specialty Summary. Nothing here.").parse
     _(result).must_be_empty
+  end
+
+  describe "the officer (DAFOCD) publication" do
+    let(:officer) { GovCodes::Dafecd::Publication.dafocd }
+
+    # Real two-column officer shredout table from the 31 Oct 25 DAFOCD (11B).
+    let(:table) {
+      <<~TXT
+        4. *Specialty Shredouts:
+
+         Suffix      Portion of AFS to Which Related                             Suffix          Portion of AFS to Which Related
+
+         A               B-1                                                     U               Air Liaison Officer (ALO)
+         B               B-2                                                     Y               General
+
+         C               B-52                                                    Z               Other
+         D               B-21
+      TXT
+    }
+
+    it "parses both columns of the officer 'Portion of AFS' table" do
+      result = GovCodes::Dafecd::ShredoutParser.new(table, publication: officer).parse
+      _(result[:A]).must_equal "B-1"
+      _(result[:D]).must_equal "B-21"
+      _(result[:U]).must_equal "Air Liaison Officer (ALO)"
+      _(result[:Y]).must_equal "General"
+      _(result[:Z]).must_equal "Other"
+    end
   end
 end

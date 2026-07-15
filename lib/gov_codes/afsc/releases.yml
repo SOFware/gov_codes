@@ -4,3 +4,8 @@
   :version_label: v3.5
   :source: DAFECD -31 October 25 v3.5 FINAL.pdf
   :name: Department of the Air Force Enlisted Classification Directory
+:dafocd:
+- :effective_date: '2025-10-31'
+  :version_label: v3
+  :source: DAFOCD 31 Oct 25 v3.pdf
+  :name: Department of the Air Force Officer Classification Directory
