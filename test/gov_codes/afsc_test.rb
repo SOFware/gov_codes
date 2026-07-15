@@ -155,5 +155,24 @@ module GovCodes
       assert_instance_of GovCodes::AFSC::RI::Code, code
       assert_equal "Senior enlisted manager", code.name
     end
+
+    # --- Specialty acronyms --------------------------------------------------
+
+    def test_enlisted_code_carries_source_verified_acronym
+      assert_equal "RAWS", AFSC.find("1C8X3").acronym
+      assert_equal "TACP", AFSC.find("1Z3X1").acronym
+    end
+
+    def test_enlisted_acronym_is_nil_for_a_non_acronym_specialty
+      assert_nil AFSC.find("1A1X2").acronym
+    end
+
+    def test_officer_code_has_acronym_accessor_defaulting_nil
+      assert_nil GovCodes::AFSC::Officer.find("11MX").acronym
+    end
+
+    def test_ri_code_has_acronym_accessor_defaulting_nil
+      assert_nil GovCodes::AFSC::RI.find("8A400").acronym
+    end
   end
 end

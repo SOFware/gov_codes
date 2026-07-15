@@ -66,7 +66,8 @@ module GovCodes
         :identifier,
         :suffix,
         :specific_ri,
-        :name
+        :name,
+        :acronym
       )
 
       def self.find_name_recursive(result)
@@ -130,6 +131,9 @@ module GovCodes
 
           # Add the name to the result
           result[:name] = name
+          # RI acronyms are not extracted from source yet; nil for shape parity
+          # with Enlisted (a consumer overlay may populate this).
+          result[:acronym] = nil
 
           Code.new(**result)
         end

@@ -104,6 +104,7 @@ module GovCodes
         :shredout,
         :shredout_name,
         :name,
+        :acronym,
         :effective_date
       )
 
@@ -157,6 +158,8 @@ module GovCodes
           result[:shredout_name] = shredout_name
           result[:specialty_name] = specialty_name
           result[:name] = name
+          # Specialty acronym from the resolved index entry (nil when absent).
+          result[:acronym] = entry[:acronym]
           result[:effective_date] = effective_date
 
           Code.new(**result)
