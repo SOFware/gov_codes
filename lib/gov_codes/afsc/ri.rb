@@ -131,18 +131,27 @@ module GovCodes
 
           # Add the name to the result
           result[:name] = name
-          # RI acronyms are not extracted from source yet; nil for shape parity
-          # with Enlisted (a consumer overlay may populate this).
-          result[:acronym] = nil
+          # RI acronyms are not extracted from source; a consumer overlay
+          # (ri_acronyms.yml, keyed by the code) may populate them. nil when
+          # absent, for shape parity with Enlisted.
+          result[:acronym] = acronym_overlay[result[:specific_ri]]
 
           Code.new(**result)
         end
+      end
+
+      # Consumer acronym overlay: a flat map keyed by the RI code, loaded once
+      # from the load path (gov_codes/afsc/ri_acronyms.yml). The gem ships none,
+      # so this is {} unless a consumer supplies one.
+      def self.acronym_overlay
+        @acronym_overlay ||= flat_overlay("ri_acronyms.yml")
       end
 
       def self.reset_data(lookup: $LOAD_PATH)
         remove_const(:DATA) if const_defined?(:DATA)
         const_set(:DATA, data(lookup:))
         CODES.clear
+        @acronym_overlay = flat_overlay("ri_acronyms.yml", lookup:)
       end
 
       def self.search(prefix)

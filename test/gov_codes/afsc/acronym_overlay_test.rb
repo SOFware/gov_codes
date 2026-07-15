@@ -69,5 +69,67 @@ module GovCodes
         _(index.key?(:"9Z9X9")).must_equal false
       end
     end
+
+    # Officer/RI are unversioned: a single non-dated overlay each, a flat map
+    # keyed by the code, loaded from the load path and applied in find.
+    describe "Officer acronym overlay" do
+      before do
+        @temp_dir = Dir.mktmpdir
+        afsc_dir = File.join(@temp_dir, "gov_codes", "afsc")
+        FileUtils.mkdir_p(afsc_dir)
+        File.write(File.join(afsc_dir, "officer_acronyms.yml"), <<~YAML)
+          :"11MX": MOBPLT
+        YAML
+
+        $LOAD_PATH.unshift(@temp_dir)
+        AFSC.reset_data(lookup: $LOAD_PATH)
+      end
+
+      after do
+        $LOAD_PATH.delete(@temp_dir)
+        FileUtils.rm_rf(@temp_dir)
+        AFSC.reset_data(lookup: $LOAD_PATH)
+      end
+
+      it "populates the officer acronym from the consumer overlay" do
+        _(Officer.find("11MX").acronym).must_equal "MOBPLT"
+      end
+
+      it "leaves the officer name intact" do
+        _(Officer.find("11MX").name).must_equal "Mobility pilot"
+      end
+
+      it "returns a nil acronym for a code absent from the overlay" do
+        _(Officer.find("11BX").acronym).must_be_nil
+      end
+    end
+
+    describe "RI acronym overlay" do
+      before do
+        @temp_dir = Dir.mktmpdir
+        afsc_dir = File.join(@temp_dir, "gov_codes", "afsc")
+        FileUtils.mkdir_p(afsc_dir)
+        File.write(File.join(afsc_dir, "ri_acronyms.yml"), <<~YAML)
+          :"8A400": TMC
+        YAML
+
+        $LOAD_PATH.unshift(@temp_dir)
+        AFSC.reset_data(lookup: $LOAD_PATH)
+      end
+
+      after do
+        $LOAD_PATH.delete(@temp_dir)
+        FileUtils.rm_rf(@temp_dir)
+        AFSC.reset_data(lookup: $LOAD_PATH)
+      end
+
+      it "populates the ri acronym from the consumer overlay" do
+        _(RI.find("8A400").acronym).must_equal "TMC"
+      end
+
+      it "leaves the ri name intact" do
+        _(RI.find("8A400").name).must_equal "Talent management consultant"
+      end
+    end
   end
 end

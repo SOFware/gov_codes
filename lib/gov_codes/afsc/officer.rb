@@ -110,11 +110,24 @@ module GovCodes
 
         # Add the name to the result
         result[:name] = name
-        # Officer acronyms are not extracted from source yet; nil for shape
-        # parity with Enlisted (a consumer overlay may populate this).
-        result[:acronym] = nil
+        # Officer acronyms are not extracted from source; a consumer overlay
+        # (officer_acronyms.yml, keyed by the code) may populate them. nil when
+        # absent, for shape parity with Enlisted.
+        result[:acronym] = acronym_overlay[result[:specific_afsc]]
 
         Code.new(**result)
+      end
+
+      # Consumer acronym overlay: a flat map keyed by the officer code, loaded
+      # once from the load path (gov_codes/afsc/officer_acronyms.yml). The gem
+      # ships none, so this is {} unless a consumer supplies one.
+      def self.acronym_overlay
+        @acronym_overlay ||= flat_overlay("officer_acronyms.yml")
+      end
+
+      def self.reset_data(lookup: $LOAD_PATH)
+        super
+        @acronym_overlay = flat_overlay("officer_acronyms.yml", lookup:)
       end
 
       def self.search(prefix)
