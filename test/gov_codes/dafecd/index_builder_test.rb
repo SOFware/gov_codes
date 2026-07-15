@@ -3,6 +3,7 @@
 require "test_helper"
 require "minitest/autorun"
 require "gov_codes/dafecd/index_builder"
+require "gov_codes/dafecd/publication"
 
 # Simulates a future value-transforming step (the C.2 title de-gluer) that emits
 # a value not present in the source, so the gate's regression-guard behavior can
@@ -309,5 +310,338 @@ describe GovCodes::Dafecd::IndexBuilder do
     builder.build
     _(builder.unverified_acronyms).must_include "PARTY"
     _(builder.unverified?).must_equal true
+  end
+
+  # --- Shredout de-gluing (verified overrides) -----------------------------
+
+  # A record whose shredout table carries a pdf-reader-glued value
+  # ("ImageryAnalyst") that a verified override should de-glue.
+  let(:glued_shredout_text) {
+    <<~TXT
+      DAFECD, 31 Oct 25
+      CEM Code 1N100*
+      AFSC 1N151, Journeyman
+      AFSC 1N131, Apprentice
+      AFSC 1N111, Helper
+                            GEOSPATIAL INTELLIGENCE (GEOINT)
+                                 (Changed 31 Oct 25)
+
+      1. Specialty Summary. Analyzes imagery.
+
+      4. *Specialty Shredouts:
+         Suffix     Portion                            Suffix    Portion
+
+            A       ImageryAnalyst
+    TXT
+  }
+
+  def sh_degluer(hash)
+    GovCodes::Dafecd::ShredoutDegluer.new(hash)
+  end
+
+  it "applies a matching shredout override and keeps the gate clean" do
+    builder = GovCodes::Dafecd::IndexBuilder.new(
+      glued_shredout_text, shredout_degluer: sh_degluer("1N1X1": {A: "Imagery Analyst"})
+    )
+    index = builder.build
+    _(index[:"1N1X1"][:shredouts][:A]).must_equal "Imagery Analyst"
+    _(builder.unverified_shredouts).must_be_empty
+    _(builder.unverified?).must_equal false
+  end
+
+  it "flags a drifting shredout override that changed letters and refuses it" do
+    builder = GovCodes::Dafecd::IndexBuilder.new(
+      glued_shredout_text, shredout_degluer: sh_degluer("1N1X1": {A: "Imagery Analysts"})
+    )
+    index = builder.build
+    _(builder.unverified_shredouts).wont_be_empty
+    _(builder.unverified_shredouts.first[:specialty]).must_equal :"1N1X1"
+    _(builder.unverified_shredouts.first[:suffix]).must_equal :A
+    _(builder.unverified?).must_equal true
+    # The stale override is NOT applied; the verbatim value is retained.
+    _(index[:"1N1X1"][:shredouts][:A]).must_equal "ImageryAnalyst"
+  end
+
+  it "flags an override targeting a shredout absent from the source" do
+    builder = GovCodes::Dafecd::IndexBuilder.new(
+      glued_shredout_text, shredout_degluer: sh_degluer("1N1X1": {Z: "Nonexistent Shred"})
+    )
+    builder.build
+    _(builder.unverified_shredouts).wont_be_empty
+    _(builder.unverified?).must_equal true
+  end
+
+  it "flags an override targeting a specialty absent from the index" do
+    builder = GovCodes::Dafecd::IndexBuilder.new(
+      glued_shredout_text, shredout_degluer: sh_degluer("9Z9X9": {A: "Ghost"})
+    )
+    builder.build
+    _(builder.unverified_shredouts).wont_be_empty
+    _(builder.unverified?).must_equal true
+  end
+
+  it "makes no shredout changes when given no override de-gluer" do
+    index = GovCodes::Dafecd::IndexBuilder.new(glued_shredout_text).build
+    _(index[:"1N1X1"][:shredouts][:A]).must_equal "ImageryAnalyst"
+  end
+
+  describe "the officer (DAFOCD) publication" do
+    let(:officer) { GovCodes::Dafecd::Publication.dafocd }
+
+    def build(text)
+      GovCodes::Dafecd::IndexBuilder.new(text, publication: officer)
+    end
+
+    # Real 11B (Bomber Pilot) with its officer shredout table.
+    let(:bomber_text) {
+      <<~TXT
+        DAFOCD, 31 Oct 25
+        AFSC 11B4*, Staff
+        AFSC 11B3*,Aircraft Commander
+        AFSC 11B2*, Qualified Pilot/Copilot
+        AFSC 11B1*, Entry/Student
+                                                     BOMBER PILOT
+                                                     (Changed 30Apr 23)
+
+        1. Specialty Summary. Pilots bomber aircraft.
+
+        4. *Specialty Shredouts:
+
+         Suffix      Portion of AFS to Which Related                 Suffix          Portion of AFS to Which Related
+
+         A               B-1                                         U               Air Liaison Officer (ALO)
+         B               B-2                                         Y               General
+         C               B-52                                        Z               Other
+         D               B-21
+      TXT
+    }
+
+    it "keys the officer index by ladder-family X-form" do
+      index = build(bomber_text).build
+      _(index.keys).must_include :"11BX"
+    end
+
+    it "emits officer qualification levels under :qual_levels" do
+      entry = build(bomber_text).build[:"11BX"]
+      _(entry[:qual_levels][4][:code]).must_equal "11B4"
+      _(entry[:qual_levels][1][:title]).must_equal "Entry/Student"
+      _(entry.key?(:skill_levels)).must_equal false
+    end
+
+    it "keeps the shredout value verbatim and records its trailing acronym" do
+      entry = build(bomber_text).build[:"11BX"]
+      _(entry[:shredouts][:U]).must_equal "Air Liaison Officer (ALO)"
+      _(entry[:shredout_acronyms][:U]).must_equal "ALO"
+    end
+
+    it "does not flag a grounded shredout acronym" do
+      builder = build(bomber_text)
+      builder.build
+      _(builder.unverified_acronyms).must_be_empty
+      _(builder.unverified?).must_equal false
+    end
+
+    # Real 19Z (Special Warfare) with the numbered shred-out enumeration.
+    let(:special_warfare_text) {
+      <<~TXT
+        DAFOCD, 31 Oct 25
+        AFSC 19Z4*, Staff
+        AFSC 19Z3*, Qualified
+        AFSC 19Z2*, Intermediate
+        AFSC 19Z1*, Entry
+                                 SPECIALWARFARE
+                                 (Changed 30Apr 25)
+
+        4 Specialty Summary. The AFSPECWAR officers lead ground combat.
+
+        5 Duties and Responsibilities:
+        5.719ZXA(Special Tactics Officer (STO)) - Specializes in global access.
+        5.819ZXB (Tactical Air Control Party Officer (TACPO)) - Specializes in strike.
+        5.919ZXC (Combat Rescue Officer (CRO)) - Specializes in recovery.
+      TXT
+    }
+
+    it "extracts numbered-enumeration shredout acronyms (19ZXB -> TACPO)" do
+      entry = build(special_warfare_text).build[:"19ZX"]
+      _(entry[:shredout_acronyms][:B]).must_equal "TACPO"
+      _(entry[:shredout_acronyms][:A]).must_equal "STO"
+      _(entry[:shredout_acronyms][:C]).must_equal "CRO"
+    end
+
+    it "does not flag grounded enumeration acronyms" do
+      builder = build(special_warfare_text)
+      builder.build
+      _(builder.unverified_acronyms).must_be_empty
+    end
+
+    # Bare single-code record (10C0, Operations Commander).
+    let(:bare_text) {
+      <<~TXT
+        DAFOCD, 31 Oct 25
+        AFSC 10C0
+                                          OPERATIONS COMMANDER
+                                          (Changed 31 Oct 08)
+
+        1. Specialty Summary. Commands operations.
+      TXT
+    }
+
+    it "keys a bare single-code record by the literal code" do
+      index = build(bare_text).build
+      _(index.keys).must_include :"10C0"
+      _(index[:"10C0"][:name]).must_equal "Operations Commander"
+      _(index[:"10C0"][:qual_levels]).must_be_empty
+    end
+
+    it "reconciles: records split == parsed + merged + dropped" do
+      builder = build(bomber_text + special_warfare_text + bare_text)
+      index = builder.build
+      _(builder.records_split).must_equal(index.size + builder.merged_count + builder.dropped_records.size)
+      _(builder.dropped_records).must_be_empty
+    end
+
+    # Real 16F: trailing "(FAO)" is a genuine specialty acronym.
+    let(:fao_text) {
+      <<~TXT
+        DAFOCD, 31 Oct 25
+        AFSC 16F4*, Staff
+        AFSC 16F1, Entry
+                                 FOREIGNAREAOFFICER (FAO)
+                                 (Changed 31 Oct 25)
+
+        1. Specialty Summary. Advises on foreign areas.
+      TXT
+    }
+
+    it "captures a trailing specialty acronym into :acronym" do
+      entry = build(fao_text).build[:"16FX"]
+      _(entry[:acronym]).must_equal "FAO"
+    end
+
+    # A shredout table with a glued value ("MobileAir Control") plus a value
+    # carrying a trailing acronym ("Trainer (UABMT)"), to prove that de-gluing
+    # the value leaves the independently-captured acronym intact.
+    let(:glued_officer_shredout_text) {
+      <<~TXT
+        DAFOCD, 31 Oct 25
+        AFSC 13B4*, Staff
+        AFSC 13B1*, Entry
+                                 AIR BATTLE MANAGER
+                                 (Changed 31 Oct 25)
+
+        4. *Specialty Shredouts:
+
+         Suffix      Portion of AFS to Which Related
+         D               MobileAir Control
+         M               Trainer (UABMT)
+      TXT
+    }
+
+    it "de-glues a shredout value while retaining its table acronym" do
+      degluer = GovCodes::Dafecd::ShredoutDegluer.new("13BX": {D: "Mobile Air Control"})
+      builder = GovCodes::Dafecd::IndexBuilder.new(
+        glued_officer_shredout_text, publication: officer, shredout_degluer: degluer
+      )
+      entry = builder.build[:"13BX"]
+      _(entry[:shredouts][:D]).must_equal "Mobile Air Control"
+      _(entry[:shredout_acronyms][:M]).must_equal "UABMT"
+      _(builder.unverified?).must_equal false
+    end
+
+    # --- I1: wrapped prose must never become a qual-ladder entry -----------
+
+    # A real DAFOCD source line ("AFSC 14F3, but applied to developing")
+    # wrapped onto its own line inside the specialty's summary prose. It must
+    # not overwrite the real level-3 title.
+    let(:prose_after_text) {
+      <<~TXT
+        DAFOCD, 31 Oct 25
+        AFSC 14F4*, Staff
+        AFSC 14F3*, Qualified
+        AFSC 14F1*, Entry
+                                 INFORMATION OPERATIONS
+                                 (Changed 31 Oct 25)
+
+        1. Specialty Summary. Information operations doctrine,
+        AFSC 14F3, but applied to developing
+        information operations across the force.
+      TXT
+    }
+
+    it "does not admit a wrapped-prose line as an officer ladder entry" do
+      builder = build(prose_after_text)
+      entry = builder.build[:"14FX"]
+      _(entry[:qual_levels][3][:title]).must_equal "Qualified"
+      _(entry[:qual_levels].keys.sort).must_equal [1, 3, 4]
+    end
+
+    # The reviewer's flipped-order scenario: the prose fragment for 42G3
+    # appears (as its own would-be record) BEFORE the real ladder. Under the
+    # old anchor, existing-wins merge would let the garbage title win; the
+    # tightened anchor drops the fragment entirely so the real title survives.
+    let(:prose_before_text) {
+      <<~TXT
+        DAFOCD, 31 Oct 25
+        2. Duties. Provides physician-assistant care that is
+        AFSC 42G3, current and continuous
+        across the beneficiary population.
+
+        AFSC 42G4*, Staff
+        AFSC 42G3*, Qualified
+        AFSC 42G1*, Entry
+                                 PHYSICIAN ASSISTANT
+                                 (Changed 31 Oct 25)
+
+        1. Specialty Summary.
+      TXT
+    }
+
+    it "does not let a prose fragment before the real record corrupt its title" do
+      builder = build(prose_before_text)
+      entry = builder.build[:"42GX"]
+      _(entry[:qual_levels][3][:title]).must_equal "Qualified"
+      _(builder.merged_count).must_equal 0
+      _(builder.records_split).must_equal(
+        builder.build.size + builder.merged_count + builder.dropped_records.size
+      )
+    end
+
+    # --- I1 layer (b): a merge title conflict must be surfaced, never silent -
+
+    let(:conflicting_title_text) {
+      <<~TXT
+        DAFOCD, 31 Oct 25
+        AFSC 11B3*, Aircraft Commander
+                                 BOMBER PILOT
+                                 (Changed 30Apr 23)
+
+        1. Specialty Summary. Pilots bombers.
+
+        AFSC 11B3*, Flight Lead
+                                 BOMBER PILOT
+                                 (Changed 30Apr 23)
+
+        2. Duties and Responsibilities.
+      TXT
+    }
+
+    it "surfaces a merge conflict when a level digit gets a different title" do
+      builder = build(conflicting_title_text)
+      entry = builder.build[:"11BX"]
+      # Existing (first) wins: the level-3 title is unchanged.
+      _(entry[:qual_levels][3][:title]).must_equal "Aircraft Commander"
+      _(builder.merge_conflicts).wont_be_empty
+      conflict = builder.merge_conflicts.first
+      _(conflict[:specialty]).must_equal :"11BX"
+      _(conflict[:level]).must_equal 3
+      _(conflict[:kept]).must_equal "Aircraft Commander"
+      _(conflict[:discarded]).must_equal "Flight Lead"
+    end
+
+    it "records no merge conflict when there is no title disagreement" do
+      builder = build(bomber_text)
+      builder.build
+      _(builder.merge_conflicts).must_be_empty
+    end
   end
 end

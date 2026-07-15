@@ -1,0 +1,135 @@
+# De-glued specialty titles for DAFOCD, effective 2025-10-31.
+# Each value is the source PDF title with ONLY spacing/case adjusted --
+# no letters, digits, or punctuation changed. Enforced at build time by
+# the IndexBuilder verification gate (whitespace/case-insensitive
+# equality against the raw source title); drift fails the build.
+:10C0: Operations Commander
+:11BX: Bomber Pilot
+:11EX: Experimental Test Pilot
+:11FX: Fighter Pilot
+:11GX: Generalist Pilot
+:11HX: Rescue Pilot
+:11KX: Trainer Pilot
+:11MX: Mobility Pilot
+:11RX: Reconnaissance/Surveillance/Electronic Warfare Pilot
+:11SX: Special Operations Pilot
+:11TX: Student Pilot
+:11UX: Remotely Piloted Aircraft (RPA) Pilot
+:12BX: Bomber Combat Systems Officer
+:12EX: Experimental Test Combat Systems Officer
+:12FX: Fighter Combat Systems Officer
+:12GX: Generalist Combat Systems Officer
+:12HX: Rescue Combat Systems Officer
+:12KX: Trainer Combat Systems Officer
+:12MX: Mobility Combat Systems Officer
+:12RX: Reconnaissance/Surveillance/Electronic Warfare Combat Systems Officer
+:12SX: Special Operations Combat Systems Officer
+:12UX: Remotely Piloted Aircraft (RPA) Combat Systems Officer
+:13AX: Astronaut
+:13BX: Air Battle Manager
+:13HX: Aerospace Physiologist
+:13MX: Airfield Operations
+:13NX: Nuclear and Missile Operations
+:13OX: Multi-Domain Warfare Officer
+:13SX: Space Operations
+:13ZX: Rated Multi-Domain Warfare Officer
+:14FX: Information Operations
+:14NX: Intelligence
+:15AX: Operations Analysis Officer
+:15WX: Weather and Environmental Sciences
+:16FX: Foreign Area Officer (FAO)
+:16GX: Air Force Operations Staff Officer
+:16KX: Software Development Officer (SDO)
+:16PX: Political-Military Affairs Strategist (PAS)
+:16RX: Planning and Programming
+:16ZX: Rated Foreign Area Officer (FAO)
+:17SX: Cyberspace Effects Operations
+:17WX: Warfighter Communications & IT Systems
+:17YX: Cyber Effects & Warfare Operations
+:18AX: Attack Remotely Piloted Aircraft Pilot
+:18EX: Experimental Test Remotely Piloted Aircraft Pilot
+:18GX: Generalist Remotely Piloted Aircraft Pilot
+:18RX: Reconnaissance Remotely Piloted Aircraft Pilot
+:18SX: Special Operations Remotely Piloted Aircraft Pilot
+:19ZX: Special Warfare
+:20C0: Logistics Commander
+:21AX: Aircraft Maintenance
+:21MX: Munitions and Missile Maintenance
+:21RX: Logistics Readiness
+:30C0: Support Commander
+:31PX: Security Forces
+:32EX: Civil Engineer
+:35BX: Band
+:35PX: Public Affairs
+:38FX: Force Support
+:40C0: Medical Commander
+:41AX: Healthcare Administrator
+:42BX: Physical Therapist
+:42EX: Optometrist
+:42FX: Podiatric Surgeon
+:42GX: Physician Assistant
+:42NX: Audiologist
+:42PX: Clinical Psychologist
+:42SX: Clinical Social Worker
+:42TX: Occupational Therapist
+:43BX: Biomedical Scientist
+:43DX: Dietitian
+:43EX: Bioenvironmental Engineer
+:43HX: Public Health Officer
+:43PX: Pharmacist
+:43TX: Biomedical Laboratory
+:44AX: Chief of Medical Staff
+:44DX: Pathologist
+:44EX: Emergency Medicine Physician
+:44FX: Family Physician
+:44GX: General Practice Physician
+:44HX: Nuclear Medicine Physician
+:44JX: Medical Geneticist and Genomicist
+:44KX: Pediatrician
+:44MX: Internal Medicine Physician
+:44NX: Neurologist
+:44OX: Physician
+:44PX: Psychiatrist
+:44RX: Radiologist
+:44SX: Dermatologist
+:44TX: Radiation Oncologist
+:44UX: Occupational Medicine Physician
+:44YX: Critical Care Medicine Physician
+:44ZX: Allergist and Immunologist
+:45BX: Orthopaedic Surgeon
+:45EX: Ophthalmologist
+:45GX: Gynecologic Surgeon and Obstetrician
+:45NX: Otolaryngologist - Head and Neck Surgeon
+:45PX: Physical Medicine Physician
+:45SX: Surgeon
+:45UX: Urologist
+:46AX: Nursing Administrator
+:46FX: Flight Nurse
+:46NX: Clinical Nurse
+:46PX: Mental Health Nurse
+:46SX: Operating Room Nurse
+:46YX: Advanced Practice Registered Nurse (APRN)
+:47DX: Oral and Maxillofacial Pathologist
+:47EX: Endodontist
+:47GX: Dentist
+:47HX: Periodontist
+:47KX: Pediatric Dentist
+:47SX: Oral and Maxillofacial Surgeon
+:48AX: Aerospace Medicine Physician Specialist
+:48OX: Aeromedical Physician
+:48RX: Residency Trained Flight Surgeon
+:48VX: Pilot-Physician
+:51JX: Judge Advocate
+:52RX: Chaplain
+:60C0: Senior Materiel Leader-Upper Echelon
+:61CX: Chemist/Nuclear Chemist
+:61DX: Physicist/Nuclear Engineer
+:62EX: Developmental Engineer
+:62S0: Materiel Leader
+:63AX: Acquisition Manager
+:63G0: Senior Materiel Leader-Lower Echelon
+:63S0: Materiel Leader
+:64PX: Contracting
+:65FX: Financial Management
+:65WX: Cost Analysis
+:71SX: Special Investigations

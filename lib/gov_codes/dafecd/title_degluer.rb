@@ -25,6 +25,14 @@ module GovCodes
         new(overrides)
       end
 
+      # @return [TitleDegluer] loaded from +publication+'s overrides file, or an
+      #   empty de-gluer when that file does not yet exist (officer titles are
+      #   supplied out of band in a later phase).
+      def self.for(publication)
+        path = publication.title_overrides_path
+        File.exist?(path) ? load(path) : empty
+      end
+
       # An empty de-gluer applies no overrides (keeps the auto-titlecased names).
       def self.empty
         new({})

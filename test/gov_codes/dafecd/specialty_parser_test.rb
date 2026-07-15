@@ -3,6 +3,7 @@
 require "test_helper"
 require "minitest/autorun"
 require "gov_codes/dafecd/specialty_parser"
+require "gov_codes/dafecd/publication"
 
 describe GovCodes::Dafecd::SpecialtyParser do
   # Real snippet from the 31 Oct 25 DAFECD (1A1X2, Mobility Force Aviator).
@@ -329,5 +330,127 @@ describe GovCodes::Dafecd::SpecialtyParser do
     TXT
     result = GovCodes::Dafecd::SpecialtyParser.new(record).parse
     _(result[:name]).must_equal "Remotely Piloted Aircraft (RPA) Sensor Operator"
+  end
+
+  describe "the officer (DAFOCD) publication" do
+    let(:officer) { GovCodes::Dafecd::Publication.dafocd }
+
+    # Real 11B (Bomber Pilot): four qualification levels 1-4, glued change date.
+    let(:bomber_record) {
+      <<~TXT
+        AFSC 11B4*, Staff
+        AFSC 11B3*,Aircraft Commander
+
+        AFSC 11B2*, Qualified Pilot/Copilot
+        AFSC 11B1*, Entry/Student
+                                                     BOMBER PILOT
+
+                                                     (Changed 30Apr 23)
+
+        1. Specialty Summary. Pilots bomber aircraft.
+      TXT
+    }
+
+    def parse(record)
+      GovCodes::Dafecd::SpecialtyParser.new(record, publication: officer).parse
+    end
+
+    it "keys the ladder family with X at the level digit" do
+      result = parse(bomber_record)
+      _(result[:specialty]).must_equal :"11BX"
+      _(result[:career_field]).must_equal :"11"
+    end
+
+    it "parses qualification levels 1-4 under :qual_levels" do
+      result = parse(bomber_record)
+      _(result[:qual_levels][4]).must_equal({code: "11B4", title: "Staff"})
+      _(result[:qual_levels][3]).must_equal({code: "11B3", title: "Aircraft Commander"})
+      _(result[:qual_levels][2]).must_equal({code: "11B2", title: "Qualified Pilot/Copilot"})
+      _(result[:qual_levels][1]).must_equal({code: "11B1", title: "Entry/Student"})
+      _(result).wont_include :skill_levels
+    end
+
+    it "parses the glued day/month change date" do
+      _(parse(bomber_record)[:changed_date]).must_equal "2023-04-30"
+    end
+
+    it "captures the (glued) officer title" do
+      _(parse(bomber_record)[:name]).must_equal "Bomber Pilot"
+      _(parse(bomber_record)[:raw_title]).must_equal "BOMBER PILOT"
+    end
+
+    it "has no CEM code" do
+      _(parse(bomber_record)[:cem_code]).must_be_nil
+    end
+
+    # Multi-annotation date: the first (Established/Changed/Effective) is kept.
+    it "captures the first of multiple date annotations" do
+      record = <<~TXT
+        AFSC 13O4, Staff
+        AFSC 13O1, Entry Level
+        MULTI-DOMAIN WARFARE OFFICER
+        (Established 30Apr 18, Changed 31 Oct 21)
+        1. Specialty Summary. Leads.
+      TXT
+      _(parse(record)[:changed_date]).must_equal "2018-04-30"
+    end
+
+    # Bare single-code record (10C0): a full record with title/date but no ladder.
+    let(:bare_record) {
+      <<~TXT
+        AFSC 10C0
+
+                                          OPERATIONS COMMANDER
+
+                                                    (Changed 31 Oct 08)
+
+        1. Specialty Summary. Commands operations.
+      TXT
+    }
+
+    it "keys a bare single-code record by the literal code" do
+      result = parse(bare_record)
+      _(result[:specialty]).must_equal :"10C0"
+      _(result[:career_field]).must_equal :"10"
+    end
+
+    it "gives a bare record no qualification levels but keeps its code" do
+      result = parse(bare_record)
+      _(result[:qual_levels]).must_be_empty
+      _(result[:bare_code]).must_equal "10C0"
+    end
+
+    it "captures the bare record's title and date" do
+      result = parse(bare_record)
+      _(result[:name]).must_equal "Operations Commander"
+      _(result[:changed_date]).must_equal "2008-10-31"
+    end
+
+    it "recovers a suffix-glued officer ladder line (trailing AFSC)" do
+      record = <<~TXT
+        11G4, StaffAFSC
+        11G3, QualifiedAFSC
+        GENERALIST PILOT
+        (Changed 30Apr 14, Effective 25 Oct 13)
+        1. Specialty Summary. Develops plans.
+      TXT
+      result = parse(record)
+      _(result[:specialty]).must_equal :"11GX"
+      _(result[:qual_levels][4]).must_equal({code: "11G4", title: "Staff"})
+      _(result[:qual_levels][3]).must_equal({code: "11G3", title: "Qualified"})
+    end
+
+    it "does not treat a prose AFSC mention as a ladder line" do
+      record = <<~TXT
+        AFSC 11B4*, Staff
+        AFSC 11B1*, Entry/Student
+        BOMBER PILOT
+        (Changed 30Apr 23)
+        1. Specialty Summary. Pilots bombers.
+        3.3.2. For award ofAFSC 11B2X, completion of transition training.
+      TXT
+      result = parse(record)
+      _(result[:qual_levels].keys.sort).must_equal [1, 4]
+    end
   end
 end

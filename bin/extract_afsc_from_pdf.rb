@@ -1,14 +1,18 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-# Deterministic DAFECD enlisted extractor (Phase C.1a).
+# Deterministic Air Force classification-directory extractor.
 #
-# Reads the official Department of the Air Force Enlisted Classification
-# Directory (DAFECD) PDF, builds a verified specialty-keyed index, writes the
-# versioned release artifact + manifest, and prints a coverage report.
+# Reads an official Department of the Air Force classification directory PDF --
+# either the DAFECD (Enlisted) or the DAFOCD (Officer) -- builds a verified
+# specialty-keyed index, writes the versioned release artifact + manifest, and
+# prints a coverage report. The publication is auto-detected from the running
+# page header ("DAFECD," / "DAFOCD,"); pass "dafecd"/"dafocd" as a second
+# argument to force it.
 #
 # Usage:
 #   mise exec -- ruby bin/extract_afsc_from_pdf.rb "DAFECD -31 October 25 v3.5 FINAL.pdf"
+#   mise exec -- ruby bin/extract_afsc_from_pdf.rb "DAFOCD 31 Oct 25 v3.pdf"
 #
 # This is offline dev tooling: it requires pdf-reader (a dev dependency) and is
 # never loaded by the gem runtime.
@@ -16,18 +20,24 @@
 require "pdf-reader"
 require "yaml"
 require "fileutils"
+require_relative "../lib/gov_codes/dafecd/publication"
 require_relative "../lib/gov_codes/dafecd/index_builder"
 require_relative "../lib/gov_codes/dafecd/text"
 require_relative "../lib/gov_codes/dafecd/title_degluer"
+require_relative "../lib/gov_codes/dafecd/shredout_degluer"
 
-DIRECTORY_NAME = "Department of the Air Force Enlisted Classification Directory"
-# The plan estimated ~161 enlisted specialties; the 31 Oct 25 edition actually
-# contains ~136 skill-ladder AFSC specialties (career fields 1-8). Shown for
-# reference only.
-PLAN_ESTIMATE = 161
+# Human-readable label for the index header comment + report banner.
+INDEX_LABELS = {dafecd: "DAFECD enlisted", dafocd: "DAFOCD officer"}.freeze
 
-def effective_date_from(text)
-  raw = text[/DAFECD,\s+(\d{1,2}\s+\w{3,9}\s+\d{2,4})/, 1]
+# A few representative specialty keys per publication for the sample section.
+SAMPLE_KEYS = {
+  dafecd: %i[1A1X2 1C3X1 1Z3X1 2A3X7 3N3X1 4J0X2],
+  dafocd: %i[11BX 12BX 16FX 19ZX 46YX 10C0]
+}.freeze
+
+def effective_date_from(text, publication)
+  header = publication.id.to_s.upcase
+  raw = text[/#{header},\s+(\d{1,2}\s+\w{3,9}\s+\d{2,4})/, 1]
   raw && GovCodes::Dafecd::Text.parse_date(raw)
 end
 
@@ -35,23 +45,28 @@ def version_label_from(filename)
   filename[/\bv(\d+(?:\.\d+)?)/i]&.then { |m| "v#{m[/[\d.]+/]}" }
 end
 
-def clean_entry(entry)
-  {
-    name: entry[:name],
-    acronym: entry[:acronym],
-    career_field: entry[:career_field],
-    cem_code: entry[:cem_code],
-    changed_date: entry[:changed_date],
-    skill_levels: entry[:skill_levels].sort.to_h,
-    shredouts: entry[:shredouts].sort_by { |k, _| k.to_s }.to_h
-  }.reject { |_, v| v.nil? }
+def clean_entry(entry, publication)
+  levels_key = publication.levels_key
+  # Ordered pairs (YAML key order matters); nil values are dropped, empty maps
+  # are kept -- matching the established enlisted artifact byte-for-byte.
+  [
+    [:name, entry[:name]],
+    [:acronym, entry[:acronym]],
+    [:career_field, entry[:career_field]],
+    [:cem_code, entry[:cem_code]],
+    [:changed_date, entry[:changed_date]],
+    [levels_key, entry[levels_key].sort.to_h],
+    [:shredouts, entry[:shredouts].sort_by { |k, _| k.to_s }.to_h],
+    [:shredout_acronyms, entry[:shredout_acronyms]&.sort_by { |k, _| k.to_s }&.to_h]
+  ].reject { |_, v| v.nil? }.to_h
 end
 
 pdf_file = ARGV[0]
+forced_publication = ARGV[1]
 
 unless pdf_file
   warn "ERROR: PDF file required"
-  warn "Usage: #{$PROGRAM_NAME} PDF_FILE"
+  warn "Usage: #{$PROGRAM_NAME} PDF_FILE [dafecd|dafocd]"
   exit 1
 end
 
@@ -60,74 +75,94 @@ unless File.exist?(pdf_file)
   exit 1
 end
 
+full_text = PDF::Reader.new(pdf_file).pages.map(&:text).join("\n")
+
+publication =
+  if forced_publication
+    GovCodes::Dafecd::Publication.for(forced_publication)
+  else
+    GovCodes::Dafecd::Publication.detect(full_text)
+  end
+label = INDEX_LABELS.fetch(publication.id)
+
 puts "=" * 72
-puts "DAFECD enlisted extractor (Phase C.1a)"
+puts "#{label} classification-directory extractor"
 puts "=" * 72
 puts "Source: #{pdf_file}"
-
-full_text = PDF::Reader.new(pdf_file).pages.map(&:text).join("\n")
+puts "Publication: #{publication.id}"
 puts "Extracted #{full_text.length} characters"
 
-degluer = GovCodes::Dafecd::TitleDegluer.load
-builder = GovCodes::Dafecd::IndexBuilder.new(full_text, degluer: degluer)
+degluer = GovCodes::Dafecd::TitleDegluer.for(publication)
+shredout_degluer = GovCodes::Dafecd::ShredoutDegluer.for(publication)
+builder = GovCodes::Dafecd::IndexBuilder.new(
+  full_text, publication: publication, degluer: degluer, shredout_degluer: shredout_degluer
+)
 index = builder.build
 
 # --- Fail loudly on any verification failure BEFORE writing ----------------
 # A drifting title override (letters no longer match the source) or an
-# ungrounded code must abort the build rather than emit a stale/hallucinated
-# value.
+# ungrounded code/acronym must abort the build rather than emit a
+# stale/hallucinated value.
 if builder.unverified?
   warn "\nBUILD FAILED: verification gate rejected #{builder.unverified_codes.size} code(s), " \
-       "#{builder.unverified_titles.size} title override(s), and " \
-       "#{builder.unverified_acronyms.size} acronym(s)."
+       "#{builder.unverified_titles.size} title override(s), " \
+       "#{builder.unverified_acronyms.size} acronym(s), and " \
+       "#{builder.unverified_shredouts.size} shredout override(s)."
   builder.unverified_codes.uniq.sort.each { |c| warn "  ungrounded code: #{c}" }
   builder.unverified_titles.each do |t|
     warn "  drifting title override #{t[:specialty]}: applied=#{t[:applied].inspect} " \
          "source=#{t[:raw_title].inspect} (#{t[:reason]})"
   end
   builder.unverified_acronyms.uniq.sort.each { |a| warn "  ungrounded acronym: #{a}" }
-  warn "Nothing was written. Fix the overrides (lib/gov_codes/dafecd/title_overrides.yml)."
+  builder.unverified_shredouts.each do |s|
+    warn "  drifting shredout override #{s[:specialty]}:#{s[:suffix]}: applied=#{s[:applied].inspect} " \
+         "source=#{s[:raw].inspect} (#{s[:reason]})"
+  end
+  warn "Nothing was written. Fix the overrides (#{publication.title_overrides_path}, " \
+       "#{publication.shredout_overrides_path})."
   exit 1
 end
 
-effective_date = effective_date_from(full_text) || "unknown"
+effective_date = effective_date_from(full_text, publication) || "unknown"
 version_label = version_label_from(File.basename(pdf_file))
 
 # --- Write the release artifact -------------------------------------------
-sorted_index = index.sort_by { |k, _| k.to_s }.to_h.transform_values { |e| clean_entry(e) }
+sorted_index = index.sort_by { |k, _| k.to_s }.to_h.transform_values { |e| clean_entry(e, publication) }
 
-release_dir = File.join("lib/gov_codes/afsc/releases/dafecd", effective_date)
+release_dir = File.join("lib/gov_codes/afsc/releases", publication.release_dir, effective_date)
 FileUtils.mkdir_p(release_dir)
-enlisted_path = File.join(release_dir, "enlisted.yml")
+index_path = File.join(release_dir, publication.index_filename)
 
 header = <<~HEADER
-  # DAFECD enlisted AFSC index (specialty-keyed, X-form)
+  # #{label} AFSC index (specialty-keyed, X-form)
   # Source: #{File.basename(pdf_file)}
-  # Directory: #{DIRECTORY_NAME}
+  # Directory: #{publication.directory_name}
   # Effective date: #{effective_date}#{"  (#{version_label})" if version_label}
   # Generated deterministically by bin/extract_afsc_from_pdf.rb (Phase C.1a).
   # Do not edit by hand; re-run the extractor against the source PDF.
 HEADER
 
-File.write(enlisted_path, header + sorted_index.to_yaml)
+File.write(index_path, header + sorted_index.to_yaml)
 
 # --- Update the release manifest ------------------------------------------
 manifest_path = "lib/gov_codes/afsc/releases.yml"
 manifest = File.exist?(manifest_path) ? (YAML.safe_load_file(manifest_path, permitted_classes: [Symbol]) || {}) : {}
-manifest[:dafecd] ||= []
-manifest[:dafecd].reject! { |r| r[:effective_date] == effective_date }
-manifest[:dafecd] << {
+manifest[publication.id] ||= []
+manifest[publication.id].reject! { |r| r[:effective_date] == effective_date }
+manifest[publication.id] << {
   effective_date: effective_date,
   version_label: version_label,
   source: File.basename(pdf_file),
-  name: DIRECTORY_NAME
+  name: publication.directory_name
 }
-manifest[:dafecd].sort_by! { |r| r[:effective_date].to_s }
+manifest[publication.id].sort_by! { |r| r[:effective_date].to_s }
 File.write(manifest_path, manifest.to_yaml)
 
 # --- Coverage report -------------------------------------------------------
-concrete_codes = index.values.flat_map { |e| e[:skill_levels].values.map { |l| l[:code] } }
+concrete_codes = index.values.flat_map { |e| e[publication.levels_key].values.map { |l| l[:code] } }
 cem_codes = index.values.filter_map { |e| e[:cem_code] }
+bare_codes = index.values.filter_map { |e| e[:bare_code] }
+shredout_acronyms = index.select { |_, e| e[:shredout_acronyms] }
 
 puts
 puts "-" * 72
@@ -135,7 +170,6 @@ puts "COVERAGE REPORT"
 puts "-" * 72
 puts "Effective date:           #{effective_date}"
 puts "Version label:            #{version_label || "(none found)"}"
-puts "(Plan estimated ~#{PLAN_ESTIMATE} specialties; that was high. Actual counts below.)"
 puts
 puts "RECORD RECONCILIATION (split == parsed + merged + dropped)"
 puts "  Records split:          #{builder.records_split}"
@@ -148,38 +182,56 @@ builder.dropped_records.each do |d|
   puts "    dropped: cem=#{d[:cem_code].inspect} first=#{d[:first_line].inspect}"
   puts "             reason: #{d[:reason]}"
 end
+puts "  Merge title conflicts:  #{builder.merge_conflicts.size}   (level re-titled on merge; existing kept, incoming surfaced)"
+builder.merge_conflicts.each do |c|
+  puts "    conflict: #{c[:specialty]} level #{c[:level]} (#{c[:code]}): " \
+       "kept #{c[:kept].inspect}, dropped #{c[:discarded].inspect}"
+end
 puts
 puts "CODES"
-puts "  Skill-level codes:      #{concrete_codes.size}"
+puts "  Ladder-level codes:     #{concrete_codes.size}"
+puts "  Bare single codes:      #{bare_codes.size}   #{bare_codes.sort.join(", ")}" unless bare_codes.empty?
 puts "  CEM codes:              #{cem_codes.size}"
 puts "  Unverified codes:       #{builder.unverified_codes.size}"
 unless builder.unverified_codes.empty?
   puts "    !! #{builder.unverified_codes.uniq.sort.join(", ")}"
 end
-puts "  NOTE: the code gate is a regression guard — every code here is a verbatim"
-puts "  slice of the source, so 0 unverified is guaranteed by construction."
+puts
+puts "ACRONYMS"
+specialty_acronyms = index.select { |_, e| e[:acronym] }
+puts "  Specialty acronyms:     #{specialty_acronyms.size}"
+specialty_acronyms.sort_by { |k, _| k.to_s }.each do |spec, e|
+  puts "    #{spec}: #{e[:acronym]}  (#{e[:name]})"
+end
+puts "  Records w/ shredout acronyms: #{shredout_acronyms.size}"
+shredout_acronyms.sort_by { |k, _| k.to_s }.each do |spec, e|
+  puts "    #{spec}: #{e[:shredout_acronyms].sort_by { |k, _| k.to_s }.to_h}"
+end
+puts "  Unverified acronyms:    #{builder.unverified_acronyms.size}"
+puts
+puts "SHREDOUT VALUES (de-glued via verified overrides)"
+declared_shredout_overrides = shredout_degluer.each_override.to_a.size
+puts "  Declared overrides:             #{declared_shredout_overrides}"
+puts "  Applied clean values:           #{declared_shredout_overrides - builder.unverified_shredouts.size}"
+puts "  Drifting overrides (rejected):  #{builder.unverified_shredouts.size}   (build fails if > 0)"
 puts
 puts "TITLES (de-glued via verified overrides)"
 missing_title = builder.specialties_missing_title
 puts "  Specialties missing title:     #{missing_title.size}"
 puts "    #{missing_title.map(&:to_s).sort.join(", ")}" unless missing_title.empty?
 puts "  Needs de-gluing (no override):  #{builder.specialties_needing_deglue.size}"
-unless builder.specialties_needing_deglue.empty?
-  puts "    #{builder.specialties_needing_deglue.map(&:to_s).sort.join(", ")}"
-end
+puts "  Probable glued titles (flag):   #{builder.glued_titles.size}"
 puts "  Drifting overrides (rejected):  #{builder.unverified_titles.size}   (build fails if > 0)"
 puts "  Applied clean titles:          #{index.size - builder.specialties_needing_deglue.size}"
-puts "  The title gate is MEANINGFUL: each applied override is verified to match"
-puts "  its raw source title with only spacing/case changed; drift fails the build."
 no_shred = builder.specialties_without_shredouts
 puts "  Specialties without shredouts:  #{no_shred.size}  (normal for many specialties)"
 puts
-puts "SAMPLE DE-GLUED NAMES"
-%i[1A1X2 1C3X1 1Z3X1 2A3X7 3N3X1 4J0X2].each do |spec|
+puts "SAMPLE NAMES"
+SAMPLE_KEYS.fetch(publication.id).each do |spec|
   puts "  #{spec}: #{index[spec]&.dig(:name).inspect}"
 end
 
 puts
-puts "Wrote #{enlisted_path}"
+puts "Wrote #{index_path}"
 puts "Wrote #{manifest_path}"
 puts "Review the diff with 'git diff' before committing (do NOT commit the PDF)."
