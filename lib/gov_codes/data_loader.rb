@@ -45,6 +45,25 @@ module GovCodes
       const_set(:CODES, {})
     end
 
+    # Load and merge a flat overlay YAML map (e.g. a consumer acronyms overlay)
+    # named +basename+ under gov_codes/afsc across the load path. Files loaded
+    # later win, so a consumer file merges over any shipped one. Returns {} when
+    # none exist; malformed files are skipped (graceful degradation).
+    def flat_overlay(basename, lookup: $LOAD_PATH)
+      merged = {}
+      gem_lib_dir = File.expand_path("..", __dir__)
+      ([gem_lib_dir] + Array(lookup)).uniq.each do |dir|
+        path = File.join(dir, "gov_codes", "afsc", basename)
+        next unless File.exist?(path)
+
+        overlay = YAML.load_file(path, symbolize_names: true)
+        merged.merge!(overlay) if overlay.is_a?(Hash)
+      rescue Psych::SyntaxError, TypeError
+        next
+      end
+      merged
+    end
+
     def find_name_recursive(result)
       base_code = result[:career_field].to_sym
       base_data = self::DATA[base_code]

@@ -6,3 +6,7 @@
 /pkg/
 /spec/reports/
 /tmp/
+
+# Source classification directories (DAFECD/DAFOCD) are extraction inputs,
+# not shipped data. Keep them out of the repo.
+*.pdf

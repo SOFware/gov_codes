@@ -1,10 +1,17 @@
 require "strscan"
-require "yaml"
-require_relative "../data_loader"
+require_relative "releases"
 
 module GovCodes
   module AFSC
     module Enlisted
+      SKILL_LEVELS = {
+        1 => "Helper",
+        3 => "Apprentice",
+        5 => "Journeyman",
+        7 => "Craftsman",
+        9 => "Senior Enlisted Leader"
+      }.freeze
+
       class Parser
         def initialize(code)
           @code = code
@@ -18,6 +25,10 @@ module GovCodes
             career_field: nil,
             career_field_subdivision: nil,
             skill_level: nil,
+            skill_level_number: nil,
+            skill_level_name: nil,
+            specialty: nil,
+            specialty_name: nil,
             specific_afsc: nil,
             subcategory: nil,
             shredout: nil
@@ -41,20 +52,29 @@ module GovCodes
           return result unless subdivision_digit
           result[:career_field_subdivision] = :"#{result[:career_field]}#{subdivision_digit}"
 
-          # Scan for skill level letter (usually X)
-          skill_level_letter = scanner.scan(/[A-Z]/)
-          return result unless skill_level_letter
-          result[:skill_level] = skill_level_letter.to_sym
+          # Scan for skill level: an X placeholder OR a concrete digit.
+          # NOTE: any digit is accepted here for now; validating that it is a
+          # real skill level (1/3/5/7/9) is deferred to Phase C.
+          skill_char = scanner.scan(/[A-Z0-9]/)
+          return result unless skill_char
+          result[:skill_level] = skill_char.to_sym
 
-          # Scan for skill level digit
-          skill_level_digit = scanner.scan(/\d/)
-          return result unless skill_level_digit
+          # Concrete skill level -> numeric level + standard title
+          if skill_char.match?(/\d/)
+            result[:skill_level_number] = Integer(skill_char)
+            result[:skill_level_name] = SKILL_LEVELS[result[:skill_level_number]]
+          end
 
-          # Subcategory is subdivision digit + letter + digit (e.g. '1X2')
-          result[:subcategory] = :"#{subdivision_digit}#{skill_level_letter}#{skill_level_digit}"
+          # Scan for the specific AFSC digit
+          specific_digit = scanner.scan(/\d/)
+          return result unless specific_digit
 
-          # Build specific AFSC
-          result[:specific_afsc] = :"#{result[:career_field_subdivision]}#{skill_level_letter}#{skill_level_digit}"
+          # Normalize to the X-form specialty key regardless of concrete skill level
+          result[:subcategory] = :"#{subdivision_digit}X#{specific_digit}"
+          result[:specialty] = :"#{result[:career_field_subdivision]}X#{specific_digit}"
+
+          # specific_afsc preserves the code exactly as entered (concrete or generic)
+          result[:specific_afsc] = :"#{result[:career_field_subdivision]}#{skill_char}#{specific_digit}"
 
           # Scan for shredout (optional)
           result[:shredout] = scanner.scan(/[A-Z]/)&.to_sym
@@ -66,9 +86,8 @@ module GovCodes
         end
       end
 
-      extend GovCodes::DataLoader
-
-      DATA = data
+      CODES = {}
+      private_constant :CODES
 
       Code = Data.define(
         :prefix,
@@ -76,15 +95,30 @@ module GovCodes
         :career_field,
         :career_field_subdivision,
         :skill_level,
+        :skill_level_number,
+        :skill_level_name,
+        :specialty,
+        :specialty_name,
         :specific_afsc,
         :subcategory,
         :shredout,
-        :name
+        :shredout_name,
+        :name,
+        :acronym,
+        :effective_date
       )
 
-      def self.find(code)
+      # Resolve an enlisted AFSC against the DAFECD release in effect on +as_of+
+      # (default: the latest shipped release). Returns nil when the code does not
+      # parse, when the specialty is absent from the resolved release, or when
+      # +as_of+ precedes the earliest shipped release.
+      def self.find(code, as_of: nil)
         code = code.to_s
-        CODES[code] ||= begin
+        # Key the memo on the RESOLVED release date so equivalent as_of values
+        # (nil, the Date, its string form, any date in the same release window)
+        # share one slot instead of growing unbounded for time-series callers.
+        effective_date = Releases.effective_date_for(as_of: as_of)
+        CODES[[code, effective_date]] ||= begin
           parser = Parser.new(code)
           result = parser.parse
 
@@ -101,81 +135,78 @@ module GovCodes
           return nil if code.length > 7 ||
             code.match?(/[^A-Z0-9]/)
 
-          # Find the name by recursively searching the codes hash
-          name = find_name_recursive(result)
+          # Resolve the specialty entry from the versioned, specialty-keyed index
+          index = Releases.enlisted_index(as_of: as_of)
+          entry = index[result[:specialty]]
+          return nil unless entry
 
-          # Return nil if name is 'Unknown'
-          return nil if name == "Unknown"
+          specialty_name = entry[:name]
 
-          # Add the name to the result
+          # Skill-level title: prefer the directory's title for this specialty,
+          # falling back to the universal enlisted skill-level map.
+          if (number = result[:skill_level_number])
+            result[:skill_level_name] = entry.dig(:skill_levels, number, :title) ||
+              SKILL_LEVELS[number]
+          end
+
+          # Shredout meaning, only when the directory documents this shredout.
+          shredout_name = result[:shredout] && entry.dig(:shredouts, result[:shredout])
+
+          name = shredout_name || specialty_name
+          return nil if name.nil?
+
+          result[:shredout_name] = shredout_name
+          result[:specialty_name] = specialty_name
           result[:name] = name
+          # Specialty acronym from the resolved index entry (nil when absent).
+          result[:acronym] = entry[:acronym]
+          result[:effective_date] = effective_date
 
-          # Create a new Code object with the result
           Code.new(**result)
         end
       end
 
-      def self.find_name_recursive(result)
-        data = DATA
+      # Resolve the enlisted specialty whose acronym matches +acronym+
+      # (case-insensitive) in the release in effect on +as_of+. Returns the
+      # generic (X-form) Code for that specialty, or nil when no specialty in the
+      # resolved release carries the acronym. Acronyms come from the shipped,
+      # source-verified data and any consumer overlay for that release, so the
+      # match is scoped to that release (no leakage across document dates).
+      def self.find_by_acronym(acronym, as_of: nil)
+        acronym = acronym.to_s.upcase
+        return nil if acronym.empty?
 
-        # Career field (e.g., "9Z")
-        cf = result[:career_field]&.to_sym
-        return "Unknown" unless cf && data[cf]
-        name = data[cf][:name]
-        data = data[cf][:subcategories]
+        index = Releases.enlisted_index(as_of: as_of)
+        match = index.find { |_specialty, entry| entry[:acronym].to_s.upcase == acronym }
+        return nil unless match
 
-        # Subcategory (e.g., "0X1" from "9Z0X1")
-        if data && result[:subcategory]
-          sub = result[:subcategory].to_sym
-          lookup_value = data[sub]
-          if lookup_value
-            if lookup_value.is_a?(Hash)
-              name = lookup_value[:name] || name
-              data = lookup_value[:subcategories]
-            else
-              # String value (leaf node)
-              name = lookup_value
-              data = nil
-            end
-          end
-        end
-
-        # Shredout (optional, e.g., :A)
-        if data && result[:shredout]
-          lookup_value = data[result[:shredout]]
-          if lookup_value
-            name = lookup_value.is_a?(Hash) ? (lookup_value[:name] || name) : (lookup_value || name)
-          end
-        end
-
-        name || "Unknown"
+        find(match.first.to_s, as_of: as_of)
       end
 
-      def self.search(prefix)
-        results = []
+      # Clears the memoized lookups and resets the versioned release loader.
+      # The +lookup+ keyword is accepted for interface parity with Officer/RI;
+      # the versioned index is resolved from the load path at lookup time.
+      def self.reset_data(lookup: $LOAD_PATH)
+        Releases.reset!
+        CODES.clear
+      end
+
+      def self.search(prefix, as_of: nil)
         prefix = prefix.to_s.upcase
-        collect_codes_recursive(DATA, "", prefix, results)
-        results.map { |code| find(code) }.compact
-      end
+        index = Releases.enlisted_index(as_of: as_of)
 
-      def self.collect_codes_recursive(data, current_code, prefix, results)
-        return unless data.is_a?(Hash)
-
-        data.each do |key, value|
-          code = "#{current_code}#{key}"
-
-          if value.is_a?(Hash) && value[:name]
-            # This is a node with a name and possibly subcategories
-            results << code if code.start_with?(prefix)
-            collect_codes_recursive(value[:subcategories], code, prefix, results) if value[:subcategories]
-          elsif value.is_a?(String)
-            # This is a leaf node (simple string value)
-            results << code if code.start_with?(prefix)
-          elsif value.is_a?(Hash)
-            # Nested subcategories without a name at this level
-            collect_codes_recursive(value, current_code, prefix, results)
+        codes = []
+        index.each do |specialty, entry|
+          specialty_code = specialty.to_s
+          codes << specialty_code
+          (entry[:shredouts] || {}).each_key do |shredout|
+            codes << "#{specialty_code}#{shredout}"
           end
         end
+
+        codes.select { |code| code.start_with?(prefix) }
+          .map { |code| find(code, as_of: as_of) }
+          .compact
       end
     end
   end

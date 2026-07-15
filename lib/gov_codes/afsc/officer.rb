@@ -64,7 +64,8 @@ module GovCodes
         :qualification_level,
         :shredout,
         :specific_afsc,
-        :name
+        :name,
+        :acronym
       )
 
       def self.find_name_recursive(result)
@@ -109,8 +110,35 @@ module GovCodes
 
         # Add the name to the result
         result[:name] = name
+        # Officer acronyms are not extracted from source; a consumer overlay
+        # (officer_acronyms.yml, keyed by the code) may populate them. nil when
+        # absent, for shape parity with Enlisted.
+        result[:acronym] = acronym_overlay[result[:specific_afsc]]
 
         Code.new(**result)
+      end
+
+      # Resolve the officer code whose consumer-overlay acronym matches +acronym+
+      # (case-insensitive), or nil. Officer acronyms come only from the
+      # officer_acronyms.yml overlay (none are extracted from source).
+      def self.find_by_acronym(acronym)
+        acronym = acronym.to_s.upcase
+        return nil if acronym.empty?
+
+        match = acronym_overlay.find { |_code, acr| acr.to_s.upcase == acronym }
+        match && find(match.first.to_s)
+      end
+
+      # Consumer acronym overlay: a flat map keyed by the officer code, loaded
+      # once from the load path (gov_codes/afsc/officer_acronyms.yml). The gem
+      # ships none, so this is {} unless a consumer supplies one.
+      def self.acronym_overlay
+        @acronym_overlay ||= flat_overlay("officer_acronyms.yml")
+      end
+
+      def self.reset_data(lookup: $LOAD_PATH)
+        super
+        @acronym_overlay = flat_overlay("officer_acronyms.yml", lookup:)
       end
 
       def self.search(prefix)
