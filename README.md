@@ -168,6 +168,39 @@ GovCodes::AFSC.find("1A172Y").effective_date         # => the release the result
 
 **Currently shipped:** enlisted AFSCs from the DAFECD effective 31 October 2025. Officer (DAFOCD), reporting/special-duty identifiers, SEIs, prefixes, and Space Force codes are planned.
 
+### Specialty acronyms
+
+A resolved code carries an `acronym` field:
+
+```ruby
+GovCodes::AFSC.find("1C8X3").acronym   # => "RAWS"
+GovCodes::AFSC.find("1Z3X1").acronym   # => "TACP"
+GovCodes::AFSC.find("1A1X2").acronym   # => nil (no acronym)
+```
+
+Shipped acronyms are **source-verified**: they are captured only from a trailing parenthetical in the directory title (e.g. `Radar, Airfield & Weather Systems (RAWS)`) and the build gate rejects any acronym that does not appear verbatim in the source title. Five enlisted specialties ship an acronym this way (`1A8X1`, `1C8X3`, `1N1X1`, `1Z3X1`, `4B0X1`); nothing else is invented.
+
+Everything else — colloquial acronyms not printed in the directory (e.g. `PJ` for Pararescue) — is **consumer-curated** via an optional overlay you drop on your load path. Overlays are flat `SPECIALTY => ACRONYM` (or `CODE => ACRONYM`) maps:
+
+```yaml
+# Enlisted, per DAFECD release date:
+# lib/gov_codes/afsc/releases/dafecd/2025-10-31/acronyms.yml
+:"1Z1X1": PJ      # augments the Pararescue entry; name/skill_levels/shredouts untouched
+:"1Z3X1": JTAC    # overrides the shipped TACP acronym
+
+# Officer (unversioned):  lib/gov_codes/afsc/officer_acronyms.yml
+:"11MX": MOBPLT
+
+# RI/SDI (unversioned):   lib/gov_codes/afsc/ri_acronyms.yml
+:"8A400": TMC
+```
+
+Key points:
+
+- **Enlisted overlays are per-release-date**, scoped by the directory's effective date, so `find(code, as_of: "2025-11-01")` applies that release's overlay. Officer and RI are unversioned (a single overlay file each).
+- The overlay is a **separate tier** — it only sets `:acronym` on entries that already exist and never replaces an entry, so `name`, `skill_levels`, and `shredouts` stay intact.
+- **Precedence:** the consumer overlay wins over the shipped, source-verified acronym. The gem ships no overlay file, so absent one the shipped index is used as-is.
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake test` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
