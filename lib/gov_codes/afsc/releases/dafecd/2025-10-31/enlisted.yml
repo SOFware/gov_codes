@@ -105,7 +105,7 @@
     :H: RQ-4 Sensor Operator
     :J: MPRIS - Multi-Platform RPA Integration System
     :Y: General
-    :Z: Multi-domain OperationsAviator Data Mask
+    :Z: Multi-domain Operations Aviator Data Mask
 :1A1X8:
   :name: Executive Mission Aviator
   :career_field: :1A
@@ -128,13 +128,13 @@
       :code: 1A198
       :title: Senior Enlisted Leader
   :shredouts:
-    :A: C-32/C-40B/C FlightAttendant
+    :A: C-32/C-40B/C Flight Attendant
     :B: Operator
-    :C: C-37A/B FlightAttendant
+    :C: C-37A/B Flight Attendant
     :D: C-37A/B Flight Engineer
     :F: C-37A/B Communications Systems Operator
     :G: E-4B Flight Engineer
-    :H: E-4B FlightAttendant
+    :H: E-4B Flight Attendant
     :Y: General
     :Z: EMAData Mask
 :1A8X0:
@@ -384,7 +384,7 @@
       :title: Superintendent
   :shredouts:
     :A: Network Operations
-    :B: SystemsAdministration
+    :B: Systems Administration
 :1D7X2:
   :name: Radio Frequency Transmissions and Electromagnetic Activities (EMA)
   :career_field: :1D
@@ -530,7 +530,7 @@
       :code: 1N171
       :title: Craftsman
   :shredouts:
-    :A: ImageryAnalyst
+    :A: Imagery Analyst
 :1N2X1:
   :name: Signals Intelligence
   :career_field: :1N
@@ -549,8 +549,8 @@
       :code: 1N271
       :title: Craftsman
   :shredouts:
-    :A: Electronic Non- CommunicationsAnalyst
-    :C: SignalsAnalyst
+    :A: Electronic Non-Communications Analyst
+    :C: Signals Analyst
 :1N2X2:
   :name: Cryptologic Intelligence Superintendent
   :career_field: :1N
@@ -679,8 +679,8 @@
       :code: 1P091
       :title: Superintendent
   :shredouts:
-    :A: Ejection SeatAircraft
-    :B: Non-Ejection SeatAircraft
+    :A: Ejection Seat Aircraft
+    :B: Non-Ejection Seat Aircraft
 :1S0X1:
   :name: Safety
   :career_field: :1S
@@ -1990,7 +1990,7 @@
       :code: 3F391
       :title: Superintendent
   :shredouts:
-    :M: Management Engineering/DataAnalytics
+    :M: Management Engineering/Data Analytics
 :3F4X1:
   :name: Equal Opportunity
   :career_field: :3F
@@ -2177,7 +2177,7 @@
       :title: Superintendent
   :shredouts:
     :A: Military Working Dog Handler
-    :B: CombatArms
+    :B: Combat Arms
 :4A0X1:
   :name: Health Services Management
   :career_field: :4A
