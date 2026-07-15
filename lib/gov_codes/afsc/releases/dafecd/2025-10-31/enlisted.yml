@@ -149,6 +149,7 @@
   :shredouts: {}
 :1A8X1:
   :name: Airborne Cryptologic Language Analyst (ACLA)
+  :acronym: ACLA
   :career_field: :1A
   :changed_date: '2025-10-31'
   :skill_levels:
@@ -339,6 +340,7 @@
   :shredouts: {}
 :1C8X3:
   :name: Radar, Airfield & Weather Systems (RAWS)
+  :acronym: RAWS
   :career_field: :1C
   :cem_code: 1C800
   :changed_date: '2023-04-30'
@@ -510,6 +512,7 @@
   :shredouts: {}
 :1N1X1:
   :name: Geospatial Intelligence (GEOINT)
+  :acronym: GEOINT
   :career_field: :1N
   :cem_code: 1N000
   :changed_date: '2022-10-31'
@@ -813,6 +816,7 @@
   :shredouts: {}
 :1Z3X1:
   :name: Tactical Air Control Party (TACP)
+  :acronym: TACP
   :career_field: :1Z
   :cem_code: 1Z300
   :changed_date: '2025-10-31'
@@ -2242,6 +2246,7 @@
   :shredouts: {}
 :4B0X1:
   :name: Bioenvironmental Engineering (BE)
+  :acronym: BE
   :career_field: :4B
   :cem_code: 4B000
   :changed_date: '2016-10-31'
