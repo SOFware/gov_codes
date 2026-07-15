@@ -118,7 +118,27 @@ module GovCodes
           merged = {}
           parts = ["gov_codes", "afsc", "releases", PUBLICATION, release[:dir], "enlisted.yml"]
           each_yaml(lookup, parts) { |data| merged.merge!(data) }
+          apply_acronym_overlay(merged, release, lookup)
           merged
+        end
+
+        # Apply the consumer acronym overlay (Task 3, "dedicated tier"): a flat
+        # SPECIALTY => ACRONYM map at releases/<pub>/<dir>/acronyms.yml, resolved
+        # for the SAME release as the index and merged across the load path
+        # (consumer-loaded-last wins). Applied ONLY to specialties already in the
+        # index, so it sets an entry's :acronym without ever replacing the entry
+        # (the index merge above is shallow — overlaying whole entries here would
+        # drop name/skill_levels/shredouts). The consumer overlay wins over the
+        # source-extracted acronym shipped in the index. The gem ships no
+        # acronyms.yml; an absent overlay leaves the index unchanged.
+        def apply_acronym_overlay(merged, release, lookup)
+          overlay = {}
+          parts = ["gov_codes", "afsc", "releases", PUBLICATION, release[:dir], "acronyms.yml"]
+          each_yaml(lookup, parts) { |data| overlay.merge!(data) }
+          overlay.each do |specialty, acronym|
+            entry = merged[specialty]
+            entry[:acronym] = acronym if entry
+          end
         end
 
         # Merge a manifest hash into +acc+. Per-publication release lists are
