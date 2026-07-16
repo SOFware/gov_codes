@@ -43,6 +43,7 @@
 :16PX: Political-Military Affairs Strategist (PAS)
 :16RX: Planning and Programming
 :16ZX: Rated Foreign Area Officer (FAO)
+:17DX: Warfighter Communications
 :17SX: Cyberspace Effects Operations
 :17WX: Warfighter Communications & IT Systems
 :17YX: Cyber Effects & Warfare Operations
@@ -79,6 +80,7 @@
 :43PX: Pharmacist
 :43TX: Biomedical Laboratory
 :44AX: Chief of Medical Staff
+:44BX: Preventive Medicine Physician
 :44DX: Pathologist
 :44EX: Emergency Medicine Physician
 :44FX: Family Physician
@@ -96,6 +98,7 @@
 :44UX: Occupational Medicine Physician
 :44YX: Critical Care Medicine Physician
 :44ZX: Allergist and Immunologist
+:45AX: Anesthesiologist
 :45BX: Orthopaedic Surgeon
 :45EX: Ophthalmologist
 :45GX: Gynecologic Surgeon and Obstetrician
@@ -109,13 +112,16 @@
 :46PX: Mental Health Nurse
 :46SX: Operating Room Nurse
 :46YX: Advanced Practice Registered Nurse (APRN)
+:47BX: Orthodontist
 :47DX: Oral and Maxillofacial Pathologist
 :47EX: Endodontist
 :47GX: Dentist
 :47HX: Periodontist
 :47KX: Pediatric Dentist
+:47PX: Prosthodontist
 :47SX: Oral and Maxillofacial Surgeon
 :48AX: Aerospace Medicine Physician Specialist
+:48GX: General Medical Officer (GMO), Flight Surgeon
 :48OX: Aeromedical Physician
 :48RX: Residency Trained Flight Surgeon
 :48VX: Pilot-Physician

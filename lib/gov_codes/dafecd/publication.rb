@@ -63,9 +63,27 @@ module GovCodes
       # also still rejects the 5-char shred-code / long-sentence prose mentions.
       # An optional leading/trailing "AFSC" absorbs the same pdf-reader glue the
       # enlisted ladder handles (e.g. "11G4, StaffAFSC").
+      #
+      # The directory is INCONSISTENT about three things, all tolerated here:
+      #   * COMMA (group A): most cards print "AFSC 11B4, Staff", but several live
+      #     medical cards omit the comma and separate with a space ("AFSC 44B4
+      #     Staff", "AFSC 45A4* Staff"). Hence the separator is comma-or-space,
+      #     NOT a bare optional comma: requiring at least one of comma/whitespace
+      #     is what still rejects glued-shred prose such as "AFSC 42B3Z requires
+      #     successful completion of" and "AFSC 43E3Aand complete the education",
+      #     where an uppercase shred letter is glued to the code with no
+      #     separator before the lowercase prose. A bare ",?" would let those in.
+      #   * SHRED LETTER (group B): a few cards print the qualification code with
+      #     a glued shredout letter, e.g. "AFSC 17D4W*, Staff". The optional
+      #     "[A-Z]" absorbs it so it is NOT baked into the captured concrete code
+      #     (group 1 stays "17D4"); the letter is documented as a shredout via the
+      #     card's shredout table instead (see ShredoutParser).
+      #   * LEADING GLYPH: pdf-reader prepends a Private Use Area / bullet glyph
+      #     to some ladder lines (e.g. U+F0EA on the 17D card). The leading class
+      #     mirrors Patterns::DECORATIVE so the anchor tolerates it.
       DAFOCD_LADDER = %r{
-        ^\s*(?:AFSC\s+)?(\d\d[A-Z][1-4])\*?
-        ,\s*
+        ^[\s\u{E000}-\u{F8FF}★☆•●▪■⁃∙]*(?:AFSC\s+)?(\d\d[A-Z][1-4])[A-Z]?\*?
+        (?:,\s*|\s+)
         ([A-Z][A-Za-z/\ ]{0,44}?)
         (?:\s*AFSC)?
         \s*$
