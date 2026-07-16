@@ -8,6 +8,17 @@ module GovCodes
     # or a literal bare code (e.g. :10C0) in the release in effect on +as_of+,
     # defaulting to today.
     module Officer
+      # Qualification levels 1 and 2 are deliberately absent: the DAFOCD ladder
+      # splits by flying vs. non-flying career fields at those rungs (e.g.
+      # "Entry/Student" and "Qualified Pilot/Copilot" for flying AFSCs vs.
+      # "Entry" and "Intermediate" elsewhere), so there is no single dominant
+      # title to default to. Don't add them back without re-checking the
+      # distribution across the current release data.
+      QUAL_LEVELS = {
+        3 => "Qualified",
+        4 => "Staff"
+      }.freeze
+
       class Parser
         def initialize(code)
           @code = code
@@ -124,7 +135,8 @@ module GovCodes
           if qual.match?(/\d/)
             number = Integer(qual)
             result[:qualification_level_number] = number
-            result[:qualification_level_name] = entry.dig(:qual_levels, number, :title)
+            result[:qualification_level_name] = entry.dig(:qual_levels, number, :title) ||
+              QUAL_LEVELS[number]
           end
 
           # Shredout meaning, only when the directory documents this shredout.

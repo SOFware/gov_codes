@@ -26,9 +26,21 @@ require_relative "../lib/gov_codes/dafecd/text"
 require_relative "../lib/gov_codes/dafecd/title_degluer"
 require_relative "../lib/gov_codes/dafecd/shredout_degluer"
 require_relative "../lib/gov_codes/dafecd/ri_sdi/index_builder"
+require_relative "../lib/gov_codes/afsc/enlisted"
+require_relative "../lib/gov_codes/afsc/officer"
 
 # Human-readable label for the index header comment + report banner.
 INDEX_LABELS = {dafecd: "DAFECD enlisted", dafocd: "DAFOCD officer"}.freeze
+
+# The runtime's per-digit default ladder titles (single source of truth shared
+# with the Enlisted/Officer lookup fallback) -- a ladder rung's :title is
+# dropped from the generated index when it matches the default here, so the
+# generated data only carries a title for a rung when it deviates from the
+# standard nomenclature.
+DEFAULT_LEVEL_TITLES = {
+  dafecd: GovCodes::AFSC::Enlisted::SKILL_LEVELS,
+  dafocd: GovCodes::AFSC::Officer::QUAL_LEVELS
+}.freeze
 
 # A few representative specialty keys per publication for the sample section.
 SAMPLE_KEYS = {
@@ -46,6 +58,13 @@ def version_label_from(filename)
   filename[/\bv(\d+(?:\.\d+)?)/i]&.then { |m| "v#{m[/[\d.]+/]}" }
 end
 
+def strip_default_titles(levels, publication)
+  defaults = DEFAULT_LEVEL_TITLES.fetch(publication.id, {})
+  levels.to_h do |digit, level|
+    [digit, (level[:title] == defaults[digit]) ? {code: level[:code]} : level]
+  end
+end
+
 def clean_entry(entry, publication)
   levels_key = publication.levels_key
   # Ordered pairs (YAML key order matters); nil values are dropped, empty maps
@@ -56,7 +75,7 @@ def clean_entry(entry, publication)
     [:career_field, entry[:career_field]],
     [:cem_code, entry[:cem_code]],
     [:changed_date, entry[:changed_date]],
-    [levels_key, entry[levels_key].sort.to_h],
+    [levels_key, strip_default_titles(entry[levels_key].sort.to_h, publication)],
     [:shredouts, entry[:shredouts].sort_by { |k, _| k.to_s }.to_h],
     [:shredout_acronyms, entry[:shredout_acronyms]&.sort_by { |k, _| k.to_s }&.to_h]
   ].reject { |_, v| v.nil? }.to_h
@@ -73,7 +92,7 @@ def clean_ri_entry(entry)
     [:acronym, entry[:acronym]],
     [:changed_date, entry[:changed_date]],
     [:shredouts, shredouts.empty? ? nil : shredouts.sort_by { |k, _| k.to_s }.to_h],
-    [:shredout_acronyms, shredout_acronyms.nil? || shredout_acronyms.empty? ? nil : shredout_acronyms.sort_by { |k, _| k.to_s }.to_h]
+    [:shredout_acronyms, (shredout_acronyms.nil? || shredout_acronyms.empty?) ? nil : shredout_acronyms.sort_by { |k, _| k.to_s }.to_h]
   ].reject { |_, v| v.nil? }.to_h
 end
 

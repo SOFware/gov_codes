@@ -13,16 +13,12 @@
   :skill_levels:
     1:
       :code: 1A112
-      :title: Helper
     3:
       :code: 1A132
-      :title: Apprentice
     5:
       :code: 1A152
-      :title: Journeyman
     7:
       :code: 1A172
-      :title: Craftsman
     9:
       :code: 1A192
       :title: Senior Enlisted Leader
@@ -50,16 +46,12 @@
   :skill_levels:
     1:
       :code: 1A113
-      :title: Helper
     3:
       :code: 1A133
-      :title: Apprentice
     5:
       :code: 1A153
-      :title: Journeyman
     7:
       :code: 1A173
-      :title: Craftsman
     9:
       :code: 1A193
       :title: Senior Enlisted Leader
@@ -82,19 +74,14 @@
   :skill_levels:
     1:
       :code: 1A114
-      :title: Helper
     3:
       :code: 1A134
-      :title: Apprentice
     5:
       :code: 1A154
-      :title: Journeyman
     7:
       :code: 1A174
-      :title: Craftsman
     9:
       :code: 1A194
-      :title: Superintendent
   :shredouts:
     :A: E-3G Radar/Comm/Mission Operator
     :B: E-3ARadar/Comm/Mission Operator
@@ -114,16 +101,12 @@
   :skill_levels:
     1:
       :code: 1A118
-      :title: Helper
     3:
       :code: 1A138
-      :title: Apprentice
     5:
       :code: 1A158
-      :title: Journeyman
     7:
       :code: 1A178
-      :title: Craftsman
     9:
       :code: 1A198
       :title: Senior Enlisted Leader
@@ -145,7 +128,6 @@
   :skill_levels:
     9:
       :code: 1A890
-      :title: Superintendent
   :shredouts: {}
 :1A8X1:
   :name: Airborne Cryptologic Language Analyst (ACLA)
@@ -155,7 +137,6 @@
   :skill_levels:
     1:
       :code: 1A811
-      :title: Helper
   :shredouts:
     :F: Arabic
     :G: Chinese
@@ -172,16 +153,12 @@
   :skill_levels:
     1:
       :code: 1A812
-      :title: Helper
     3:
       :code: 1A832
-      :title: Apprentice
     5:
       :code: 1A852
-      :title: Journeyman
     7:
       :code: 1A872
-      :title: Craftsman
   :shredouts: {}
 :1B4X1:
   :name: Cyber Warfare Operations
@@ -191,19 +168,14 @@
   :skill_levels:
     1:
       :code: 1B411
-      :title: Helper
     3:
       :code: 1B431
-      :title: Apprentice
     5:
       :code: 1B451
-      :title: Journeyman
     7:
       :code: 1B471
-      :title: Craftsman
     9:
       :code: 1B491
-      :title: Superintendent
   :shredouts: {}
 :1C0X2:
   :name: Aviation Resource Management
@@ -213,19 +185,14 @@
   :skill_levels:
     1:
       :code: 1C012
-      :title: Helper
     3:
       :code: 1C032
-      :title: Apprentice
     5:
       :code: 1C052
-      :title: Journeyman
     7:
       :code: 1C072
-      :title: Craftsman
     9:
       :code: 1C092
-      :title: Superintendent
   :shredouts: {}
 :1C1X1:
   :name: Air Traffic Control
@@ -235,19 +202,14 @@
   :skill_levels:
     1:
       :code: 1C111
-      :title: Helper
     3:
       :code: 1C131
-      :title: Apprentice
     5:
       :code: 1C151
-      :title: Journeyman
     7:
       :code: 1C171
-      :title: Craftsman
     9:
       :code: 1C191
-      :title: Superintendent
   :shredouts: {}
 :1C3X1:
   :name: All-Domain Command and Control Operations
@@ -257,19 +219,14 @@
   :skill_levels:
     1:
       :code: 1C311
-      :title: Helper
     3:
       :code: 1C331
-      :title: Apprentice
     5:
       :code: 1C351
-      :title: Journeyman
     7:
       :code: 1C371
-      :title: Craftsman
     9:
       :code: 1C391
-      :title: Superintendent
   :shredouts: {}
 :1C5X1:
   :name: Battle Management Operations
@@ -279,19 +236,14 @@
   :skill_levels:
     1:
       :code: 1C511
-      :title: Helper
     3:
       :code: 1C531
-      :title: Apprentice
     5:
       :code: 1C551
-      :title: Journeyman
     7:
       :code: 1C571
-      :title: Craftsman
     9:
       :code: 1C591
-      :title: Superintendent
   :shredouts:
     :D: Weapons Director
 :1C6X1:
@@ -302,19 +254,14 @@
   :skill_levels:
     1:
       :code: 1C611
-      :title: Helper
     3:
       :code: 1C631
-      :title: Apprentice
     5:
       :code: 1C651
-      :title: Journeyman
     7:
       :code: 1C671
-      :title: Craftsman
     9:
       :code: 1C691
-      :title: Superintendent
   :shredouts: {}
 :1C7X1:
   :name: Airfield Management
@@ -324,19 +271,14 @@
   :skill_levels:
     1:
       :code: 1C711
-      :title: Helper
     3:
       :code: 1C731
-      :title: Apprentice
     5:
       :code: 1C751
-      :title: Journeyman
     7:
       :code: 1C771
-      :title: Craftsman
     9:
       :code: 1C791
-      :title: Superintendent
   :shredouts: {}
 :1C8X3:
   :name: Radar, Airfield & Weather Systems (RAWS)
@@ -347,19 +289,14 @@
   :skill_levels:
     1:
       :code: 1C813
-      :title: Helper
     3:
       :code: 1C833
-      :title: Apprentice
     5:
       :code: 1C853
-      :title: Journeyman
     7:
       :code: 1C873
-      :title: Craftsman
     9:
       :code: 1C893
-      :title: Superintendent
   :shredouts: {}
 :1D7X1:
   :name: Warfighter Communications
@@ -369,19 +306,14 @@
   :skill_levels:
     1:
       :code: 1D711
-      :title: Helper
     3:
       :code: 1D731
-      :title: Apprentice
     5:
       :code: 1D751
-      :title: Journeyman
     7:
       :code: 1D771
-      :title: Craftsman
     9:
       :code: 1D791
-      :title: Superintendent
   :shredouts:
     :A: Network Operations
     :B: Systems Administration
@@ -392,16 +324,12 @@
   :skill_levels:
     1:
       :code: 1D712
-      :title: Helper
     3:
       :code: 1D732
-      :title: Apprentice
     5:
       :code: 1D752
-      :title: Journeyman
     7:
       :code: 1D772
-      :title: Craftsman
   :shredouts:
     :F: Spectrum Operations
     :R: RF Transmissions
@@ -412,16 +340,12 @@
   :skill_levels:
     1:
       :code: 1D713
-      :title: Helper
     3:
       :code: 1D733
-      :title: Apprentice
     5:
       :code: 1D753
-      :title: Journeyman
     7:
       :code: 1D773
-      :title: Craftsman
   :shredouts: {}
 :1D7X4:
   :name: Data Engineering
@@ -430,16 +354,12 @@
   :skill_levels:
     1:
       :code: 1D714
-      :title: Helper
     3:
       :code: 1D734
-      :title: Apprentice
     5:
       :code: 1D754
-      :title: Journeyman
     7:
       :code: 1D774
-      :title: Craftsman
   :shredouts:
     :D: Data Operations
     :P: Software Engineer
@@ -450,16 +370,12 @@
   :skill_levels:
     1:
       :code: 1D715
-      :title: Helper
     3:
       :code: 1D735
-      :title: Apprentice
     5:
       :code: 1D755
-      :title: Journeyman
     7:
       :code: 1D775
-      :title: Craftsman
   :shredouts: {}
 :1H0X1:
   :name: Aerospace Physiology
@@ -469,19 +385,14 @@
   :skill_levels:
     1:
       :code: 1H011
-      :title: Helper
     3:
       :code: 1H031
-      :title: Apprentice
     5:
       :code: 1H051
-      :title: Journeyman
     7:
       :code: 1H071
-      :title: Craftsman
     9:
       :code: 1H091
-      :title: Superintendent
   :shredouts: {}
 :1N0X1:
   :name: All Source Intelligence Analyst
@@ -490,16 +401,12 @@
   :skill_levels:
     1:
       :code: 1N011
-      :title: Helper
     3:
       :code: 1N031
-      :title: Apprentice
     5:
       :code: 1N051
-      :title: Journeyman
     7:
       :code: 1N071
-      :title: Craftsman
   :shredouts: {}
 :1N0X2:
   :name: Intelligence Superintendent
@@ -508,7 +415,6 @@
   :skill_levels:
     9:
       :code: 1N092
-      :title: Superintendent
   :shredouts: {}
 :1N1X1:
   :name: Geospatial Intelligence (GEOINT)
@@ -519,16 +425,12 @@
   :skill_levels:
     1:
       :code: 1N111
-      :title: Helper
     3:
       :code: 1N131
-      :title: Apprentice
     5:
       :code: 1N151
-      :title: Journeyman
     7:
       :code: 1N171
-      :title: Craftsman
   :shredouts:
     :A: Imagery Analyst
 :1N2X1:
@@ -538,16 +440,12 @@
   :skill_levels:
     1:
       :code: 1N211
-      :title: Helper
     3:
       :code: 1N231
-      :title: Apprentice
     5:
       :code: 1N251
-      :title: Journeyman
     7:
       :code: 1N271
-      :title: Craftsman
   :shredouts:
     :A: Electronic Non-Communications Analyst
     :C: Signals Analyst
@@ -558,7 +456,6 @@
   :skill_levels:
     9:
       :code: 1N292
-      :title: Superintendent
   :shredouts: {}
 :1N3X1:
   :name: Cryptologic Language Analyst
@@ -567,16 +464,12 @@
   :skill_levels:
     1:
       :code: 1N311
-      :title: Helper
     3:
       :code: 1N331
-      :title: Apprentice
     5:
       :code: 1N351
-      :title: Journeyman
     7:
       :code: 1N371
-      :title: Craftsman
   :shredouts:
     :F: Arabic
     :G: Chinese
@@ -593,16 +486,12 @@
   :skill_levels:
     1:
       :code: 1N411
-      :title: Helper
     3:
       :code: 1N431
-      :title: Apprentice
     5:
       :code: 1N451
-      :title: Journeyman
     7:
       :code: 1N471
-      :title: Craftsman
   :shredouts:
     :A: Analyst
 :1N4X2:
@@ -612,16 +501,12 @@
   :skill_levels:
     1:
       :code: 1N412
-      :title: Helper
     3:
       :code: 1N432
-      :title: Apprentice
     5:
       :code: 1N452
-      :title: Journeyman
     7:
       :code: 1N472
-      :title: Craftsman
   :shredouts: {}
 :1N7X1:
   :name: Human Intelligence Specialist
@@ -630,13 +515,10 @@
   :skill_levels:
     1:
       :code: 1N711
-      :title: Helper
     3:
       :code: 1N731
-      :title: Apprentice
     7:
       :code: 1N771
-      :title: Craftsman
   :shredouts: {}
 :1N8X1:
   :name: Targeting Analyst
@@ -646,16 +528,12 @@
   :skill_levels:
     1:
       :code: 1N811
-      :title: Helper
     3:
       :code: 1N831
-      :title: Apprentice
     5:
       :code: 1N851
-      :title: Journeyman
     7:
       :code: 1N871
-      :title: Craftsman
   :shredouts: {}
 :1P0X1:
   :name: Aircrew Flight Equipment
@@ -665,19 +543,14 @@
   :skill_levels:
     1:
       :code: 1P011
-      :title: Helper
     3:
       :code: 1P031
-      :title: Apprentice
     5:
       :code: 1P051
-      :title: Journeyman
     7:
       :code: 1P071
-      :title: Craftsman
     9:
       :code: 1P091
-      :title: Superintendent
   :shredouts:
     :A: Ejection Seat Aircraft
     :B: Non-Ejection Seat Aircraft
@@ -689,19 +562,14 @@
   :skill_levels:
     1:
       :code: 1S011
-      :title: Helper
     3:
       :code: 1S031
-      :title: Apprentice
     5:
       :code: 1S051
-      :title: Journeyman
     7:
       :code: 1S071
-      :title: Craftsman
     9:
       :code: 1S091
-      :title: Superintendent
   :shredouts: {}
 :1T0X1:
   :name: Survival, Evasion, Resistance, Escape (SERE) Specialist
@@ -711,19 +579,14 @@
   :skill_levels:
     1:
       :code: 1T011
-      :title: Helper
     3:
       :code: 1T031
-      :title: Apprentice
     5:
       :code: 1T051
-      :title: Journeyman
     7:
       :code: 1T071
-      :title: Craftsman
     9:
       :code: 1T091
-      :title: Superintendent
   :shredouts: {}
 :1U1X1:
   :name: Remotely Piloted Aircraft (RPA) Pilot
@@ -732,19 +595,14 @@
   :skill_levels:
     1:
       :code: 1U111
-      :title: Helper
     3:
       :code: 1U131
-      :title: Apprentice
     5:
       :code: 1U151
-      :title: Journeyman
     7:
       :code: 1U171
-      :title: Craftsman
     9:
       :code: 1U191
-      :title: Superintendent
   :shredouts:
     :O: RQ-4
     :R: MQ-9
@@ -756,19 +614,14 @@
   :skill_levels:
     1:
       :code: 1W011
-      :title: Helper
     3:
       :code: 1W031
-      :title: Apprentice
     5:
       :code: 1W051
-      :title: Journeyman
     7:
       :code: 1W071
-      :title: Craftsman
     9:
       :code: 1W091
-      :title: Superintendent
   :shredouts: {}
 :1Z1X1:
   :name: Pararescue
@@ -778,19 +631,14 @@
   :skill_levels:
     1:
       :code: 1Z111
-      :title: Helper
     3:
       :code: 1Z131
-      :title: Apprentice
     5:
       :code: 1Z151
-      :title: Journeyman
     7:
       :code: 1Z171
-      :title: Craftsman
     9:
       :code: 1Z191
-      :title: Superintendent
   :shredouts: {}
 :1Z2X1:
   :name: Combat Control
@@ -800,19 +648,14 @@
   :skill_levels:
     1:
       :code: 1Z211
-      :title: Helper
     3:
       :code: 1Z231
-      :title: Apprentice
     5:
       :code: 1Z251
-      :title: Journeyman
     7:
       :code: 1Z271
-      :title: Craftsman
     9:
       :code: 1Z291
-      :title: Superintendent
   :shredouts: {}
 :1Z3X1:
   :name: Tactical Air Control Party (TACP)
@@ -823,19 +666,14 @@
   :skill_levels:
     1:
       :code: 1Z311
-      :title: Helper
     3:
       :code: 1Z331
-      :title: Apprentice
     5:
       :code: 1Z351
-      :title: Journeyman
     7:
       :code: 1Z371
-      :title: Craftsman
     9:
       :code: 1Z391
-      :title: Superintendent
   :shredouts: {}
 :1Z4X1:
   :name: Special Reconnaissance
@@ -845,19 +683,14 @@
   :skill_levels:
     1:
       :code: 1Z411
-      :title: Helper
     3:
       :code: 1Z431
-      :title: Apprentice
     5:
       :code: 1Z451
-      :title: Journeyman
     7:
       :code: 1Z471
-      :title: Craftsman
     9:
       :code: 1Z491
-      :title: Superintendent
   :shredouts: {}
 :2A0X0:
   :name: Avionics
@@ -866,7 +699,6 @@
   :skill_levels:
     9:
       :code: 2A090
-      :title: Superintendent
   :shredouts: {}
 :2A0X1:
   :name: Avionics Test Station, Components, and Electronic Warfare Systems
@@ -875,16 +707,12 @@
   :skill_levels:
     1:
       :code: 2A011
-      :title: Helper
     3:
       :code: 2A031
-      :title: Apprentice
     5:
       :code: 2A051
-      :title: Journeyman
     7:
       :code: 2A071
-      :title: Craftsman
   :shredouts: {}
 :2A2X1:
   :name: MHU-139 Electrical, Environmental and Avionics Technician
@@ -893,13 +721,10 @@
   :skill_levels:
     1:
       :code: 2A211
-      :title: Helper
     3:
       :code: 2A231
-      :title: Apprentice
     5:
       :code: 2A251
-      :title: Journeyman
   :shredouts: {}
 :2A3X0:
   :name: Fighter Aircraft Maintenance
@@ -909,7 +734,6 @@
   :skill_levels:
     9:
       :code: 2A390
-      :title: Superintendent
   :shredouts: {}
 :2A3X3:
   :name: Tactical Aircraft Maintenance
@@ -918,16 +742,12 @@
   :skill_levels:
     1:
       :code: 2A313
-      :title: Helper
     3:
       :code: 2A333
-      :title: Apprentice
     5:
       :code: 2A353
-      :title: Journeyman
     7:
       :code: 2A373
-      :title: Craftsman
   :shredouts:
     :E: A-10/U-2
     :L: F-15
@@ -939,16 +759,12 @@
   :skill_levels:
     1:
       :code: 2A314
-      :title: Helper
     3:
       :code: 2A334
-      :title: Apprentice
     5:
       :code: 2A354
-      :title: Journeyman
     7:
       :code: 2A374
-      :title: Craftsman
   :shredouts:
     :A: A-10/U-2Avionics
     :B: F-15Avionics
@@ -960,16 +776,12 @@
   :skill_levels:
     1:
       :code: 2A315
-      :title: Helper
     3:
       :code: 2A335
-      :title: Apprentice
     5:
       :code: 2A355
-      :title: Journeyman
     7:
       :code: 2A375
-      :title: Craftsman
   :shredouts:
     :A: F-22
     :B: F-35
@@ -980,16 +792,12 @@
   :skill_levels:
     1:
       :code: 2A317
-      :title: Helper
     3:
       :code: 2A337
-      :title: Apprentice
     5:
       :code: 2A357
-      :title: Journeyman
     7:
       :code: 2A377
-      :title: Craftsman
   :shredouts:
     :A: F-22
     :B: F-35
@@ -1001,7 +809,6 @@
   :skill_levels:
     9:
       :code: 2A590
-      :title: Superintendent
   :shredouts: {}
 :2A5X1:
   :name: Airlift/Special Mission Aircraft Maintenance
@@ -1010,16 +817,12 @@
   :skill_levels:
     1:
       :code: 2A511
-      :title: Helper
     3:
       :code: 2A531
-      :title: Apprentice
     5:
       :code: 2A551
-      :title: Journeyman
     7:
       :code: 2A571
-      :title: Craftsman
   :shredouts:
     :A: C-20/C-21/C-22/C-37/C-40/E-4/VC- 25
     :B: C-130/C-27J
@@ -1034,16 +837,12 @@
   :skill_levels:
     1:
       :code: 2A512
-      :title: Helper
     3:
       :code: 2A532
-      :title: Apprentice
     5:
       :code: 2A552
-      :title: Journeyman
     7:
       :code: 2A572
-      :title: Craftsman
   :shredouts:
     :B: H-60
     :D: CV-22
@@ -1055,16 +854,12 @@
   :skill_levels:
     1:
       :code: 2A514
-      :title: Helper
     3:
       :code: 2A534
-      :title: Apprentice
     5:
       :code: 2A554
-      :title: Journeyman
     7:
       :code: 2A574
-      :title: Craftsman
   :shredouts:
     :A: Any C-135/E-3/E-8
     :B: KC-10
@@ -1080,7 +875,6 @@
   :skill_levels:
     9:
       :code: 2A690
-      :title: Superintendent
   :shredouts: {}
 :2A6X1:
   :name: Aerospace Propulsion
@@ -1089,19 +883,14 @@
   :skill_levels:
     1:
       :code: 2A611
-      :title: Helper
     3:
       :code: 2A631
-      :title: Apprentice
     5:
       :code: 2A651
-      :title: Journeyman
     7:
       :code: 2A671
-      :title: Craftsman
     9:
       :code: 2A691
-      :title: Superintendent
   :shredouts: {}
 :2A6X2:
   :name: Aerospace Ground Equipment
@@ -1110,19 +899,14 @@
   :skill_levels:
     1:
       :code: 2A612
-      :title: Helper
     3:
       :code: 2A632
-      :title: Apprentice
     5:
       :code: 2A652
-      :title: Journeyman
     7:
       :code: 2A672
-      :title: Craftsman
     9:
       :code: 2A692
-      :title: Superintendent
   :shredouts: {}
 :2A6X3:
   :name: Aircrew Egress Systems
@@ -1131,16 +915,12 @@
   :skill_levels:
     1:
       :code: 2A613
-      :title: Helper
     3:
       :code: 2A633
-      :title: Apprentice
     5:
       :code: 2A653
-      :title: Journeyman
     7:
       :code: 2A673
-      :title: Craftsman
   :shredouts: {}
 :2A6X4:
   :name: Aircraft Fuel Systems
@@ -1149,16 +929,12 @@
   :skill_levels:
     1:
       :code: 2A614
-      :title: Helper
     3:
       :code: 2A634
-      :title: Apprentice
     5:
       :code: 2A654
-      :title: Journeyman
     7:
       :code: 2A674
-      :title: Craftsman
   :shredouts: {}
 :2A6X5:
   :name: Aircraft Hydraulic Systems
@@ -1167,16 +943,12 @@
   :skill_levels:
     1:
       :code: 2A615
-      :title: Helper
     3:
       :code: 2A635
-      :title: Apprentice
     5:
       :code: 2A655
-      :title: Journeyman
     7:
       :code: 2A675
-      :title: Craftsman
   :shredouts: {}
 :2A6X6:
   :name: Aircraft Electrical and Environmental Systems
@@ -1185,16 +957,12 @@
   :skill_levels:
     1:
       :code: 2A616
-      :title: Helper
     3:
       :code: 2A636
-      :title: Apprentice
     5:
       :code: 2A656
-      :title: Journeyman
     7:
       :code: 2A676
-      :title: Craftsman
   :shredouts: {}
 :2A7X0:
   :name: Aircraft Fabrication
@@ -1203,7 +971,6 @@
   :skill_levels:
     9:
       :code: 2A790
-      :title: Superintendent
   :shredouts: {}
 :2A7X1:
   :name: Aircraft Metals Technology
@@ -1212,16 +979,12 @@
   :skill_levels:
     1:
       :code: 2A711
-      :title: Helper
     3:
       :code: 2A731
-      :title: Apprentice
     5:
       :code: 2A751
-      :title: Journeyman
     7:
       :code: 2A771
-      :title: Craftsman
   :shredouts: {}
 :2A7X2:
   :name: Nondestructive Inspection
@@ -1230,16 +993,12 @@
   :skill_levels:
     1:
       :code: 2A712
-      :title: Helper
     3:
       :code: 2A732
-      :title: Apprentice
     5:
       :code: 2A752
-      :title: Journeyman
     7:
       :code: 2A772
-      :title: Craftsman
   :shredouts: {}
 :2A7X3:
   :name: Aircraft Structural Maintenance
@@ -1248,16 +1007,12 @@
   :skill_levels:
     1:
       :code: 2A713
-      :title: Helper
     3:
       :code: 2A733
-      :title: Apprentice
     5:
       :code: 2A753
-      :title: Journeyman
     7:
       :code: 2A773
-      :title: Craftsman
   :shredouts: {}
 :2A9X4:
   :name: Heavy Aircraft Integrated Avionics
@@ -1266,16 +1021,12 @@
   :skill_levels:
     1:
       :code: 2A914
-      :title: Helper
     3:
       :code: 2A934
-      :title: Apprentice
     5:
       :code: 2A954
-      :title: Journeyman
     7:
       :code: 2A974
-      :title: Craftsman
   :shredouts: {}
 :2F0X1:
   :name: Fuels
@@ -1285,19 +1036,14 @@
   :skill_levels:
     1:
       :code: 2F011
-      :title: Helper
     3:
       :code: 2F031
-      :title: Apprentice
     5:
       :code: 2F051
-      :title: Journeyman
     7:
       :code: 2F071
-      :title: Craftsman
     9:
       :code: 2F091
-      :title: Superintendent
   :shredouts: {}
 :2G0X1:
   :name: Logistics Plans
@@ -1307,19 +1053,14 @@
   :skill_levels:
     1:
       :code: 2G011
-      :title: Helper
     3:
       :code: 2G031
-      :title: Apprentice
     5:
       :code: 2G051
-      :title: Journeyman
     7:
       :code: 2G071
-      :title: Craftsman
     9:
       :code: 2G091
-      :title: Superintendent
   :shredouts: {}
 :2M0X0:
   :name: Missile and Space Systems Maintenance
@@ -1329,7 +1070,6 @@
   :skill_levels:
     9:
       :code: 2M090
-      :title: Superintendent
   :shredouts: {}
 :2M0X1:
   :name: Missile and Space Systems Electronic Maintenance
@@ -1338,16 +1078,12 @@
   :skill_levels:
     1:
       :code: 2M011
-      :title: Helper
     3:
       :code: 2M031
-      :title: Apprentice
     5:
       :code: 2M051
-      :title: Journeyman
     7:
       :code: 2M071
-      :title: Craftsman
   :shredouts:
     :A: ICBM
     :B: ALCM
@@ -1358,16 +1094,12 @@
   :skill_levels:
     1:
       :code: 2M012
-      :title: Helper
     3:
       :code: 2M032
-      :title: Apprentice
     5:
       :code: 2M052
-      :title: Journeyman
     7:
       :code: 2M072
-      :title: Craftsman
   :shredouts: {}
 :2M0X3:
   :name: Missile and Space Facilities
@@ -1376,16 +1108,12 @@
   :skill_levels:
     1:
       :code: 2M013
-      :title: Helper
     3:
       :code: 2M033
-      :title: Apprentice
     5:
       :code: 2M053
-      :title: Journeyman
     7:
       :code: 2M073
-      :title: Craftsman
   :shredouts: {}
 :2P0X1:
   :name: Precision Measurement Equipment Laboratory
@@ -1395,19 +1123,14 @@
   :skill_levels:
     1:
       :code: 2P011
-      :title: Helper
     3:
       :code: 2P031
-      :title: Apprentice
     5:
       :code: 2P051
-      :title: Journeyman
     7:
       :code: 2P071
-      :title: Craftsman
     9:
       :code: 2P091
-      :title: Superintendent
   :shredouts: {}
 :2R2X1:
   :name: Maintenance Management
@@ -1420,16 +1143,12 @@
       :title: Entry
     3:
       :code: 2R231
-      :title: Apprentice
     5:
       :code: 2R251
-      :title: Journeyman
     7:
       :code: 2R271
-      :title: Craftsman
     9:
       :code: 2R291
-      :title: Superintendent
   :shredouts: {}
 :2S0X1:
   :name: Materiel Management
@@ -1439,19 +1158,14 @@
   :skill_levels:
     1:
       :code: 2S011
-      :title: Helper
     3:
       :code: 2S031
-      :title: Apprentice
     5:
       :code: 2S051
-      :title: Journeyman
     7:
       :code: 2S071
-      :title: Craftsman
     9:
       :code: 2S091
-      :title: Superintendent
   :shredouts: {}
 :2T0X1:
   :name: Traffic Management Operations
@@ -1461,19 +1175,14 @@
   :skill_levels:
     1:
       :code: 2T011
-      :title: Helper
     3:
       :code: 2T031
-      :title: Apprentice
     5:
       :code: 2T051
-      :title: Journeyman
     7:
       :code: 2T071
-      :title: Craftsman
     9:
       :code: 2T091
-      :title: Superintendent
   :shredouts: {}
 :2T1X1:
   :name: Ground Transportation
@@ -1483,19 +1192,14 @@
   :skill_levels:
     1:
       :code: 2T111
-      :title: Helper
     3:
       :code: 2T131
-      :title: Apprentice
     5:
       :code: 2T151
-      :title: Journeyman
     7:
       :code: 2T171
-      :title: Craftsman
     9:
       :code: 2T191
-      :title: Superintendent
   :shredouts: {}
 :2T2X1:
   :name: Air Transportation
@@ -1505,19 +1209,14 @@
   :skill_levels:
     1:
       :code: 2T211
-      :title: Helper
     3:
       :code: 2T231
-      :title: Apprentice
     5:
       :code: 2T251
-      :title: Journeyman
     7:
       :code: 2T271
-      :title: Craftsman
     9:
       :code: 2T291
-      :title: Superintendent
   :shredouts: {}
 :2T3X0:
   :name: Vehicle Management
@@ -1526,7 +1225,6 @@
   :skill_levels:
     9:
       :code: 2T390
-      :title: Superintendent
   :shredouts: {}
 :2T3X1:
   :name: Mission Generation Vehicular Equipment Maintenance
@@ -1535,16 +1233,12 @@
   :skill_levels:
     1:
       :code: 2T311
-      :title: Helper
     3:
       :code: 2T331
-      :title: Apprentice
     5:
       :code: 2T351
-      :title: Journeyman
     7:
       :code: 2T371
-      :title: Craftsman
   :shredouts: {}
 :2T3X7:
   :name: Fleet Management and Analysis
@@ -1553,16 +1247,12 @@
   :skill_levels:
     1:
       :code: 2T317
-      :title: Helper
     3:
       :code: 2T337
-      :title: Apprentice
     5:
       :code: 2T357
-      :title: Journeyman
     7:
       :code: 2T377
-      :title: Craftsman
   :shredouts: {}
 :2W0X1:
   :name: Munitions Systems
@@ -1572,19 +1262,14 @@
   :skill_levels:
     1:
       :code: 2W011
-      :title: Helper
     3:
       :code: 2W031
-      :title: Apprentice
     5:
       :code: 2W051
-      :title: Journeyman
     7:
       :code: 2W071
-      :title: Craftsman
     9:
       :code: 2W091
-      :title: Superintendent
   :shredouts: {}
 :2W1X1:
   :name: Aircraft Armament Systems
@@ -1594,19 +1279,14 @@
   :skill_levels:
     1:
       :code: 2W111
-      :title: Helper
     3:
       :code: 2W131
-      :title: Apprentice
     5:
       :code: 2W151
-      :title: Journeyman
     7:
       :code: 2W171
-      :title: Craftsman
     9:
       :code: 2W191
-      :title: Superintendent
   :shredouts:
     :C: A-10
     :E: F-15
@@ -1625,19 +1305,14 @@
   :skill_levels:
     1:
       :code: 2W211
-      :title: Helper
     3:
       :code: 2W231
-      :title: Apprentice
     5:
       :code: 2W251
-      :title: Journeyman
     7:
       :code: 2W271
-      :title: Craftsman
     9:
       :code: 2W291
-      :title: Superintendent
   :shredouts: {}
 :3E0X0:
   :name: Facility Systems
@@ -1647,7 +1322,6 @@
   :skill_levels:
     9:
       :code: 3E090
-      :title: Superintendent
   :shredouts: {}
 :3E0X1:
   :name: Electrical Systems
@@ -1656,16 +1330,12 @@
   :skill_levels:
     1:
       :code: 3E011
-      :title: Helper
     3:
       :code: 3E031
-      :title: Apprentice
     5:
       :code: 3E051
-      :title: Journeyman
     7:
       :code: 3E071
-      :title: Craftsman
   :shredouts: {}
 :3E0X2:
   :name: Electrical Power Production
@@ -1674,16 +1344,12 @@
   :skill_levels:
     1:
       :code: 3E012
-      :title: Helper
     3:
       :code: 3E032
-      :title: Apprentice
     5:
       :code: 3E052
-      :title: Journeyman
     7:
       :code: 3E072
-      :title: Craftsman
   :shredouts: {}
 :3E1X1:
   :name: Heating, Ventilation, Air Conditioning, and Refrigeration
@@ -1692,16 +1358,12 @@
   :skill_levels:
     1:
       :code: 3E111
-      :title: Helper
     3:
       :code: 3E131
-      :title: Apprentice
     5:
       :code: 3E151
-      :title: Journeyman
     7:
       :code: 3E171
-      :title: Craftsman
   :shredouts: {}
 :3E2X0:
   :name: Heavy Repair
@@ -1711,7 +1373,6 @@
   :skill_levels:
     9:
       :code: 3E290
-      :title: Superintendent
   :shredouts: {}
 :3E2X1:
   :name: Pavements and Construction Equipment
@@ -1719,16 +1380,12 @@
   :skill_levels:
     1:
       :code: 3E211
-      :title: Helper
     3:
       :code: 3E231
-      :title: Apprentice
     5:
       :code: 3E251
-      :title: Journeyman
     7:
       :code: 3E271
-      :title: Craftsman
   :shredouts: {}
 :3E3X1:
   :name: Structural
@@ -1736,16 +1393,12 @@
   :skill_levels:
     1:
       :code: 3E311
-      :title: Helper
     3:
       :code: 3E331
-      :title: Apprentice
     5:
       :code: 3E351
-      :title: Journeyman
     7:
       :code: 3E371
-      :title: Craftsman
   :shredouts: {}
 :3E4X0:
   :name: Infrastructure Systems
@@ -1755,7 +1408,6 @@
   :skill_levels:
     9:
       :code: 3E490
-      :title: Superintendent
   :shredouts: {}
 :3E4X1:
   :name: Water and Fuel Systems Maintenance
@@ -1764,16 +1416,12 @@
   :skill_levels:
     1:
       :code: 3E411
-      :title: Helper
     3:
       :code: 3E431
-      :title: Apprentice
     5:
       :code: 3E451
-      :title: Journeyman
     7:
       :code: 3E471
-      :title: Craftsman
   :shredouts:
     :A: Fuel Systems Maintenance
 :3E4X3:
@@ -1782,16 +1430,12 @@
   :skill_levels:
     1:
       :code: 3E413
-      :title: Helper
     3:
       :code: 3E433
-      :title: Apprentice
     5:
       :code: 3E453
-      :title: Journeyman
     7:
       :code: 3E473
-      :title: Craftsman
   :shredouts: {}
 :3E5X1:
   :name: Engineering
@@ -1801,19 +1445,14 @@
   :skill_levels:
     1:
       :code: 3E511
-      :title: Helper
     3:
       :code: 3E531
-      :title: Apprentice
     5:
       :code: 3E551
-      :title: Journeyman
     7:
       :code: 3E571
-      :title: Craftsman
     9:
       :code: 3E591
-      :title: Superintendent
   :shredouts: {}
 :3E6X1:
   :name: Operations Management
@@ -1823,19 +1462,14 @@
   :skill_levels:
     1:
       :code: 3E611
-      :title: Helper
     3:
       :code: 3E631
-      :title: Apprentice
     5:
       :code: 3E651
-      :title: Journeyman
     7:
       :code: 3E671
-      :title: Craftsman
     9:
       :code: 3E691
-      :title: Superintendent
   :shredouts: {}
 :3E7X1:
   :name: Fire Protection
@@ -1845,19 +1479,14 @@
   :skill_levels:
     1:
       :code: 3E711
-      :title: Helper
     3:
       :code: 3E731
-      :title: Apprentice
     5:
       :code: 3E751
-      :title: Journeyman
     7:
       :code: 3E771
-      :title: Craftsman
     9:
       :code: 3E791
-      :title: Superintendent
   :shredouts: {}
 :3E8X1:
   :name: Explosive Ordnance Disposal
@@ -1867,19 +1496,14 @@
   :skill_levels:
     1:
       :code: 3E811
-      :title: Helper
     3:
       :code: 3E831
-      :title: Apprentice
     5:
       :code: 3E851
-      :title: Journeyman
     7:
       :code: 3E871
-      :title: Craftsman
     9:
       :code: 3E891
-      :title: Superintendent
   :shredouts: {}
 :3E9X1:
   :name: Emergency Management
@@ -1889,19 +1513,14 @@
   :skill_levels:
     1:
       :code: 3E911
-      :title: Helper
     3:
       :code: 3E931
-      :title: Apprentice
     5:
       :code: 3E951
-      :title: Journeyman
     7:
       :code: 3E971
-      :title: Craftsman
     9:
       :code: 3E991
-      :title: Superintendent
   :shredouts: {}
 :3F0X1:
   :name: Human Resources and Administration
@@ -1911,19 +1530,14 @@
   :skill_levels:
     1:
       :code: 3F011
-      :title: Helper
     3:
       :code: 3F031
-      :title: Apprentice
     5:
       :code: 3F051
-      :title: Journeyman
     7:
       :code: 3F071
-      :title: Craftsman
     9:
       :code: 3F091
-      :title: Superintendent
   :shredouts: {}
 :3F1X1:
   :name: Services
@@ -1933,19 +1547,14 @@
   :skill_levels:
     1:
       :code: 3F111
-      :title: Helper
     3:
       :code: 3F131
-      :title: Apprentice
     5:
       :code: 3F151
-      :title: Journeyman
     7:
       :code: 3F171
-      :title: Craftsman
     9:
       :code: 3F191
-      :title: Superintendent
   :shredouts: {}
 :3F2X1:
   :name: Education and Training
@@ -1954,19 +1563,14 @@
   :skill_levels:
     1:
       :code: 3F211
-      :title: Helper
     3:
       :code: 3F231
-      :title: Apprentice
     5:
       :code: 3F251
-      :title: Journeyman
     7:
       :code: 3F271
-      :title: Craftsman
     9:
       :code: 3F291
-      :title: Superintendent
   :shredouts: {}
 :3F3X1:
   :name: Manpower
@@ -1976,19 +1580,14 @@
   :skill_levels:
     1:
       :code: 3F311
-      :title: Helper
     3:
       :code: 3F331
-      :title: Apprentice
     5:
       :code: 3F351
-      :title: Journeyman
     7:
       :code: 3F371
-      :title: Craftsman
     9:
       :code: 3F391
-      :title: Superintendent
   :shredouts:
     :M: Management Engineering/Data Analytics
 :3F4X1:
@@ -1999,16 +1598,13 @@
   :skill_levels:
     1:
       :code: 3F411
-      :title: Helper
     3:
       :code: 3F431
       :title: Journeyman
     7:
       :code: 3F471
-      :title: Craftsman
     9:
       :code: 3F491
-      :title: Superintendent
   :shredouts: {}
 :3G0X1:
   :name: Talent Acquisition
@@ -2018,19 +1614,14 @@
   :skill_levels:
     1:
       :code: 3G011
-      :title: Helper
     3:
       :code: 3G031
-      :title: Apprentice
     5:
       :code: 3G051
-      :title: Journeyman
     7:
       :code: 3G071
-      :title: Craftsman
     9:
       :code: 3G091
-      :title: Superintendent
   :shredouts: {}
 :3H0X1:
   :name: Historian
@@ -2039,19 +1630,14 @@
   :skill_levels:
     1:
       :code: 3H011
-      :title: Helper
     3:
       :code: 3H031
-      :title: Apprentice
     5:
       :code: 3H051
-      :title: Journeyman
     7:
       :code: 3H071
-      :title: Craftsman
     9:
       :code: 3H091
-      :title: Superintendent
   :shredouts: {}
 :3N0X0:
   :name: Public Affairs
@@ -2061,7 +1647,6 @@
   :skill_levels:
     9:
       :code: 3N090
-      :title: Superintendent
   :shredouts: {}
 :3N0X6:
   :name: Public Affairs
@@ -2070,16 +1655,12 @@
   :skill_levels:
     1:
       :code: 3N016
-      :title: Helper
     3:
       :code: 3N036
-      :title: Apprentice
     5:
       :code: 3N056
-      :title: Journeyman
     7:
       :code: 3N076
-      :title: Craftsman
   :shredouts: {}
 :3N1X1:
   :name: Regional Band
@@ -2089,19 +1670,14 @@
   :skill_levels:
     1:
       :code: 3N111
-      :title: Helper
     3:
       :code: 3N131
-      :title: Apprentice
     5:
       :code: 3N151
-      :title: Journeyman
     7:
       :code: 3N171
-      :title: Craftsman
     9:
       :code: 3N191
-      :title: Superintendent
   :shredouts:
     :A: Clarinet
     :B: Saxophone
@@ -2130,13 +1706,10 @@
   :skill_levels:
     5:
       :code: 3N251
-      :title: Journeyman
     7:
       :code: 3N271
-      :title: Craftsman
     9:
       :code: 3N291
-      :title: Superintendent
   :shredouts: {}
 :3N3X1:
   :name: Premier Band - The USAF Academy Band
@@ -2146,13 +1719,10 @@
   :skill_levels:
     5:
       :code: 3N351
-      :title: Journeyman
     7:
       :code: 3N371
-      :title: Craftsman
     9:
       :code: 3N391
-      :title: Superintendent
   :shredouts: {}
 :3P0X1:
   :name: Security Forces
@@ -2162,19 +1732,14 @@
   :skill_levels:
     1:
       :code: 3P011
-      :title: Helper
     3:
       :code: 3P031
-      :title: Apprentice
     5:
       :code: 3P051
-      :title: Journeyman
     7:
       :code: 3P071
-      :title: Craftsman
     9:
       :code: 3P091
-      :title: Superintendent
   :shredouts:
     :A: Military Working Dog Handler
     :B: Combat Arms
@@ -2186,19 +1751,14 @@
   :skill_levels:
     1:
       :code: 4A011
-      :title: Helper
     3:
       :code: 4A031
-      :title: Apprentice
     5:
       :code: 4A051
-      :title: Journeyman
     7:
       :code: 4A071
-      :title: Craftsman
     9:
       :code: 4A091
-      :title: Superintendent
   :shredouts:
     :S: Health Information Technology
 :4A1X1:
@@ -2208,19 +1768,14 @@
   :skill_levels:
     1:
       :code: 4A111
-      :title: Helper
     3:
       :code: 4A131
-      :title: Apprentice
     5:
       :code: 4A151
-      :title: Journeyman
     7:
       :code: 4A171
-      :title: Craftsman
     9:
       :code: 4A191
-      :title: Superintendent
   :shredouts: {}
 :4A2X1:
   :name: Biomedical Equipment
@@ -2230,19 +1785,14 @@
   :skill_levels:
     1:
       :code: 4A211
-      :title: Helper
     3:
       :code: 4A231
-      :title: Apprentice
     5:
       :code: 4A251
-      :title: Journeyman
     7:
       :code: 4A271
-      :title: Craftsman
     9:
       :code: 4A291
-      :title: Superintendent
   :shredouts: {}
 :4B0X1:
   :name: Bioenvironmental Engineering (BE)
@@ -2253,19 +1803,14 @@
   :skill_levels:
     1:
       :code: 4B011
-      :title: Helper
     3:
       :code: 4B031
-      :title: Apprentice
     5:
       :code: 4B051
-      :title: Journeyman
     7:
       :code: 4B071
-      :title: Craftsman
     9:
       :code: 4B091
-      :title: Superintendent
   :shredouts: {}
 :4C0X1:
   :name: Mental Health Service
@@ -2275,19 +1820,14 @@
   :skill_levels:
     1:
       :code: 4C011
-      :title: Helper
     3:
       :code: 4C031
-      :title: Apprentice
     5:
       :code: 4C051
-      :title: Journeyman
     7:
       :code: 4C071
-      :title: Craftsman
     9:
       :code: 4C091
-      :title: Superintendent
   :shredouts: {}
 :4D0X1:
   :name: Diet Therapy
@@ -2297,19 +1837,14 @@
   :skill_levels:
     1:
       :code: 4D011
-      :title: Helper
     3:
       :code: 4D031
-      :title: Apprentice
     5:
       :code: 4D051
-      :title: Journeyman
     7:
       :code: 4D071
-      :title: Craftsman
     9:
       :code: 4D091
-      :title: Superintendent
   :shredouts: {}
 :4E0X1:
   :name: Public Health
@@ -2319,19 +1854,14 @@
   :skill_levels:
     1:
       :code: 4E011
-      :title: Helper
     3:
       :code: 4E031
-      :title: Apprentice
     5:
       :code: 4E051
-      :title: Journeyman
     7:
       :code: 4E071
-      :title: Craftsman
     9:
       :code: 4E091
-      :title: Superintendent
   :shredouts: {}
 :4H0X1:
   :name: Respiratory Care Practitioner
@@ -2340,19 +1870,14 @@
   :skill_levels:
     1:
       :code: 4H011
-      :title: Helper
     3:
       :code: 4H031
-      :title: Apprentice
     5:
       :code: 4H051
-      :title: Journeyman
     7:
       :code: 4H071
-      :title: Craftsman
     9:
       :code: 4H091
-      :title: Superintendent
   :shredouts: {}
 :4J0X2:
   :name: Physical Medicine
@@ -2362,19 +1887,14 @@
   :skill_levels:
     1:
       :code: 4J012
-      :title: Helper
     3:
       :code: 4J032
-      :title: Apprentice
     5:
       :code: 4J052
-      :title: Journeyman
     7:
       :code: 4J072
-      :title: Craftsman
     9:
       :code: 4J090
-      :title: Superintendent
   :shredouts:
     :A: Orthotic
 :4N0X1:
@@ -2385,19 +1905,14 @@
   :skill_levels:
     1:
       :code: 4N011
-      :title: Helper
     3:
       :code: 4N031
-      :title: Apprentice
     5:
       :code: 4N051
-      :title: Journeyman
     7:
       :code: 4N071
-      :title: Craftsman
     9:
       :code: 4N091
-      :title: Superintendent
   :shredouts:
     :B: Neurodiagnostic Medical Technician
     :C: Independent Duty Medical Technician
@@ -2413,19 +1928,14 @@
   :skill_levels:
     1:
       :code: 4N111
-      :title: Helper
     3:
       :code: 4N131
-      :title: Apprentice
     5:
       :code: 4N151
-      :title: Journeyman
     7:
       :code: 4N171
-      :title: Craftsman
     9:
       :code: 4N191
-      :title: Superintendent
   :shredouts:
     :B: Urology
     :C: Orthopedics
@@ -2438,19 +1948,14 @@
   :skill_levels:
     1:
       :code: 4P011
-      :title: Helper
     3:
       :code: 4P031
-      :title: Apprentice
     5:
       :code: 4P051
-      :title: Journeyman
     7:
       :code: 4P071
-      :title: Craftsman
     9:
       :code: 4P091
-      :title: Superintendent
   :shredouts: {}
 :4R0X1:
   :name: Diagnostic Imaging
@@ -2460,19 +1965,14 @@
   :skill_levels:
     1:
       :code: 4R011
-      :title: Helper
     3:
       :code: 4R031
-      :title: Apprentice
     5:
       :code: 4R051
-      :title: Journeyman
     7:
       :code: 4R071
-      :title: Craftsman
     9:
       :code: 4R090
-      :title: Superintendent
   :shredouts:
     :A: Nuclear Medicine
     :B: Diagnostic Medical Sonography
@@ -2487,7 +1987,6 @@
   :skill_levels:
     9:
       :code: 4T090
-      :title: Superintendent
   :shredouts: {}
 :4T0X1:
   :name: Medical Laboratory
@@ -2495,16 +1994,12 @@
   :skill_levels:
     1:
       :code: 4T011
-      :title: Helper
     3:
       :code: 4T031
-      :title: Apprentice
     5:
       :code: 4T051
-      :title: Journeyman
     7:
       :code: 4T071
-      :title: Craftsman
   :shredouts: {}
 :4T0X2:
   :name: Histopathology
@@ -2513,16 +2008,12 @@
   :skill_levels:
     1:
       :code: 4T012
-      :title: Helper
     3:
       :code: 4T032
-      :title: Apprentice
     5:
       :code: 4T052
-      :title: Journeyman
     7:
       :code: 4T072
-      :title: Craftsman
   :shredouts: {}
 :4V0X1:
   :name: Ophthalmic
@@ -2532,19 +2023,14 @@
   :skill_levels:
     1:
       :code: 4V011
-      :title: Helper
     3:
       :code: 4V031
-      :title: Apprentice
     5:
       :code: 4V051
-      :title: Journeyman
     7:
       :code: 4V071
-      :title: Craftsman
     9:
       :code: 4V091
-      :title: Superintendent
   :shredouts:
     :S: Ophthalmology
 :4Y0X0:
@@ -2554,7 +2040,6 @@
   :skill_levels:
     9:
       :code: 4Y090
-      :title: Superintendent
   :shredouts: {}
 :4Y0X1:
   :name: Dental Assistant
@@ -2562,16 +2047,12 @@
   :skill_levels:
     1:
       :code: 4Y011
-      :title: Helper
     3:
       :code: 4Y031
-      :title: Apprentice
     5:
       :code: 4Y051
-      :title: Journeyman
     7:
       :code: 4Y071
-      :title: Craftsman
   :shredouts:
     :H: Dental Hygienist
 :4Y0X2:
@@ -2581,16 +2062,12 @@
   :skill_levels:
     1:
       :code: 4Y012
-      :title: Helper
     3:
       :code: 4Y032
-      :title: Apprentice
     5:
       :code: 4Y052
-      :title: Journeyman
     7:
       :code: 4Y072
-      :title: Craftsman
   :shredouts: {}
 :5J0X1:
   :name: Paralegal
@@ -2600,19 +2077,14 @@
   :skill_levels:
     1:
       :code: 5J011
-      :title: Helper
     3:
       :code: 5J031
-      :title: Apprentice
     5:
       :code: 5J051
-      :title: Journeyman
     7:
       :code: 5J071
-      :title: Craftsman
     9:
       :code: 5J091
-      :title: Superintendent
   :shredouts: {}
 :5R0X1:
   :name: Religious Affairs
@@ -2622,19 +2094,14 @@
   :skill_levels:
     1:
       :code: 5R011
-      :title: Helper
     3:
       :code: 5R031
-      :title: Apprentice
     5:
       :code: 5R051
-      :title: Journeyman
     7:
       :code: 5R071
-      :title: Craftsman
     9:
       :code: 5R091
-      :title: Superintendent
   :shredouts: {}
 :6C0X1:
   :name: Contracting
@@ -2644,16 +2111,12 @@
   :skill_levels:
     1:
       :code: 6C011
-      :title: Helper
     3:
       :code: 6C031
-      :title: Apprentice
     5:
       :code: 6C051
-      :title: Journeyman
     7:
       :code: 6C071
-      :title: Craftsman
     9:
       :code: 6C091
       :title: Senior Enlisted Leader
@@ -2666,19 +2129,14 @@
   :skill_levels:
     1:
       :code: 6F011
-      :title: Helper
     3:
       :code: 6F031
-      :title: Apprentice
     5:
       :code: 6F051
-      :title: Journeyman
     7:
       :code: 6F071
-      :title: Craftsman
     9:
       :code: 6F091
-      :title: Superintendent
   :shredouts: {}
 :7S0X1:
   :name: Special Investigations
@@ -2688,16 +2146,13 @@
   :skill_levels:
     1:
       :code: 7S011
-      :title: Helper
     3:
       :code: 7S031
       :title: Journeyman
     7:
       :code: 7S071
-      :title: Craftsman
     9:
       :code: 7S091
-      :title: Superintendent
   :shredouts: {}
 :8G0X1:
   :name: Premier Honor Guard
@@ -2707,19 +2162,14 @@
   :skill_levels:
     1:
       :code: 8G011
-      :title: Helper
     3:
       :code: 8G031
-      :title: Apprentice
     5:
       :code: 8G051
-      :title: Journeyman
     7:
       :code: 8G071
-      :title: Craftsman
     9:
       :code: 8G091
-      :title: Superintendent
   :shredouts:
     :B: Pallbearer
     :C: Color Guard

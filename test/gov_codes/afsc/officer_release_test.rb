@@ -33,6 +33,14 @@ module GovCodes
         _(code.name).must_equal "Bomber Pilot"
       end
 
+      it "falls back to the standard qualification-level title when the release omits it" do
+        qualified = Officer.find("11G3")
+        _(qualified.qualification_level_name).must_equal "Qualified"
+
+        staff = Officer.find("11G4")
+        _(staff.qualification_level_name).must_equal "Staff"
+      end
+
       it "resolves a literal bare code" do
         code = Officer.find("10C0")
         _(code).wont_be_nil

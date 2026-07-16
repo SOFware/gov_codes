@@ -9,7 +9,7 @@ module GovCodes
         3 => "Apprentice",
         5 => "Journeyman",
         7 => "Craftsman",
-        9 => "Senior Enlisted Leader"
+        9 => "Superintendent"
       }.freeze
 
       class Parser
