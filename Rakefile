@@ -1,6 +1,11 @@
 # frozen_string_literal: true
 
 require "bundler/gem_tasks"
+
+# `release` doesn't generate a checksum by default; reissue only commits
+# checksums/ if the file already exists on disk when it runs.
+Rake::Task["release"].enhance(["build:checksum"])
+
 require "minitest/test_task"
 
 Minitest::TestTask.create do |t|
