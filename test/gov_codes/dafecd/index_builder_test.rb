@@ -474,6 +474,53 @@ describe GovCodes::Dafecd::IndexBuilder do
       _(builder.unverified_acronyms).must_be_empty
     end
 
+    # Real 17D (Warfighter Communications): the ladder prints a glued shredout
+    # letter and a leading decorative glyph on every level, and the card's
+    # shredout table documents the same suffixes. The shred letter must NOT end
+    # up baked into the concrete code -- it flows through as a shredout instead.
+    let(:warfighter_text) {
+      pua = "\u{F0EA}"
+      <<~TXT
+        DAFOCD, 31 Oct 25
+        #{pua}AFSC 17D4W*, Staff
+        #{pua}AFSC 17D3W*, Qualified
+        #{pua}AFSC 17D1W*, Entry
+                                     WARFIGHTER COMMUNICATIONS
+                                     (Changed 31 Oct 25)
+
+        1. Specialty Summary. Operates cyberspace infrastructure.
+
+        4. *Specialty Shredouts:
+
+         Suffix        Portion of AFS to Which Related
+            T          Technical Track
+         W             Warfighter Communications
+      TXT
+    }
+
+    it "keys the glued-shred 17D card by its X-form family with clean codes" do
+      index = build(warfighter_text).build
+      _(index.keys).must_include :"17DX"
+      entry = index[:"17DX"]
+      _(entry[:qual_levels][4]).must_equal({code: "17D4", title: "Staff"})
+      _(entry[:qual_levels][1]).must_equal({code: "17D1", title: "Entry"})
+    end
+
+    it "flows the glued shred letter through as a shredout, not into the code" do
+      entry = build(warfighter_text).build[:"17DX"]
+      _(entry[:shredouts][:W]).must_equal "Warfighter Communications"
+      _(entry[:shredouts][:T]).must_equal "Technical Track"
+      # The concrete ladder codes never carry the W.
+      codes = entry[:qual_levels].values.map { |l| l[:code] }
+      _(codes.any? { |c| c.include?("W") }).must_equal false
+    end
+
+    it "keeps the verification gate clean for the 17D card" do
+      builder = build(warfighter_text)
+      builder.build
+      _(builder.unverified?).must_equal false
+    end
+
     # Bare single-code record (10C0, Operations Commander).
     let(:bare_text) {
       <<~TXT

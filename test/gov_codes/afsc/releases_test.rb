@@ -189,7 +189,7 @@ module GovCodes
     # The officer (DAFOCD) publication reuses the same resolve/merge/cache
     # machinery as enlisted (DAFECD) but reads officer.yml under releases/dafocd.
     # Dated today (rather than the shipped 2025-10-31) so `as_of: nil` resolves
-    # this synthetic release instead of the real 130-entry shipped index, keeping
+    # this synthetic release instead of the real 136-entry shipped index, keeping
     # these assertions self-contained.
     describe "Releases officer index" do
       before do

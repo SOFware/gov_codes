@@ -849,6 +849,23 @@
     :G: AFRICOM
     :H: EUCOM
     :L: Generalist (applies only to billets)
+:17DX:
+  :name: Warfighter Communications
+  :career_field: :17
+  :changed_date: '2025-10-31'
+  :qual_levels:
+    1:
+      :code: 17D1
+      :title: Entry
+    3:
+      :code: 17D3
+      :title: Qualified
+    4:
+      :code: 17D4
+      :title: Staff
+  :shredouts:
+    :T: Technical Track
+    :W: Warfighter Communications
 :17SX:
   :name: Cyberspace Effects Operations
   :career_field: :17
@@ -1412,6 +1429,21 @@
       :code: 44A3
       :title: Qualified
   :shredouts: {}
+:44BX:
+  :name: Preventive Medicine Physician
+  :career_field: :44
+  :changed_date: '2025-04-30'
+  :qual_levels:
+    1:
+      :code: 44B1
+      :title: Entry
+    3:
+      :code: 44B3
+      :title: Qualified
+    4:
+      :code: 44B4
+      :title: Staff
+  :shredouts: {}
 :44DX:
   :name: Pathologist
   :career_field: :44
@@ -1717,6 +1749,21 @@
     4:
       :code: 44Z4
       :title: Staff
+  :shredouts: {}
+:45AX:
+  :name: Anesthesiologist
+  :career_field: :45
+  :changed_date: '2025-04-30'
+  :qual_levels:
+    1:
+      :code: 45A1
+      :title: Entry
+    3:
+      :code: 45A3
+      :title: Qualified
+    4:
+      :code: 45A4
+      :title: Staff
   :shredouts:
     :A: Cardiothoracic
     :B: Pain Management
@@ -1953,6 +2000,21 @@
       :code: 46Y4
       :title: Staff
   :shredouts: {}
+:47BX:
+  :name: Orthodontist
+  :career_field: :47
+  :changed_date: '2023-10-31'
+  :qual_levels:
+    1:
+      :code: 47B1
+      :title: Entry
+    3:
+      :code: 47B3
+      :title: Qualified
+    4:
+      :code: 47B4
+      :title: Staff
+  :shredouts: {}
 :47DX:
   :name: Oral and Maxillofacial Pathologist
   :career_field: :47
@@ -2035,6 +2097,21 @@
     4:
       :code: 47K4
       :title: Staff
+  :shredouts: {}
+:47PX:
+  :name: Prosthodontist
+  :career_field: :47
+  :changed_date: '2023-10-31'
+  :qual_levels:
+    1:
+      :code: 47P1
+      :title: Entry
+    3:
+      :code: 47P3
+      :title: Qualified
+    4:
+      :code: 47P4
+      :title: Staff
   :shredouts:
     :A: Maxillofacial Prosthetics
     :B: Area Dental Laboratory
@@ -2068,6 +2145,22 @@
       :title: Qualified
     4:
       :code: 48A4
+      :title: Staff
+  :shredouts:
+    :X: Space Medical Operations Experienced
+:48GX:
+  :name: General Medical Officer (GMO), Flight Surgeon
+  :career_field: :48
+  :changed_date: '2025-04-30'
+  :qual_levels:
+    1:
+      :code: 48G1
+      :title: Entry
+    3:
+      :code: 48G3
+      :title: Qualified
+    4:
+      :code: 48G4
       :title: Staff
   :shredouts:
     :X: Space Medical Operations Experienced

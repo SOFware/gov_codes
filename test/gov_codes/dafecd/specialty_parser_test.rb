@@ -452,5 +452,90 @@ describe GovCodes::Dafecd::SpecialtyParser do
       result = parse(record)
       _(result[:qual_levels].keys.sort).must_equal [1, 4]
     end
+
+    # GAP A: several live medical cards (44B, 47B, 48G) omit the comma the older
+    # anchor required, separating the code from the title with only a space --
+    # e.g. "AFSC 44B4 Staff". A whitespace separator must be accepted too.
+    it "parses a no-comma officer ladder where a space separates code and title" do
+      record = <<~TXT
+        AFSC 44B4 Staff
+        AFSC 44B3 Qualified
+        AFSC 44B1 Entry
+                                      PREVENTIVE MEDICINE PHYSICIAN
+                                      (Changed 30Apr 25)
+
+        1. Specialty Summary. Practices preventive medicine.
+      TXT
+      result = parse(record)
+      _(result[:specialty]).must_equal :"44BX"
+      _(result[:qual_levels][4]).must_equal({code: "44B4", title: "Staff"})
+      _(result[:qual_levels][3]).must_equal({code: "44B3", title: "Qualified"})
+      _(result[:qual_levels][1]).must_equal({code: "44B1", title: "Entry"})
+      _(result[:name]).must_equal "Preventive Medicine Physician"
+    end
+
+    # GAP A + restriction star (45A, 47P): a no-comma ladder whose code carries a
+    # trailing "*" -- e.g. "AFSC 45A4* Staff".
+    it "parses a no-comma officer ladder that carries a restriction star" do
+      record = <<~TXT
+        AFSC 45A4* Staff
+        AFSC 45A3* Qualified
+        AFSC 45A1* Entry
+                                      ANESTHESIOLOGIST
+                                      (Changed 30Apr 25)
+
+        1. Specialty Summary. Administers anesthesia.
+      TXT
+      result = parse(record)
+      _(result[:specialty]).must_equal :"45AX"
+      _(result[:qual_levels][4]).must_equal({code: "45A4", title: "Staff"})
+      _(result[:qual_levels][3]).must_equal({code: "45A3", title: "Qualified"})
+      _(result[:qual_levels][1]).must_equal({code: "45A1", title: "Entry"})
+    end
+
+    # GAP B: the live 17D card prints its qualification codes with a glued
+    # shredout letter and a leading decorative glyph -- e.g.
+    # "<U+F0EA>AFSC 17D4W*, Staff". The anchor must tolerate the leading glyph
+    # and absorb the shred letter WITHOUT merging it into the concrete code.
+    it "parses a glued-shred-letter ladder with a leading decorative glyph (17D)" do
+      pua = "\u{F0EA}"
+      record = <<~TXT
+        #{pua}AFSC 17D4W*, Staff
+        #{pua}AFSC 17D3W*, Qualified
+        #{pua}AFSC 17D1W*, Entry
+                                      WARFIGHTER COMMUNICATIONS
+                                      (Changed 31 Oct 25)
+
+        1. Specialty Summary. Operates cyberspace infrastructure.
+      TXT
+      result = parse(record)
+      _(result[:specialty]).must_equal :"17DX"
+      # The concrete code stays four chars; the shred letter W is NOT merged in
+      # (it flows through as a shredout, keyed off the card's shredout table).
+      _(result[:qual_levels][4]).must_equal({code: "17D4", title: "Staff"})
+      _(result[:qual_levels][3]).must_equal({code: "17D3", title: "Qualified"})
+      _(result[:qual_levels][1]).must_equal({code: "17D1", title: "Entry"})
+    end
+
+    # GAP A regression guard: loosening the comma to an optional separator must
+    # NOT let wrapped source prose through. These real lines carry an uppercase
+    # shred letter glued to the code with no comma/space separator before the
+    # lowercase prose, and must still be rejected as ladder lines.
+    it "does not treat a glued-shred prose mention as a ladder line" do
+      record = <<~TXT
+        AFSC 45A4* Staff
+        AFSC 45A1* Entry
+                                      ANESTHESIOLOGIST
+                                      (Changed 30Apr 25)
+
+        1. Specialty Summary. Administers anesthesia.
+        3.4. Experience. For award ofAFSC 42B3Z requires successful completion of
+        3.5. For entry and retention ofAFSC 43E3Aand complete the education and/or
+      TXT
+      result = parse(record)
+      # Only the real 45A levels survive; the "42B3Z requires ..." and
+      # "43E3Aand ..." prose lines are not read as a ladder.
+      _(result[:qual_levels].keys.sort).must_equal [1, 4]
+    end
   end
 end
