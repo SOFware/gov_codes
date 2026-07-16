@@ -312,5 +312,89 @@ module GovCodes
         _(index.dig(:"16FX", :name)).must_equal "Foreign Area Officer (FAO)"
       end
     end
+
+    # RI/SDI index resolves for either publication via the shared resolve/merge/
+    # cache machinery, and the generic per-release acronym overlay reaches ri.yml
+    # entries exactly as it reaches enlisted.yml/officer.yml entries.
+    describe "Releases ri index" do
+      before do
+        @temp_dir = Dir.mktmpdir
+        @release_date = Date.today
+        base = File.join(@temp_dir, "gov_codes", "afsc")
+        enl = File.join(base, "releases", "dafecd", @release_date.iso8601)
+        off = File.join(base, "releases", "dafocd", @release_date.iso8601)
+        FileUtils.mkdir_p(enl)
+        FileUtils.mkdir_p(off)
+
+        File.write(File.join(base, "releases.yml"), <<~YAML)
+          :dafecd:
+          - :effective_date: '#{@release_date.iso8601}'
+            :version_label: test
+            :source: synthetic-enl.pdf
+            :name: Synthetic Enlisted Directory
+          :dafocd:
+          - :effective_date: '#{@release_date.iso8601}'
+            :version_label: test
+            :source: synthetic-off.pdf
+            :name: Synthetic Officer Directory
+        YAML
+
+        File.write(File.join(enl, "ri.yml"), <<~YAML)
+          :"9Z200":
+            :name: Enlisted RI
+          :"8R300":
+            :name: Third-Tier Recruiter
+            :shredouts:
+              :A: Flight Chief
+        YAML
+
+        File.write(File.join(off, "ri.yml"), <<~YAML)
+          :"90G0":
+            :name: Officer RI
+        YAML
+
+        # Per-release acronym overlay must reach ri.yml entries too.
+        File.write(File.join(enl, "acronyms.yml"), %(:"9Z200": ENLRI\n))
+        File.write(File.join(off, "acronyms.yml"), %(:"90G0": OFFRI\n))
+      end
+
+      after do
+        FileUtils.rm_rf(@temp_dir)
+        Releases.reset!
+      end
+
+      it "resolves the enlisted ri index by publication" do
+        index = Releases.ri_index(as_of: nil, lookup: [@temp_dir],
+          publication: Releases::ENLISTED_PUBLICATION)
+        _(index.dig(:"9Z200", :name)).must_equal "Enlisted RI"
+        _(index.dig(:"8R300", :shredouts, :A)).must_equal "Flight Chief"
+      end
+
+      it "resolves the officer ri index by publication" do
+        index = Releases.ri_index(as_of: nil, lookup: [@temp_dir],
+          publication: Releases::OFFICER_PUBLICATION)
+        _(index.dig(:"90G0", :name)).must_equal "Officer RI"
+      end
+
+      it "defaults to the enlisted publication" do
+        index = Releases.ri_index(as_of: nil, lookup: [@temp_dir])
+        _(index.key?(:"9Z200")).must_equal true
+        _(index.key?(:"90G0")).must_equal false
+      end
+
+      it "applies the generic per-release acronym overlay to ri entries" do
+        enl = Releases.ri_index(as_of: nil, lookup: [@temp_dir],
+          publication: Releases::ENLISTED_PUBLICATION)
+        off = Releases.ri_index(as_of: nil, lookup: [@temp_dir],
+          publication: Releases::OFFICER_PUBLICATION)
+        _(enl.dig(:"9Z200", :acronym)).must_equal "ENLRI"
+        _(off.dig(:"90G0", :acronym)).must_equal "OFFRI"
+      end
+
+      it "returns an empty index before the earliest release" do
+        _(Releases.ri_index(as_of: "1900-01-01", lookup: [@temp_dir],
+          publication: Releases::ENLISTED_PUBLICATION)).must_equal({})
+      end
+    end
   end
 end

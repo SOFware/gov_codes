@@ -25,6 +25,7 @@ require_relative "../lib/gov_codes/dafecd/index_builder"
 require_relative "../lib/gov_codes/dafecd/text"
 require_relative "../lib/gov_codes/dafecd/title_degluer"
 require_relative "../lib/gov_codes/dafecd/shredout_degluer"
+require_relative "../lib/gov_codes/dafecd/ri_sdi/index_builder"
 
 # Human-readable label for the index header comment + report banner.
 INDEX_LABELS = {dafecd: "DAFECD enlisted", dafocd: "DAFOCD officer"}.freeze
@@ -59,6 +60,116 @@ def clean_entry(entry, publication)
     [:shredouts, entry[:shredouts].sort_by { |k, _| k.to_s }.to_h],
     [:shredout_acronyms, entry[:shredout_acronyms]&.sort_by { |k, _| k.to_s }&.to_h]
   ].reject { |_, v| v.nil? }.to_h
+end
+
+# Ordered, nil-pruned RI/SDI entry for the combined ri.yml (SDI + RI + SF
+# variants), keyed by the identifier code. Suffix codes live under :shredouts,
+# never as top-level keys (mirroring the AFSC specialty shredouts).
+def clean_ri_entry(entry)
+  shredouts = entry[:shredouts]
+  shredout_acronyms = entry[:shredout_acronyms]
+  [
+    [:name, entry[:name]],
+    [:acronym, entry[:acronym]],
+    [:changed_date, entry[:changed_date]],
+    [:shredouts, shredouts.empty? ? nil : shredouts.sort_by { |k, _| k.to_s }.to_h],
+    [:shredout_acronyms, shredout_acronyms.nil? || shredout_acronyms.empty? ? nil : shredout_acronyms.sort_by { |k, _| k.to_s }.to_h]
+  ].reject { |_, v| v.nil? }.to_h
+end
+
+# Extract the RI/SDI sections of +full_text+ for +publication+, write the
+# combined ri.yml alongside the AFSC index, and print a reconciliation report.
+# Aborts (exit 1) if the verification gate rejects any value.
+def extract_ri_sdi(full_text, publication, pdf_file, effective_date, version_label, release_dir)
+  config = GovCodes::Dafecd::RiSdi::Config.for(publication.id)
+  degluer = GovCodes::Dafecd::TitleDegluer.for(config)
+  builder = GovCodes::Dafecd::RiSdi::IndexBuilder.new(full_text, config: config, degluer: degluer)
+  index = builder.build
+
+  puts
+  puts "=" * 72
+  puts "RI / SDI EXTRACTION (#{publication.id})"
+  puts "=" * 72
+
+  section_labels = {
+    [:af, :sdi] => "AF  SDI", [:af, :ri] => "AF  RI ",
+    [:sf, :sdi] => "SF  SDI", [:sf, :ri] => "SF  RI ",
+    [:officer, :sdi] => "Officer SDI", [:officer, :ri] => "Officer RI"
+  }
+  puts "SECTION COUNTS"
+  builder.section_counts.sort_by { |k, _| k.map(&:to_s) }.each do |key, count|
+    puts "  #{section_labels.fetch(key, key.inspect).ljust(12)} #{count}"
+  end
+  puts "  #{"TOTAL".ljust(12)} #{index.size}"
+
+  puts
+  puts "SEQUENTIAL COMPLETENESS (RI list numbered 1..N, no gaps expected)"
+  builder.sequence_report.each do |force, report|
+    span = report[:present].empty? ? "(none)" : "#{report[:present].first}..#{report[:present].last}"
+    status = (report[:missing].empty? && report[:duplicates].empty?) ? "OK" : "CHECK"
+    puts "  #{force.to_s.ljust(8)} present=#{report[:present].size} span=#{span} " \
+         "missing=#{report[:missing].inspect} duplicates=#{report[:duplicates].inspect}  #{status}"
+  end
+
+  puts
+  puts "RECONCILIATION"
+  puts "  Codes indexed:      #{index.size}"
+  puts "  Collisions:         #{builder.collisions.size}"
+  builder.collisions.each { |c| puts "    collision #{c[:code]}: kept #{c[:kept].inspect}, dropped #{c[:discarded].inspect}" }
+  puts "  Dropped records:    #{builder.dropped_records.size}"
+  builder.dropped_records.each { |d| puts "    dropped: #{d[:first_line].inspect} (#{d[:reason]})" }
+  puts "  Unverified codes:    #{builder.unverified_codes.size}"
+  puts "  Unverified titles:   #{builder.unverified_titles.size}"
+  puts "  Unverified acronyms: #{builder.unverified_acronyms.size}"
+
+  puts
+  puts "ACRONYM CLASSIFICATION (shipped vs excluded)"
+  builder.acronym_candidates.sort_by { |c| c[:code].to_s }.each do |c|
+    puts "  #{c[:shipped] ? "SHIP" : "EXCL"}  #{c[:code].to_s.ljust(6)} (#{c[:acronym]})  #{c[:name].inspect}"
+  end
+
+  glued = index.select { |_, e| e[:glued_title] }
+  puts
+  puts "TITLES (de-glued via verified overrides)"
+  puts "  Codes indexed:                    #{index.size}"
+  puts "  Applied clean titles:             #{index.size - builder.codes_needing_deglue.size}"
+  puts "  Missing override (kept verbatim):  #{builder.codes_needing_deglue.size}"
+  puts "    #{builder.codes_needing_deglue.map(&:to_s).sort.join(", ")}" unless builder.codes_needing_deglue.empty?
+  puts "  Raw titles flagged as pdf glue:   #{glued.size}   (informational; flags the raw source title)"
+  puts "  Drifting overrides (rejected):    #{builder.unverified_titles.size}   (build fails if > 0)"
+
+  if builder.unverified?
+    warn "\nRI/SDI BUILD FAILED: verification gate rejected " \
+         "#{builder.unverified_codes.size} code(s), #{builder.unverified_titles.size} title(s), " \
+         "#{builder.unverified_acronyms.size} acronym(s). Nothing written."
+    builder.unverified_codes.each { |c| warn "  ungrounded code: #{c}" }
+    builder.unverified_titles.each do |t|
+      if t[:applied]
+        warn "  drifting title override #{t[:code]}: applied=#{t[:applied].inspect} " \
+             "source=#{t[:raw_title].inspect} (#{t[:reason]})"
+      else
+        warn "  ungrounded title #{t[:code]}: #{t[:raw_title].inspect}"
+      end
+    end
+    builder.unverified_acronyms.each { |a| warn "  ungrounded acronym: #{a}" }
+    exit 1
+  end
+
+  sorted = index.sort_by { |k, _| k.to_s }.to_h.transform_values { |e| clean_ri_entry(e) }
+  ri_path = File.join(release_dir, config.index_filename)
+  header = <<~HEADER
+    # #{publication.id.to_s.upcase} Reporting Identifiers (RI) + Special Duty Identifiers (SDI)
+    # Source: #{File.basename(pdf_file)}
+    # Directory: #{publication.directory_name}
+    # Effective date: #{effective_date}#{"  (#{version_label})" if version_label}
+    # Generated deterministically by bin/extract_afsc_from_pdf.rb.
+    # Do not edit by hand; re-run the extractor against the source PDF.
+    # Titles are de-glued via human-verified overrides (spacing/case only, gated
+    # against the verbatim source); a title without an override is kept verbatim.
+  HEADER
+  File.write(ri_path, header + sorted.to_yaml)
+  puts
+  puts "Wrote #{ri_path}"
 end
 
 pdf_file = ARGV[0]
@@ -234,4 +345,9 @@ end
 puts
 puts "Wrote #{index_path}"
 puts "Wrote #{manifest_path}"
+
+# --- RI / SDI extraction (combined ri.yml, clearly-separated code path) -----
+extract_ri_sdi(full_text, publication, pdf_file, effective_date, version_label, release_dir)
+
+puts
 puts "Review the diff with 'git diff' before committing (do NOT commit the PDF)."

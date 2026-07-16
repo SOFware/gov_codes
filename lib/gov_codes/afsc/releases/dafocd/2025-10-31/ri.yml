@@ -1,0 +1,193 @@
+# DAFOCD Reporting Identifiers (RI) + Special Duty Identifiers (SDI)
+# Source: DAFOCD 31 Oct 25 v3.pdf
+# Directory: Department of the Air Force Officer Classification Directory
+# Effective date: 2025-10-31  (v3)
+# Generated deterministically by bin/extract_afsc_from_pdf.rb.
+# Do not edit by hand; re-run the extractor against the source PDF.
+# Titles are de-glued via human-verified overrides (spacing/case only, gated
+# against the verbatim source); a title without an override is kept verbatim.
+---
+:80C0:
+  :name: Commander, Cadet Squadron, USAF Academy
+  :changed_date: '2022-10-31'
+:81C0:
+  :name: Instructor, Officer Training School
+  :changed_date: '2019-04-30'
+:81D0:
+  :name: Air Force Reserve Officer Training Corps Detachment Commander and Professor
+    of Aerospace Studies
+  :changed_date: '2020-04-30'
+:81L0:
+  :name: Education and Training Leader
+  :changed_date: '2020-04-30'
+:81T0:
+  :name: Instructor
+:82A0:
+  :name: Academic Program Manager
+:83R0:
+  :name: Recruiting Service
+:84H0:
+  :name: Historian
+  :changed_date: '2024-10-31'
+:85G0:
+  :name: Honor Guard
+  :changed_date: '2025-10-31'
+:86M0:
+  :name: Operations Management
+:86P0:
+  :name: Command and Control
+:87G0:
+  :name: Wing Inspector General
+  :changed_date: '2018-04-30'
+:87I0:
+  :name: Director, Wing Inspections
+  :changed_date: '2012-10-31'
+:87Q0:
+  :name: Director, Complaints Resolution
+  :changed_date: '2012-10-31'
+:88A0:
+  :name: Aide-de-camp
+:88B0:
+  :name: Protocol Officer
+  :changed_date: '2019-10-31'
+:88C0:
+  :name: Sexual Assault Response Coordinator (SARC)
+  :acronym: SARC
+  :changed_date: '2020-04-30'
+:88I0:
+  :name: Innovation Officer
+  :changed_date: '2022-10-31'
+:88M0:
+  :name: United States Air Force Medical Pinnacle Position
+  :changed_date: '2024-04-30'
+:88X0:
+  :name: Operational STEM Officer
+  :changed_date: '2024-10-31'
+:88Y0:
+  :name: Pathfinder Officer
+  :changed_date: '2023-10-31'
+:89A0:
+  :name: Air Advisor (Basic)
+  :changed_date: '2022-10-31'
+:89B0:
+  :name: Air Advisor (Basic) Team Leader
+  :changed_date: '2022-10-31'
+:89C0:
+  :name: Air Advisor (Basic) Mission Commander
+  :changed_date: '2022-10-31'
+:89D0:
+  :name: Air Advisor (Advanced)
+  :changed_date: '2022-10-31'
+:89E0:
+  :name: Air Advisor (Advanced) Team Leader
+  :changed_date: '2022-10-31'
+:89F0:
+  :name: Air Advisor (Advanced) Mission Commander
+  :changed_date: '2022-10-31'
+:89G0:
+  :name: Combat Aviation Advisor
+  :changed_date: '2025-04-30'
+:89H0:
+  :name: Combat Aviation Advisor Team Leader
+  :changed_date: '2025-04-30'
+:89I0:
+  :name: Combat Aviation Advisor Mission Commander
+  :changed_date: '2025-04-30'
+:89W0:
+  :name: Weapons of Mass Destruction Civil Support Team (WMD-CST)
+  :changed_date: '2020-10-31'
+:90G0:
+  :name: General Officer
+:91C0:
+  :name: Commander
+:91E0:
+  :name: Wing Commander Equivalent
+:91W0:
+  :name: Wing Commander
+:92F0:
+  :name: Foreign Area Officer (FAO) Trainee
+:92J0:
+  :name: Non-designated Lawyer
+:92J1:
+  :name: AFROTC Educational Delay Law Student
+:92J2:
+  :name: Funded Legal Education Program Law Student
+:92J3:
+  :name: Excess Leave Law Student
+:92M0:
+  :name: Health Professions Scholarship Program (HPSP) Medical Student
+:92M1:
+  :name: Uniformed Services University of Health Sciences (USUHS) Student
+:92M2:
+  :name: HPSP Biomedical Science Student
+:92P0:
+  :name: Physician Assistant Student
+  :changed_date: '2017-10-31'
+:92R0:
+  :name: Chaplain Candidate
+:92S0:
+  :name: Student Officer Authorization
+:92T0:
+  :name: Pilot Trainee
+:92T1:
+  :name: Combat Systems Officer Trainee
+:92T2:
+  :name: Air Battle Manager Trainee
+:92T3:
+  :name: Remotely Piloted Aircraft Pilot Trainee
+:92W0:
+  :name: Combat Wounded Warrior
+  :changed_date: '2015-05-11'
+:92W1:
+  :name: Reserved for Future Use
+  :changed_date: '2015-05-11'
+:92W2:
+  :name: Combat Wounded Warrior with Exemptions
+  :changed_date: '2015-05-11'
+:92W3:
+  :name: Non-Combat Wounded Warrior
+  :changed_date: '2015-05-11'
+:92W4:
+  :name: Wounded Warrior - Limited Assignment Status (LAS)
+  :acronym: LAS
+  :changed_date: '2015-05-11'
+:92W5:
+  :name: Wounded Warrior - Retired/Discharged
+  :changed_date: '2015-05-11'
+:92W6:
+  :name: Reserved for Future Use
+  :changed_date: '2015-05-11'
+:92W7:
+  :name: Reserved for Future Use
+  :changed_date: '2015-05-11'
+:92W8:
+  :name: Wounded Warrior - Ambassador
+  :changed_date: '2019-10-31'
+:92W9:
+  :name: Wounded Warrior - Project Planner/Officer
+  :changed_date: '2019-10-31'
+:93P0:
+  :name: Patient
+:94N0:
+  :name: Nuclear Weapons Custodian
+:95A0:
+  :name: Non-EAD USAFR Academy Liaison Officer (ALO) or Civil Air Patrol Reserve Assistance
+    Program (CAPRAP) Officer
+:96A0:
+  :name: Disqualified Officer, Reasons Beyond Their Control
+:96B0:
+  :name: Disqualified Officer, Reasons Within Their Control
+:96D0:
+  :name: Officer Not Available for Use in Awarded AFSC for Cause
+:96U0:
+  :name: Unclassified Officer
+:96V0:
+  :name: Un-allotted
+:97E0:
+  :name: Executive Officer
+:99A0:
+  :name: Unspecified AFSC
+  :changed_date: '2015-04-20'
+:99G0:
+  :name: Gold Bar Recruiter
+  :changed_date: '2013-06-05'

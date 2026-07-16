@@ -51,6 +51,16 @@ module GovCodes
           release_index(OFFICER_PUBLICATION, "officer.yml", as_of: as_of, lookup: lookup)
         end
 
+        # Resolve the RI/SDI index for +publication+ (enlisted DAFECD or officer
+        # DAFOCD). RI/SDI codes live in both directories with different code
+        # grammars (5-char enlisted, 4-char officer), so this wrapper is
+        # parameterized by publication; it otherwise reuses the same resolve/
+        # merge/cache and acronym-overlay machinery as enlisted_index/
+        # officer_index.
+        def ri_index(as_of: nil, lookup: $LOAD_PATH, publication: ENLISTED_PUBLICATION)
+          release_index(publication, "ri.yml", as_of: as_of, lookup: lookup)
+        end
+
         # Resolve the effective date for +publication+ (defaults to enlisted).
         # Publications are resolved independently: an officer release date never
         # moves the enlisted latest date and vice versa.

@@ -24,9 +24,18 @@ module GovCodes
       # or the line ends.
       PAIR = /\b([A-Z])\s{2,}([A-Z0-9][A-Za-z0-9 \/().-]{2,45}?)(?=\s{2,}[A-Z]\s{2,}|\s*$)/
 
-      def initialize(text, publication: Publication.dafecd)
+      # A more permissive variant used by the RI/SDI extractor, whose values carry
+      # punctuation the AFSC tables never do: a colon ("8W1XX WSMs w/PAFSC: 2W0X1"
+      # in the Space Force 8W tables) and a comma ("Graduated, Flight Chief" in
+      # the 8R300 recruiter table). The AFSC ladder pipeline keeps the stricter
+      # PAIR (its default), so the shipped enlisted/officer artifacts are
+      # unaffected.
+      RI_SDI_PAIR = /\b([A-Z])\s{2,}([A-Z0-9][A-Za-z0-9 \/().:,-]{2,45}?)(?=\s{2,}[A-Z]\s{2,}|\s*$)/
+
+      def initialize(text, publication: Publication.dafecd, pair: PAIR)
         @text = text
         @header = publication.shredout_header
+        @pair = pair
       end
 
       # @return [Hash{Symbol=>String}] suffix letter => shredout name
@@ -35,7 +44,7 @@ module GovCodes
         table_lines.each do |line|
           # Strip stray decorative glyphs that would otherwise break the column
           # lookahead (e.g. a U+F0EA bullet sitting in a between-column gap).
-          line.gsub(Patterns::DECORATIVE, " ").scan(PAIR) do |suffix, name|
+          line.gsub(Patterns::DECORATIVE, " ").scan(@pair) do |suffix, name|
             result[suffix.to_sym] = name.strip
           end
         end

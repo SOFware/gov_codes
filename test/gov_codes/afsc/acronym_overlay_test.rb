@@ -125,31 +125,48 @@ module GovCodes
       end
     end
 
+    # RI/SDI acronym overlay: the SAME per-release, code-keyed overlay tier
+    # (releases/<pub>/<date>/acronyms.yml) that augments enlisted/officer entries
+    # reaches ri.yml entries too, resolved per publication and release date. It
+    # augments :acronym on existing RI entries only, leaving name/shredouts intact.
     describe "RI acronym overlay" do
       before do
         @temp_dir = Dir.mktmpdir
-        afsc_dir = File.join(@temp_dir, "gov_codes", "afsc")
-        FileUtils.mkdir_p(afsc_dir)
-        File.write(File.join(afsc_dir, "ri_acronyms.yml"), <<~YAML)
-          :"8A400": TMC
-        YAML
+        enl = File.join(@temp_dir, "gov_codes", "afsc", "releases", "dafecd", "2025-10-31")
+        off = File.join(@temp_dir, "gov_codes", "afsc", "releases", "dafocd", "2025-10-31")
+        FileUtils.mkdir_p(enl)
+        FileUtils.mkdir_p(off)
+        # 8A400 (Talent Management Consultant) and 90G0 (General Officer) ship no
+        # acronym; the overlay adds one for each publication.
+        File.write(File.join(enl, "acronyms.yml"), %(:"8A400": TMC\n))
+        File.write(File.join(off, "acronyms.yml"), %(:"90G0": GENOFF\n))
 
         $LOAD_PATH.unshift(@temp_dir)
         AFSC.reset_data(lookup: $LOAD_PATH)
+        Releases.reset!
       end
 
       after do
         $LOAD_PATH.delete(@temp_dir)
         FileUtils.rm_rf(@temp_dir)
         AFSC.reset_data(lookup: $LOAD_PATH)
+        Releases.reset!
       end
 
-      it "populates the ri acronym from the consumer overlay" do
+      it "populates an enlisted RI acronym from the consumer overlay" do
         _(RI.find("8A400").acronym).must_equal "TMC"
       end
 
-      it "leaves the ri name intact" do
-        _(RI.find("8A400").name).must_equal "Talent management consultant"
+      it "populates an officer RI acronym from the consumer overlay" do
+        _(RI.find("90G0").acronym).must_equal "GENOFF"
+      end
+
+      it "leaves the RI name intact" do
+        _(RI.find("8A400").name).must_equal "Talent Management Consultant"
+      end
+
+      it "resolves the overlay in reverse via find_by_acronym" do
+        _(RI.find_by_acronym("TMC").specific_ri).must_equal :"8A400"
       end
     end
   end

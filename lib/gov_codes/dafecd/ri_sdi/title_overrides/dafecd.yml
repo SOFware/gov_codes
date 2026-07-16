@@ -1,0 +1,124 @@
+# De-glued RI/SDI titles for DAFECD, effective 2025-10-31.
+# Each value is the source PDF title with ONLY spacing/case adjusted --
+# no letters, digits, or punctuation changed. Enforced at build time: the
+# IndexBuilder verifies each override against the raw source title
+# (whitespace/case-insensitive equality) and fails the build on drift.
+:5I000: Intelligence, Surveillance & Reconnaissance Superintendent
+:5Z700: Space Operations Senior Enlisted Leader (USSF Only)
+:8A200: Enlisted Aide
+:8A300: Protocol
+:8A400: Talent Management Consultant
+:8B000: Miltary Training Instructor
+:8B100: Military Training Leader
+:8B200: Academy Military Training NCO
+:8B300: Officer Accessions Intructor
+:8B400: Military Training Instructor (Space Force)
+:8B500: Guardian Training Leader
+:8C000: Military and Family Readiness Non-Commissioned Officer (RNCO)
+:8D100: Language & Culture Advisor
+:8F000: First Sergeant
+:8F100: Guardian First Sergeant
+:8G000: Premier Honor Guard
+:8G100: Base Honor Guard Program Manager
+:8G200: Premier Honor Guard (Space Force)
+:8H000: Airmen Dorm Leader
+:8I000: Superintendent, Inspector General
+:8I100: Inspections Coordinator
+:8I200: Complaints & Resolution Coordinator
+:8K000: Software Development Specialist
+:8L100: Air Advisor - Basic
+:8L200: Air Advisor Basic, Team Sergeant
+:8L300: Air Advisor Basic, Team Leader
+:8L400: Air Advisor Advanced
+:8L500: Air Advisor Advanced, Team Sergeant
+:8L600: Air Advisor Advanced, Team Leader
+:8L700: Combat Aviation Advisor
+:8L800: Combat Aviation Advisor Team Sergeant
+:8L900: Combat Aviation Advisor Team Leader
+:8P000: Courier
+:8P100: Defense Attaché
+:8R000: Enlisted Accessions Recruiter
+:8R100: Guardian Talent Scout
+:8R200: Second-Tier Recruiter
+:8R300: Third-Tier Recruiter
+:8S000: Missile Facility Manager
+:8S200: Combat Crew Communications
+:8T000: Professional Military Education Instructor
+:8T100: Enlisted Professional Military Education Instructional System Designer
+:8T200: Development Advisor
+:8T300: Professional Military Education Instructor (Space Force)
+:8U000: Unit Deployment Manager
+:8U100: Weapons of Mass Destruction Civil Support Team (WMD-CST)
+:8W000: Weapons Safety Manager - Wing Level
+:8W100: Weapons Safety Manager
+:8W200: Second-Tier Weapons Safety Manager
+:8W300: Third-Tier Weapons Safety Manager
+:8X100: Operational STEM Specialist
+:8Y000: Pathfinder
+:9A000: Enlisted Airman/Guardian - Disqualified for Reasons Beyond Control
+:9A100: Enlisted Airman/Guardian - Disqualified for Reasons Within Control
+:9A200: Enlisted Airman/Guardian Awaiting Discharge, Separation, or Retirement for
+  Reasons Within Their Control
+:9A300: Enlisted Airman/Guardian Awaiting Discharge, Separation, or Retirement for
+  Reasons Beyond Their Control
+:9A400: Disqualified Airman/Guardian, Return to Duty Program
+:9A500: Enlisted Airman/Guardian Temporarily Ineligible for Retraining - Disqualified
+  for Reasons Beyond Control
+:9B000: Senior Enlisted Advisor to the Chairman of the Joint Chiefs of Staff
+:9B100: Senior Enlisted Advisor to the Chief of the National Guard Bureau (CNGB)
+:9C000: Chief Master Sergeant of the Air Force
+:9C100: Executive Assistant to the Chief Master Sergeant of the Air Force
+:9D100: AF Developmental Senior Enlisted Positions
+:9D200: Key Developmental Senior Enlisted Positions
+:9D300: Wing (Wing level) or Headquarter (HQ level) Senior Enlisted Leader
+:9E000: Command Chief Master Sergeant
+:9E100: Command Chief Executive Assistant
+:9E200: Individual Mobilization Augmentee to Command Chief Master Sergeant
+:9F000: First Term Enlisted Course (FTEC) NCOIC
+:9G100: Group Senior Enlisted Leader
+:9H000: Academic Faculty Instructor
+:9H100: White House Communications Agency Technician (WHCA)
+:9H200: Academic Faculty Instructor (Space Force)
+:9I000: Futures Airmen
+:9J000: Prisoner
+:9L000: Interpreter/Translator
+:9L100: International Affairs Specialist
+:9M000: Military Entrance Processing Command (MEPCOM) Senior Enlisted Advisor
+:9M200: International Health Specialists (IHS)
+:9M400: Chief, Medical Enlisted Force (CMEF), Senior Enlisted Leader and/or Senior
+  Enlisted Advisor (SEA)
+:9N000: Secretary of the Air Force Enlisted Legislative Fellows
+:9N100: Secretary of the Air Force Enlisted Legislative Fellows (Space Force)
+:9N200: DAF World Class Athlete Program (WCAP)
+:9P000: Patient
+:9Q000: Reserve Force Generation and Oversight NCO
+:9R000: Civil Air Patrol (CAP)-USAF Reserve Assistance NCO
+:9S000: Chief Master Sergeant of the Space Force
+:9S100: Scientific Applications Specialist
+:9T000: Basic Enlisted Airman
+:9T100: Officer Trainee
+:9T200: Precadet Assignee
+:9T400: AFIT/EWI Enlisted Students
+:9T500: Basic Special Warfare Enlisted Airman
+:9U000: Enlisted Airman/Guardian Ineligible for Local Utilization
+:9U100: Unallotted Enlisted Authorization
+:9V000: Key Developmental Joint Senior Enlisted Position
+:9V100: Executive Assistant to the Senior Enlisted Advisor to the Chairman of the
+  Joint Chiefs of Staff
+:9W000: Combat Wounded Warrior
+:9W100: Reserved for Future Use
+:9W200: Combat Wounded Warrior with Exemptions
+:9W300: Non-Combat Wounded Warrior
+:9W400: Wounded Warrior - Limited Assignment Status (LAS)
+:9W500: Reserved for Future Use
+:9W600: Reserved for Future Use
+:9W700: Reserved for Future Use
+:9W800: Wounded Warrior - Ambassador
+:9W900: Wounded Warrior - Project Planner/Officer
+:9Y000: Air Force Parachute Team (AFPT) Instructor
+:9Z000: Special Warfare Mission Support (SWMS) Career Field Manager (CFM) on Headquarters
+  Air Force Staff, Air Force Special Warfare Division
+:9Z100: Special Warfare Mission Support (SWMS) Senior Enlisted Leader, Air Force Special
+  Warfare (AFSPECWAR)
+:9Z200: Special Warfare Mission Support (SWMS) Superintendent, Air Force Special Warfare
+  (AFSPECWAR)

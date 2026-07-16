@@ -1,0 +1,78 @@
+# De-glued RI/SDI titles for DAFOCD, effective 2025-10-31.
+# Each value is the source PDF title with ONLY spacing/case adjusted --
+# no letters, digits, or punctuation changed. Enforced at build time: the
+# IndexBuilder verifies each override against the raw source title
+# (whitespace/case-insensitive equality) and fails the build on drift.
+:80C0: Commander, Cadet Squadron, USAF Academy
+:81C0: Instructor, Officer Training School
+:81D0: Air Force Reserve Officer Training Corps Detachment Commander and Professor
+  of Aerospace Studies
+:81L0: Education and Training Leader
+:81T0: Instructor
+:82A0: Academic Program Manager
+:83R0: Recruiting Service
+:84H0: Historian
+:85G0: Honor Guard
+:86M0: Operations Management
+:86P0: Command and Control
+:87G0: Wing Inspector General
+:87I0: Director, Wing Inspections
+:87Q0: Director, Complaints Resolution
+:88A0: Aide-de-camp
+:88B0: Protocol Officer
+:88C0: Sexual Assault Response Coordinator (SARC)
+:88I0: Innovation Officer
+:88M0: United States Air Force Medical Pinnacle Position
+:88X0: Operational STEM Officer
+:88Y0: Pathfinder Officer
+:89A0: Air Advisor (Basic)
+:89B0: Air Advisor (Basic) Team Leader
+:89C0: Air Advisor (Basic) Mission Commander
+:89D0: Air Advisor (Advanced)
+:89E0: Air Advisor (Advanced) Team Leader
+:89F0: Air Advisor (Advanced) Mission Commander
+:89G0: Combat Aviation Advisor
+:89H0: Combat Aviation Advisor Team Leader
+:89I0: Combat Aviation Advisor Mission Commander
+:89W0: Weapons of Mass Destruction Civil Support Team (WMD-CST)
+:90G0: General Officer
+:91C0: Commander
+:91E0: Wing Commander Equivalent
+:91W0: Wing Commander
+:92F0: Foreign Area Officer (FAO) Trainee
+:92J0: Non-designated Lawyer
+:92J1: AFROTC Educational Delay Law Student
+:92J2: Funded Legal Education Program Law Student
+:92J3: Excess Leave Law Student
+:92M0: Health Professions Scholarship Program (HPSP) Medical Student
+:92M1: Uniformed Services University of Health Sciences (USUHS) Student
+:92M2: HPSP Biomedical Science Student
+:92P0: Physician Assistant Student
+:92R0: Chaplain Candidate
+:92S0: Student Officer Authorization
+:92T0: Pilot Trainee
+:92T1: Combat Systems Officer Trainee
+:92T2: Air Battle Manager Trainee
+:92T3: Remotely Piloted Aircraft Pilot Trainee
+:92W0: Combat Wounded Warrior
+:92W1: Reserved for Future Use
+:92W2: Combat Wounded Warrior with Exemptions
+:92W3: Non-Combat Wounded Warrior
+:92W4: Wounded Warrior - Limited Assignment Status (LAS)
+:92W5: Wounded Warrior - Retired/Discharged
+:92W6: Reserved for Future Use
+:92W7: Reserved for Future Use
+:92W8: Wounded Warrior - Ambassador
+:92W9: Wounded Warrior - Project Planner/Officer
+:93P0: Patient
+:94N0: Nuclear Weapons Custodian
+:95A0: Non-EAD USAFR Academy Liaison Officer (ALO) or Civil Air Patrol Reserve Assistance
+  Program (CAPRAP) Officer
+:96A0: Disqualified Officer, Reasons Beyond Their Control
+:96B0: Disqualified Officer, Reasons Within Their Control
+:96D0: Officer Not Available for Use in Awarded AFSC for Cause
+:96U0: Unclassified Officer
+:96V0: Un-allotted
+:97E0: Executive Officer
+:99A0: Unspecified AFSC
+:99G0: Gold Bar Recruiter

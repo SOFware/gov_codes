@@ -1,0 +1,369 @@
+# DAFECD Reporting Identifiers (RI) + Special Duty Identifiers (SDI)
+# Source: DAFECD -31 October 25 v3.5 FINAL.pdf
+# Directory: Department of the Air Force Enlisted Classification Directory
+# Effective date: 2025-10-31  (v3.5)
+# Generated deterministically by bin/extract_afsc_from_pdf.rb.
+# Do not edit by hand; re-run the extractor against the source PDF.
+# Titles are de-glued via human-verified overrides (spacing/case only, gated
+# against the verbatim source); a title without an override is kept verbatim.
+---
+:5I000:
+  :name: Intelligence, Surveillance & Reconnaissance Superintendent
+  :changed_date: '2025-04-30'
+:5Z700:
+  :name: Space Operations Senior Enlisted Leader (USSF Only)
+  :changed_date: '2025-04-30'
+:8A200:
+  :name: Enlisted Aide
+  :changed_date: '2016-10-31'
+:8A300:
+  :name: Protocol
+  :changed_date: '2016-10-31'
+:8A400:
+  :name: Talent Management Consultant
+  :changed_date: '2025-10-31'
+:8B000:
+  :name: Miltary Training Instructor
+  :changed_date: '2024-10-31'
+:8B100:
+  :name: Military Training Leader
+  :changed_date: '2024-10-31'
+:8B200:
+  :name: Academy Military Training NCO
+  :changed_date: '2025-04-30'
+:8B300:
+  :name: Officer Accessions Intructor
+  :changed_date: '2024-10-31'
+:8B400:
+  :name: Military Training Instructor (Space Force)
+  :changed_date: '2025-10-31'
+:8B500:
+  :name: Guardian Training Leader
+  :changed_date: '2025-04-30'
+:8C000:
+  :name: Military and Family Readiness Non-Commissioned Officer (RNCO)
+  :acronym: RNCO
+  :changed_date: '2025-04-30'
+:8D100:
+  :name: Language & Culture Advisor
+  :changed_date: '2016-10-31'
+:8F000:
+  :name: First Sergeant
+  :changed_date: '2024-04-30'
+:8F100:
+  :name: Guardian First Sergeant
+  :changed_date: '2025-04-30'
+:8G000:
+  :name: Premier Honor Guard
+  :changed_date: '2025-10-31'
+  :shredouts:
+    :B: Pallbearer
+    :C: Color Guard
+    :D: Drill Team
+:8G100:
+  :name: Base Honor Guard Program Manager
+  :changed_date: '2023-04-30'
+:8G200:
+  :name: Premier Honor Guard (Space Force)
+  :changed_date: '2025-04-30'
+:8H000:
+  :name: Airmen Dorm Leader
+  :changed_date: '2016-10-31'
+:8I000:
+  :name: Superintendent, Inspector General
+  :changed_date: '2024-10-31'
+:8I100:
+  :name: Inspections Coordinator
+  :changed_date: '2024-10-31'
+:8I200:
+  :name: Complaints & Resolution Coordinator
+  :changed_date: '2024-10-31'
+:8K000:
+  :name: Software Development Specialist
+  :changed_date: '2023-04-30'
+:8L100:
+  :name: Air Advisor - Basic
+  :changed_date: '2022-10-31'
+:8L200:
+  :name: Air Advisor Basic, Team Sergeant
+  :changed_date: '2022-10-31'
+:8L300:
+  :name: Air Advisor Basic, Team Leader
+  :changed_date: '2022-10-31'
+:8L400:
+  :name: Air Advisor Advanced
+  :changed_date: '2022-10-31'
+:8L500:
+  :name: Air Advisor Advanced, Team Sergeant
+  :changed_date: '2022-10-31'
+:8L600:
+  :name: Air Advisor Advanced, Team Leader
+  :changed_date: '2022-10-31'
+:8L700:
+  :name: Combat Aviation Advisor
+  :changed_date: '2021-10-31'
+:8L800:
+  :name: Combat Aviation Advisor Team Sergeant
+  :changed_date: '2021-10-31'
+:8L900:
+  :name: Combat Aviation Advisor Team Leader
+  :changed_date: '2021-10-31'
+:8P000:
+  :name: Courier
+  :changed_date: '2016-10-31'
+:8P100:
+  :name: Defense Attaché
+  :changed_date: '2020-10-31'
+:8R000:
+  :name: Enlisted Accessions Recruiter
+  :changed_date: '2025-04-30'
+:8R100:
+  :name: Guardian Talent Scout
+  :changed_date: '2025-04-30'
+:8R200:
+  :name: Second-Tier Recruiter
+  :changed_date: '2025-04-30'
+:8R300:
+  :name: Third-Tier Recruiter
+  :changed_date: '2025-04-30'
+  :shredouts:
+    :A: Flight Chief
+    :B: Graduated, Flight Chief
+    :C: Production Superintendent
+    :E: Senior Enlisted Leader
+:8S000:
+  :name: Missile Facility Manager
+  :changed_date: '2021-04-30'
+:8S200:
+  :name: Combat Crew Communications
+  :changed_date: '2022-04-30'
+:8T000:
+  :name: Professional Military Education Instructor
+  :changed_date: '2025-10-31'
+:8T100:
+  :name: Enlisted Professional Military Education Instructional System Designer
+  :changed_date: '2025-10-31'
+:8T200:
+  :name: Development Advisor
+  :changed_date: '2025-10-31'
+:8T300:
+  :name: Professional Military Education Instructor (Space Force)
+  :changed_date: '2025-10-31'
+:8U000:
+  :name: Unit Deployment Manager
+  :changed_date: '2016-10-31'
+:8U100:
+  :name: Weapons of Mass Destruction Civil Support Team (WMD-CST)
+  :changed_date: '2020-10-31'
+:8W000:
+  :name: Weapons Safety Manager - Wing Level
+  :changed_date: '2023-10-31'
+:8W100:
+  :name: Weapons Safety Manager
+  :changed_date: '2025-10-31'
+  :shredouts:
+    :A: '8W1XX WSMs w/PAFSC: 2W0X1'
+    :B: '8W1XX WSMs w/PAFSC: 2W1X1'
+    :C: '8W1XX WSMs w/PAFSC: 2W2X1'
+:8W200:
+  :name: Second-Tier Weapons Safety Manager
+  :changed_date: '2025-10-31'
+  :shredouts:
+    :A: '8W2XX WSMs w/PAFSC: 2W0X1'
+    :B: '8W2XX WSMs w/PAFSC: 2W1X1'
+    :C: '8W2XX WSMs w/PAFSC: 2W2X1'
+:8W300:
+  :name: Third-Tier Weapons Safety Manager
+  :changed_date: '2025-10-31'
+  :shredouts:
+    :A: '8W3XX WSMs w/PAFSC: 2W0X1'
+    :B: '8W3XX WSMs w/PAFSC: 2W1X1'
+    :C: '8W3XX WSMs w/PAFSC: 2W2X1'
+:8X100:
+  :name: Operational STEM Specialist
+  :changed_date: '2024-10-31'
+:8Y000:
+  :name: Pathfinder
+  :changed_date: '2023-10-31'
+:9A000:
+  :name: Enlisted Airman/Guardian - Disqualified for Reasons Beyond Control
+:9A100:
+  :name: Enlisted Airman/Guardian - Disqualified for Reasons Within Control
+:9A200:
+  :name: Enlisted Airman/Guardian Awaiting Discharge, Separation, or Retirement for
+    Reasons Within Their Control
+  :changed_date: '2015-09-02'
+:9A300:
+  :name: Enlisted Airman/Guardian Awaiting Discharge, Separation, or Retirement for
+    Reasons Beyond Their Control
+  :changed_date: '2015-09-02'
+:9A400:
+  :name: Disqualified Airman/Guardian, Return to Duty Program
+:9A500:
+  :name: Enlisted Airman/Guardian Temporarily Ineligible for Retraining - Disqualified
+    for Reasons Beyond Control
+:9B000:
+  :name: Senior Enlisted Advisor to the Chairman of the Joint Chiefs of Staff
+  :changed_date: '2022-10-31'
+:9B100:
+  :name: Senior Enlisted Advisor to the Chief of the National Guard Bureau (CNGB)
+  :changed_date: '2023-10-31'
+:9C000:
+  :name: Chief Master Sergeant of the Air Force
+:9C100:
+  :name: Executive Assistant to the Chief Master Sergeant of the Air Force
+  :changed_date: '2021-10-31'
+:9D100:
+  :name: AF Developmental Senior Enlisted Positions
+  :changed_date: '2021-10-31'
+:9D200:
+  :name: Key Developmental Senior Enlisted Positions
+  :changed_date: '2021-10-31'
+:9D300:
+  :name: Wing (Wing level) or Headquarter (HQ level) Senior Enlisted Leader
+  :changed_date: '2025-10-31'
+:9E000:
+  :name: Command Chief Master Sergeant
+:9E100:
+  :name: Command Chief Executive Assistant
+  :changed_date: '2016-04-30'
+:9E200:
+  :name: Individual Mobilization Augmentee to Command Chief Master Sergeant
+  :changed_date: '2019-10-31'
+:9F000:
+  :name: First Term Enlisted Course (FTEC) NCOIC
+  :changed_date: '2025-10-31'
+:9G100:
+  :name: Group Senior Enlisted Leader
+  :changed_date: '2022-04-30'
+:9H000:
+  :name: Academic Faculty Instructor
+  :changed_date: '2018-10-31'
+:9H100:
+  :name: White House Communications Agency Technician (WHCA)
+  :changed_date: '2022-10-31'
+:9H200:
+  :name: Academic Faculty Instructor (Space Force)
+  :changed_date: '2024-04-30'
+:9I000:
+  :name: Futures Airmen
+  :changed_date: '2022-04-30'
+:9J000:
+  :name: Prisoner
+  :changed_date: '2013-08-12'
+:9L000:
+  :name: Interpreter/Translator
+  :changed_date: '2023-10-31'
+:9L100:
+  :name: International Affairs Specialist
+  :changed_date: '2025-04-30'
+  :shredouts:
+    :A: Air Component Manager
+    :B: Tactical Specialist
+    :C: Institutional Specialist
+    :D: Embassy Specialist
+:9M000:
+  :name: Military Entrance Processing Command (MEPCOM) Senior Enlisted Advisor
+  :changed_date: '2015-10-31'
+:9M200:
+  :name: International Health Specialists (IHS)
+  :acronym: IHS
+  :changed_date: '2024-04-30'
+:9M400:
+  :name: Chief, Medical Enlisted Force (CMEF), Senior Enlisted Leader and/or Senior
+    Enlisted Advisor (SEA)
+  :changed_date: '2025-10-31'
+:9N000:
+  :name: Secretary of the Air Force Enlisted Legislative Fellows
+  :changed_date: '2024-04-30'
+:9N100:
+  :name: Secretary of the Air Force Enlisted Legislative Fellows (Space Force)
+  :changed_date: '2024-04-30'
+:9N200:
+  :name: DAF World Class Athlete Program (WCAP)
+  :acronym: WCAP
+:9P000:
+  :name: Patient
+:9Q000:
+  :name: Reserve Force Generation and Oversight NCO
+  :changed_date: '2020-04-30'
+:9R000:
+  :name: Civil Air Patrol (CAP)-USAF Reserve Assistance NCO
+:9S000:
+  :name: Chief Master Sergeant of the Space Force
+  :changed_date: '2020-04-30'
+:9S100:
+  :name: Scientific Applications Specialist
+  :changed_date: '2025-10-31'
+  :shredouts:
+    :D: ISR Applied Data Science
+:9T000:
+  :name: Basic Enlisted Airman
+:9T100:
+  :name: Officer Trainee
+:9T200:
+  :name: Precadet Assignee
+:9T400:
+  :name: AFIT/EWI Enlisted Students
+  :changed_date: '2017-10-31'
+:9T500:
+  :name: Basic Special Warfare Enlisted Airman
+  :changed_date: '2025-10-31'
+:9U000:
+  :name: Enlisted Airman/Guardian Ineligible for Local Utilization
+:9U100:
+  :name: Unallotted Enlisted Authorization
+  :changed_date: '2014-07-23'
+:9V000:
+  :name: Key Developmental Joint Senior Enlisted Position
+  :changed_date: '2021-10-31'
+:9V100:
+  :name: Executive Assistant to the Senior Enlisted Advisor to the Chairman of the
+    Joint Chiefs of Staff
+  :changed_date: '2022-10-31'
+:9W000:
+  :name: Combat Wounded Warrior
+  :changed_date: '2015-05-11'
+:9W100:
+  :name: Reserved for Future Use
+  :changed_date: '2015-05-11'
+:9W200:
+  :name: Combat Wounded Warrior with Exemptions
+  :changed_date: '2015-05-11'
+:9W300:
+  :name: Non-Combat Wounded Warrior
+  :changed_date: '2015-05-11'
+:9W400:
+  :name: Wounded Warrior - Limited Assignment Status (LAS)
+  :acronym: LAS
+  :changed_date: '2015-05-11'
+:9W500:
+  :name: Reserved for Future Use
+  :changed_date: '2015-05-11'
+:9W600:
+  :name: Reserved for Future Use
+  :changed_date: '2015-05-11'
+:9W700:
+  :name: Reserved for Future Use
+  :changed_date: '2015-05-11'
+:9W800:
+  :name: Wounded Warrior - Ambassador
+  :changed_date: '2019-10-31'
+:9W900:
+  :name: Wounded Warrior - Project Planner/Officer
+  :changed_date: '2019-10-31'
+:9Y000:
+  :name: Air Force Parachute Team (AFPT) Instructor
+  :changed_date: '2023-04-30'
+:9Z000:
+  :name: Special Warfare Mission Support (SWMS) Career Field Manager (CFM) on Headquarters
+    Air Force Staff, Air Force Special Warfare Division
+  :changed_date: '2021-10-31'
+:9Z100:
+  :name: Special Warfare Mission Support (SWMS) Senior Enlisted Leader, Air Force
+    Special Warfare (AFSPECWAR)
+  :changed_date: '2025-10-31'
+:9Z200:
+  :name: Special Warfare Mission Support (SWMS) Superintendent, Air Force Special
+    Warfare (AFSPECWAR)
+  :changed_date: '2024-10-31'
