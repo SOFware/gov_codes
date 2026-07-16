@@ -142,8 +142,10 @@ module GovCodes
 
       # Resolve the RI code whose consumer-overlay acronym matches +acronym+
       # (case-insensitive), or nil. RI acronyms come only from the
-      # ri_acronyms.yml overlay (none are extracted from source).
-      def self.find_by_acronym(acronym)
+      # ri_acronyms.yml overlay (none are extracted from source). +as_of+ is
+      # accepted for interface parity with Enlisted/Officer and ignored: RI
+      # data is not versioned by release yet.
+      def self.find_by_acronym(acronym, as_of: nil)
         acronym = acronym.to_s.upcase
         return nil if acronym.empty?
 

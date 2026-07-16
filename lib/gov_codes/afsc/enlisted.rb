@@ -109,9 +109,9 @@ module GovCodes
       )
 
       # Resolve an enlisted AFSC against the DAFECD release in effect on +as_of+
-      # (default: the latest shipped release). Returns nil when the code does not
-      # parse, when the specialty is absent from the resolved release, or when
-      # +as_of+ precedes the earliest shipped release.
+      # (default: today). Returns nil when the code does not parse, when the
+      # specialty is absent from the resolved release, or when +as_of+ precedes
+      # the earliest shipped release (or no release has taken effect yet).
       def self.find(code, as_of: nil)
         code = code.to_s
         # Key the memo on the RESOLVED release date so equivalent as_of values

@@ -18,8 +18,12 @@ module GovCodes
     #
     # Resolution: releases are sorted ascending by effective_date. A given
     # `as_of` resolves to the release with the greatest effective_date <= as_of;
-    # `as_of: nil` resolves to the latest release. A date before the earliest
-    # shipped release resolves to no release (an empty index / nil date).
+    # `as_of: nil` resolves it as of today. A release only takes effect on its
+    # own effective_date -- a release dated in the future (e.g. one a consumer
+    # pre-loads ahead of its official date, see DEC-004 below) is not resolved
+    # until that date arrives, even though it is the most recently added one. A
+    # date before the earliest shipped release resolves to no release (an empty
+    # index / nil date).
     #
     # Extensibility (DEC-004): both tiers merge across the load path (gem lib dir
     # first, then the load path). The manifest's per-publication release list is
@@ -90,21 +94,26 @@ module GovCodes
           ([gem_lib_dir] + Array(lookup)).uniq
         end
 
-        # Resolve, merge, and cache the release index for +publication+. The
-        # cache key includes the publication and index filename so enlisted and
-        # officer indexes never collide.
+        # Resolve, merge, and cache the release index for +publication+. Always
+        # resolves the release first (cheap: the manifest itself is cached) and
+        # keys the expensive part -- loading and merging the index file -- on
+        # the RESOLVED release's date, not the raw +as_of+. With `as_of: nil`
+        # meaning "today," keying on the raw input would freeze the cache to
+        # whichever release happened to be current at the first call and never
+        # notice a later release's effective_date arrive.
         def release_index(publication, index_file, as_of:, lookup:)
-          key = [publication, index_file, to_date(as_of), cache_key(lookup)]
-          index_cache[key] ||= load_release_index(publication, index_file, as_of: as_of, lookup: lookup)
+          release = resolve_release(publication, as_of: as_of, lookup: lookup)
+          return {} unless release
+
+          key = [publication, index_file, release[:date], cache_key(lookup)]
+          index_cache[key] ||= load_release_index(release, publication, index_file, lookup)
         end
 
         def resolve_release(publication, as_of:, lookup:)
           releases = release_list(lookup, publication)
           return nil if releases.empty?
 
-          target = to_date(as_of)
-          return releases.last if target.nil?
-
+          target = to_date(as_of) || Date.today
           releases.reverse.find { |r| r[:date] <= target }
         end
 
@@ -131,10 +140,7 @@ module GovCodes
           merged
         end
 
-        def load_release_index(publication, index_file, as_of:, lookup:)
-          release = resolve_release(publication, as_of: as_of, lookup: lookup)
-          return {} unless release
-
+        def load_release_index(release, publication, index_file, lookup)
           merged = {}
           parts = ["gov_codes", "afsc", "releases", publication, release[:dir], index_file]
           each_yaml(lookup, parts) { |data| merged.merge!(data) }

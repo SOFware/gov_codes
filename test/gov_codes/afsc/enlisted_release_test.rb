@@ -12,16 +12,17 @@ module GovCodes
     describe "Enlisted versioned lookup" do
       before do
         @temp_dir = Dir.mktmpdir
+        @release_date = Date.today
         afsc_dir = File.join(@temp_dir, "gov_codes", "afsc")
-        # A future release date so `as_of: nil` (latest) resolves to this
-        # synthetic release rather than the gem's shipped one (release lists are
-        # unioned across the load path).
-        release_dir = File.join(afsc_dir, "releases", "dafecd", "2099-06-30")
+        # Dated today so `as_of: nil` (today) resolves to this synthetic release
+        # rather than the gem's shipped one (release lists are unioned across
+        # the load path).
+        release_dir = File.join(afsc_dir, "releases", "dafecd", @release_date.iso8601)
         FileUtils.mkdir_p(release_dir)
 
         File.write(File.join(afsc_dir, "releases.yml"), <<~YAML)
           :dafecd:
-          - :effective_date: '2099-06-30'
+          - :effective_date: '#{@release_date.iso8601}'
             :version_label: test
             :source: synthetic.pdf
             :name: Synthetic Directory
@@ -62,7 +63,7 @@ module GovCodes
 
       it "carries the release effective_date on the resolved code" do
         code = Enlisted.find("1A172")
-        _(code.effective_date).must_equal Date.new(2099, 6, 30)
+        _(code.effective_date).must_equal @release_date
       end
 
       it "resolves a shredout name from the versioned index" do
@@ -77,9 +78,9 @@ module GovCodes
       end
 
       it "resolves the same code for an as_of within the release window" do
-        code = Enlisted.find("1A172", as_of: "2099-06-30")
+        code = Enlisted.find("1A172", as_of: @release_date.iso8601)
         _(code.specialty_name).must_equal "Mobility Force Aviator"
-        _(code.effective_date).must_equal Date.new(2099, 6, 30)
+        _(code.effective_date).must_equal @release_date
       end
 
       it "returns nil for a specialty absent from the release" do
@@ -97,7 +98,7 @@ module GovCodes
         it "carries the release effective_date on searched codes" do
           codes = Enlisted.search("1A1X2")
           _(codes).wont_be_empty
-          codes.each { |c| _(c.effective_date).must_equal Date.new(2099, 6, 30) }
+          codes.each { |c| _(c.effective_date).must_equal @release_date }
         end
 
         it "is case-insensitive" do
