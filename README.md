@@ -134,7 +134,7 @@ results.each do |code|
   puts "#{code.specific_afsc}#{shredout}: #{code.name}"
 end
 # Output:
-# 11BX: Bomber pilot
+# 11BX: Bomber Pilot
 # 11BXA: B-1
 # 11BXB: B-2
 # 11BXC: B-52
@@ -142,6 +142,29 @@ end
 
 # Search is case-insensitive
 GovCodes::AFSC.search("1z1") # Same as search("1Z1")
+```
+
+`search` looks across all three tiers -- enlisted, officer, and RI/SDI -- so a
+single call can return a mix of `Enlisted::Code`, `Officer::Code`, and
+`RI::Code` results:
+
+```ruby
+results = GovCodes::AFSC.search("8G")
+results.map(&:class).uniq
+# => [GovCodes::AFSC::Enlisted::Code, GovCodes::AFSC::RI::Code]
+
+# The enlisted specialty and its RI/SDI counterpart both match the prefix
+results.each do |code|
+  if code.is_a?(GovCodes::AFSC::RI::Code)
+    puts "#{code.specific_ri}#{code.suffix}: #{code.name}"
+  else
+    puts "#{code.specific_afsc}#{code.shredout}: #{code.name}"
+  end
+end
+# Output includes both:
+# 8G0X1: Premier Honor Guard      (Enlisted::Code)
+# 8G000: Premier Honor Guard      (RI::Code)
+# 8G000B: Pallbearer              (RI::Code, the honor guard's pallbearer SDI)
 ```
 
 ### Extending with Custom AFSC Codes
