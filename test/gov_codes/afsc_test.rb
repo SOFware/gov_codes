@@ -140,21 +140,25 @@ module GovCodes
       assert_equal "Special Investigations", code.name
     end
 
-    def test_find_chief_enlisted_manager_codes
-      # First sergeant (E-7)
+    def test_find_resolves_enlisted_ri_sdi_codes
+      # Enlisted-shape (5-char) RI/SDI resolves through the same entry point.
       code = AFSC.find("5Z700")
       assert_instance_of GovCodes::AFSC::RI::Code, code
-      assert_equal "First sergeant", code.name
+      assert_equal "Space Operations Senior Enlisted Leader (USSF Only)", code.name
+      assert_equal Date.new(2025, 10, 31), code.effective_date
 
-      # Command chief master sergeant (E-8)
-      code = AFSC.find("5Z800")
-      assert_instance_of GovCodes::AFSC::RI::Code, code
-      assert_equal "Command chief master sergeant", code.name
+      # A shredout suffix resolves its meaning from the entry.
+      pallbearer = AFSC.find("8G000B")
+      assert_instance_of GovCodes::AFSC::RI::Code, pallbearer
+      assert_equal "Pallbearer", pallbearer.name
+    end
 
-      # Senior enlisted manager (E-9)
-      code = AFSC.find("5Z900")
+    def test_find_resolves_officer_ri_sdi_codes
+      # Officer-shape (4-char) RI/SDI resolves through the same entry point.
+      code = AFSC.find("90G0")
       assert_instance_of GovCodes::AFSC::RI::Code, code
-      assert_equal "Senior enlisted manager", code.name
+      assert_equal "General Officer", code.name
+      assert_equal Date.new(2025, 10, 31), code.effective_date
     end
 
     # --- Specialty acronyms --------------------------------------------------

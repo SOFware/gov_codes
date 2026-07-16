@@ -93,10 +93,16 @@ GovCodes::AFSC.find("19ZXB").acronym # => "TACPO"
 
 # Find a Reporting Identifier (RI) or Special Duty Identifier (SDI)
 code = GovCodes::AFSC.find("8A400")
-puts code.name # => "Talent management consultant"
+puts code.name # => "Talent Management Consultant"
 puts code.career_field # => "8A"
 puts code.identifier # => "400"
 puts code.suffix # => nil
+
+# An RI/SDI code carries its source-verified acronym, and reverse lookup is
+# case-insensitive and as_of-aware, just like enlisted/officer AFSCs:
+GovCodes::AFSC.find("9M200").acronym # => "IHS"
+GovCodes::AFSC.find_by_acronym("IHS", as_of: "2025-11-01").name
+# => "International Health Specialists (IHS)"
 
 # Find a code with a shredout/suffix
 code = GovCodes::AFSC.find("11BXA")
@@ -191,7 +197,7 @@ GovCodes::AFSC.find("1A172Y").effective_date         # => the release the result
 
 `as_of: nil` (the default) is today's date, not "whatever's newest" — a release only takes effect on its own effective_date. This only differs from "the latest shipped release" if a release dated in the future has been added to the load path (see "Extending with Custom AFSC Codes" above); until that date arrives, lookups keep resolving against the current release.
 
-**Currently shipped:** enlisted AFSCs from the DAFECD and officer AFSCs from the DAFOCD, both effective 31 October 2025. Reporting/special-duty identifiers (RI/SDI), SEIs, prefixes, and Space Force codes are planned.
+**Currently shipped:** enlisted AFSCs from the DAFECD and officer AFSCs from the DAFOCD, plus the reporting/special-duty identifiers (RI/SDI) from both directories (enlisted 5-char from the DAFECD, officer 4-char from the DAFOCD) — all effective 31 October 2025. SEIs, prefixes, and the full Space Force Specialty Codes (SFSC) are planned.
 
 ### Specialty acronyms
 
@@ -231,13 +237,15 @@ Everything else — colloquial acronyms not printed in the directory (e.g. `PJ` 
 :"11MX": MOBPLT   # augments the Mobility Pilot entry (ships no acronym)
 :"16FX": FAREA    # overrides the shipped FAO acronym
 
-# RI/SDI (unversioned):   lib/gov_codes/afsc/ri_acronyms.yml
-:"8A400": TMC
+# RI/SDI acronyms live in the SAME per-release acronyms.yml, keyed by RI code:
+# 5-char enlisted RI in the DAFECD file, 4-char officer RI in the DAFOCD file.
+:"8A400": TMC     # enlisted RI/SDI -> dafecd/<date>/acronyms.yml
+:"90G0": GENOFF   # officer RI/SDI  -> dafocd/<date>/acronyms.yml
 ```
 
 Key points:
 
-- **Enlisted and officer overlays are per-release-date**, scoped by the directory's effective date, so `find(code, as_of: "2025-11-01")` applies that release's overlay — and the two publications resolve independently, so an officer overlay never affects an enlisted lookup or vice versa. RI is unversioned (a single overlay file).
+- **Enlisted, officer, and RI/SDI overlays are all per-release-date**, scoped by the directory's effective date, so `find(code, as_of: "2025-11-01")` applies that release's overlay — and each publication resolves independently, so an officer overlay never affects an enlisted lookup or vice versa. RI/SDI reuses the same per-release, per-publication `acronyms.yml` tier (enlisted RI from the DAFECD file, officer RI from the DAFOCD file), so an RI overlay never crosses into an enlisted/officer lookup either.
 - The overlay is a **separate tier** — it only sets `:acronym` on entries that already exist and never replaces an entry, so `name`, `qual_levels`/`skill_levels`, and `shredouts` stay intact.
 - **Precedence:** the consumer overlay wins over the shipped, source-verified acronym. For officer codes a documented shredout acronym still wins for a shredded code. The gem ships no overlay file, so absent one the shipped index is used as-is.
 
@@ -261,8 +269,11 @@ mise exec -- ruby bin/extract_afsc_from_pdf.rb "DAFOCD 31 Oct 25 v3.pdf"
 
 The retired `bin/extract_afsc_from_wikipedia.rb` (which generated the old flat
 enlisted/officer YAML) has been removed in favor of the PDF extractor. RI/SDI
-data (`lib/gov_codes/afsc/ri.yml`) remains Wikipedia-sourced and is currently
-hand-maintained; it is not produced by either extractor.
+data is now sourced from the same DAFECD (enlisted, 5-char) and DAFOCD (officer,
+4-char) directories, under the same anti-hallucination gate — every RI code,
+title, and acronym must appear verbatim in the source — and ships as versioned
+artifacts (`releases/<publication>/<date>/ri.yml`) alongside the enlisted and
+officer indexes.
 
 To install this gem onto your local machine, run `bundle exec rake install`.
 

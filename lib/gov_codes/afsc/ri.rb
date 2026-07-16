@@ -1,64 +1,100 @@
 require "strscan"
-require "yaml"
-require_relative "../data_loader"
+require_relative "releases"
 
 module GovCodes
   module AFSC
-    # Reporting Identifiers (RI) and Special Duty Identifiers (SDI)
-    # These codes follow a different format than standard AFSCs:
-    # - Career field: digit + letter (e.g., "9Z", "8A")
-    # - Identifier: 3 digits (e.g., "200", "400")
-    # - Optional suffix: letter (e.g., "A", "B")
+    # Reporting Identifiers (RI) and Special Duty Identifiers (SDI), resolved
+    # against the versioned classification-directory release indexes. RI/SDI
+    # codes live in BOTH directories under two different code grammars:
     #
-    # Examples: 9Z200, 8A400, 8G000B, 8R300A
+    #   Enlisted (DAFECD), 5-char:  \d[A-Z]\d{3}[A-Z]?   e.g. 9Z200, 8R300A
+    #   Officer  (DAFOCD), 4-char:  \d{2}[A-Z]\d[A-Z]?   e.g. 90G0,  92T1
+    #
+    # A single +find+ entry point dispatches by shape to the matching
+    # publication's ri.yml index (Releases.ri_index). Entries share the shape of
+    # enlisted/officer specialty records (:name, :acronym, :shredouts,
+    # :shredout_acronyms), so shredout suffixes and acronyms resolve exactly as
+    # they do for Enlisted/Officer.
     module RI
       class Parser
         def initialize(code)
-          @code = code
+          @code = code.to_s
         end
 
+        # Try the 5-char enlisted shape first, then the 4-char officer shape.
+        # Both shapes are mutually exclusive (an enlisted code's 2nd char is a
+        # letter; an officer code's 2nd char is a digit), so at most one matches.
+        # The result carries the decomposed fields plus the :publication whose
+        # index should resolve the name; all nil when neither shape parses.
         def parse
-          scanner = StringScanner.new(@code.to_s)
-          result = {
+          parse_enlisted || parse_officer || empty_result
+        end
+
+        private
+
+        def empty_result
+          {
             career_group: nil,
             career_field: nil,
             identifier: nil,
             suffix: nil,
-            specific_ri: nil
+            specific_ri: nil,
+            publication: nil
           }
+        end
 
-          # Scan for career group (single digit)
-          career_group = scanner.scan(/\d/)
-          return result unless career_group
-          result[:career_group] = career_group.to_sym
-
-          # Scan for career field letter
-          career_field_letter = scanner.scan(/[A-Z]/)
-          return result unless career_field_letter
-          result[:career_field] = :"#{career_group}#{career_field_letter}"
-
-          # Scan for identifier (3 digits)
-          identifier = scanner.scan(/\d{3}/)
-          return result unless identifier
-          result[:identifier] = identifier.to_sym
-
-          # Build specific RI code
-          result[:specific_ri] = :"#{result[:career_field]}#{identifier}"
-
-          # Scan for optional suffix (letter)
+        # Enlisted shape: career_group (1 digit), career_field (digit+letter,
+        # e.g. "9Z"), identifier (3 digits), optional 1-letter suffix.
+        def parse_enlisted
+          scanner = StringScanner.new(@code)
+          career_group = scanner.scan(/\d/) or return nil
+          field_letter = scanner.scan(/[A-Z]/) or return nil
+          identifier = scanner.scan(/\d{3}/) or return nil
           suffix = scanner.scan(/[A-Z]/)
-          result[:suffix] = suffix&.to_sym
+          return nil unless scanner.eos?
 
-          # Check if we've reached the end of the string
-          return result unless scanner.eos?
+          career_field = :"#{career_group}#{field_letter}"
+          {
+            career_group: career_group.to_sym,
+            career_field: career_field,
+            identifier: identifier.to_sym,
+            suffix: suffix&.to_sym,
+            specific_ri: :"#{career_field}#{identifier}",
+            publication: Releases::ENLISTED_PUBLICATION
+          }
+        end
 
-          result
+        # Officer shape: same grammar as an officer AFSC (2-digit career group +
+        # functional-area letter + 1-digit qualification level). There is no
+        # natural 3-digit identifier here, so these codes are mapped onto the
+        # SAME Code struct with the closest-matching semantics:
+        #   career_group  the 2-digit prefix   (e.g. :"90")
+        #   career_field  2-digit + letter     (e.g. :"90G")
+        #   identifier    the trailing digit   (e.g. :"0")  <- 1 digit, not 3;
+        #                                                       intentional, not a bug
+        #   specific_ri   the full 4-char code (e.g. :"90G0")
+        def parse_officer
+          scanner = StringScanner.new(@code)
+          career_group = scanner.scan(/\d{2}/) or return nil
+          field_letter = scanner.scan(/[A-Z]/) or return nil
+          identifier = scanner.scan(/\d/) or return nil
+          suffix = scanner.scan(/[A-Z]/)
+          return nil unless scanner.eos?
+
+          career_field = :"#{career_group}#{field_letter}"
+          {
+            career_group: career_group.to_sym,
+            career_field: career_field,
+            identifier: identifier.to_sym,
+            suffix: suffix&.to_sym,
+            specific_ri: :"#{career_field}#{identifier}",
+            publication: Releases::OFFICER_PUBLICATION
+          }
         end
       end
 
-      extend GovCodes::DataLoader
-
-      DATA = data
+      CODES = {}
+      private_constant :CODES
 
       Code = Data.define(
         :career_group,
@@ -67,131 +103,104 @@ module GovCodes
         :suffix,
         :specific_ri,
         :name,
-        :acronym
+        :acronym,
+        :effective_date
       )
 
-      def self.find_name_recursive(result)
-        name = nil
-        data = DATA
-
-        career_field = result[:career_field]
-        identifier = result[:identifier]
-        suffix = result[:suffix]
-
-        # Look for the career field (e.g., "9Z", "8A")
-        if data[career_field]
-          field_data = data[career_field]
-
-          # Career field has name and subcategories
-          if field_data.is_a?(Hash) && field_data[:subcategories]
-            subcats = field_data[:subcategories]
-
-            # Look for the identifier (e.g., "200", "400")
-            if subcats[identifier]
-              identifier_data = subcats[identifier]
-
-              if identifier_data.is_a?(Hash)
-                name = identifier_data[:name]
-
-                # Look for suffix if present
-                if suffix && identifier_data[:subcategories]
-                  suffix_data = identifier_data[:subcategories][suffix]
-                  name = suffix_data if suffix_data.is_a?(String)
-                  name = suffix_data[:name] if suffix_data.is_a?(Hash)
-                end
-              else
-                # Simple string value
-                name = identifier_data
-              end
-            end
-          end
-        end
-
-        name || "Unknown"
-      end
-
-      def self.find(code)
+      # Resolve an RI/SDI code against the release in effect on +as_of+ (default:
+      # today). Dispatches by code shape to the enlisted (DAFECD) or officer
+      # (DAFOCD) ri.yml index. Returns nil when the code parses as neither shape,
+      # when the resolved index lacks the code, or when +as_of+ precedes the
+      # earliest shipped release for the relevant publication.
+      def self.find(code, as_of: nil)
         code = code.to_s
-        CODES[code] ||= begin
-          parser = Parser.new(code)
-          result = parser.parse
+        parsed = Parser.new(code).parse
+        publication = parsed[:publication]
+        return nil unless publication
 
-          # Return nil if parsing failed or required fields are missing
-          return nil if result.reject { |_, v| v.nil? }.empty? ||
-            result[:career_group].nil? ||
-            result[:career_field].nil? ||
-            result[:identifier].nil? ||
-            result[:specific_ri].nil?
+        # Key the memo on the RESOLVED release date so equivalent as_of values
+        # (nil, the Date, its string form) share one slot.
+        effective_date = Releases.effective_date_for(as_of: as_of, publication: publication)
+        CODES[[code, effective_date]] ||= begin
+          index = Releases.ri_index(as_of: as_of, publication: publication)
+          entry = index[parsed[:specific_ri]]
+          return nil unless entry
 
-          # Find the name by recursively searching the codes hash
-          name = find_name_recursive(result)
+          suffix = parsed[:suffix]
+          # Shredout suffix meaning, only when the directory documents it.
+          shredout_name = suffix && entry.dig(:shredouts, suffix)
+          name = shredout_name || entry[:name]
+          return nil if name.nil?
 
-          # Return nil if name is "Unknown" (code not in data)
-          return nil if name == "Unknown"
+          # A documented shredout acronym wins for a shredded code; otherwise the
+          # entry's own acronym (which a consumer overlay may set).
+          shredout_acronym = suffix && entry.dig(:shredout_acronyms, suffix)
 
-          # Add the name to the result
-          result[:name] = name
-          # RI acronyms are not extracted from source; a consumer overlay
-          # (ri_acronyms.yml, keyed by the code) may populate them. nil when
-          # absent, for shape parity with Enlisted.
-          result[:acronym] = acronym_overlay[result[:specific_ri]]
-
-          Code.new(**result)
+          Code.new(
+            career_group: parsed[:career_group],
+            career_field: parsed[:career_field],
+            identifier: parsed[:identifier],
+            suffix: suffix,
+            specific_ri: parsed[:specific_ri],
+            name: name,
+            acronym: shredout_acronym || entry[:acronym],
+            effective_date: effective_date
+          )
         end
       end
 
-      # Resolve the RI code whose consumer-overlay acronym matches +acronym+
-      # (case-insensitive), or nil. RI acronyms come only from the
-      # ri_acronyms.yml overlay (none are extracted from source). +as_of+ is
-      # accepted for interface parity with Enlisted/Officer and ignored: RI
-      # data is not versioned by release yet.
+      # Resolve the RI/SDI code whose acronym matches +acronym+ (case-insensitive)
+      # in the release in effect on +as_of+. Scans the enlisted index first, then
+      # the officer index; within an entry the entry's own acronym is tried before
+      # its shredout acronyms (a shredout match returns the concrete shredded
+      # code). First match wins. Returns nil when no acronym in the resolved
+      # release(s) matches (no leakage across document dates).
       def self.find_by_acronym(acronym, as_of: nil)
         acronym = acronym.to_s.upcase
         return nil if acronym.empty?
 
-        match = acronym_overlay.find { |_code, acr| acr.to_s.upcase == acronym }
-        match && find(match.first.to_s)
-      end
+        [Releases::ENLISTED_PUBLICATION, Releases::OFFICER_PUBLICATION].each do |publication|
+          index = Releases.ri_index(as_of: as_of, publication: publication)
+          index.each do |code, entry|
+            return find(code.to_s, as_of: as_of) if entry[:acronym].to_s.upcase == acronym
 
-      # Consumer acronym overlay: a flat map keyed by the RI code, loaded once
-      # from the load path (gov_codes/afsc/ri_acronyms.yml). The gem ships none,
-      # so this is {} unless a consumer supplies one.
-      def self.acronym_overlay
-        @acronym_overlay ||= flat_overlay("ri_acronyms.yml")
-      end
-
-      def self.reset_data(lookup: $LOAD_PATH)
-        remove_const(:DATA) if const_defined?(:DATA)
-        const_set(:DATA, data(lookup:))
-        CODES.clear
-        @acronym_overlay = flat_overlay("ri_acronyms.yml", lookup:)
-      end
-
-      def self.search(prefix)
-        results = []
-        prefix = prefix.to_s.upcase
-        collect_codes_recursive(DATA, "", prefix, results)
-        results.map { |code| find(code) }.compact
-      end
-
-      def self.collect_codes_recursive(data, current_code, prefix, results)
-        return unless data.is_a?(Hash)
-
-        data.each do |key, value|
-          code = "#{current_code}#{key}"
-
-          if value.is_a?(Hash) && value[:name]
-            # This is a node with a name and possibly subcategories
-            results << code if code.start_with?(prefix)
-            collect_codes_recursive(value[:subcategories], code, prefix, results) if value[:subcategories]
-          elsif value.is_a?(String)
-            # This is a leaf node (simple string value)
-            results << code if code.start_with?(prefix)
-          elsif value.is_a?(Hash)
-            # Nested subcategories without a name at this level
-            collect_codes_recursive(value, current_code, prefix, results)
+            (entry[:shredout_acronyms] || {}).each do |suffix, acr|
+              return find("#{code}#{suffix}", as_of: as_of) if acr.to_s.upcase == acronym
+            end
           end
         end
+        nil
+      end
+
+      # Walk both publications' RI/SDI indexes for the release in effect on
+      # +as_of+, emitting each base code and its shredout-suffixed combinations,
+      # and return the Codes whose code starts with +prefix+.
+      def self.search(prefix, as_of: nil)
+        prefix = prefix.to_s.upcase
+
+        codes = []
+        [Releases::ENLISTED_PUBLICATION, Releases::OFFICER_PUBLICATION].each do |publication|
+          index = Releases.ri_index(as_of: as_of, publication: publication)
+          index.each do |code, entry|
+            code_str = code.to_s
+            codes << code_str
+            (entry[:shredouts] || {}).each_key do |suffix|
+              codes << "#{code_str}#{suffix}"
+            end
+          end
+        end
+
+        codes.select { |code| code.start_with?(prefix) }
+          .map { |code| find(code, as_of: as_of) }
+          .compact
+      end
+
+      # Clears the memoized lookups and resets the versioned release loader. The
+      # +lookup+ keyword is accepted for interface parity with Enlisted/Officer;
+      # the versioned index is resolved from the load path at lookup time.
+      def self.reset_data(lookup: $LOAD_PATH)
+        Releases.reset!
+        CODES.clear
       end
     end
   end
