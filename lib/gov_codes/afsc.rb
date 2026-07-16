@@ -5,9 +5,10 @@ require_relative "afsc/ri"
 module GovCodes
   module AFSC
     # Resolve a code as of the classification-directory release in effect on
-    # +as_of+ (default: the latest shipped release). +as_of+ applies to the
-    # versioned enlisted (DAFECD) and officer (DAFOCD) lookups, each resolved
-    # against its own publication; RI is unversioned.
+    # +as_of+ (default: today). +as_of+ applies to the versioned enlisted
+    # (DAFECD) and officer (DAFOCD) lookups, each resolved against its own
+    # publication; RI is unversioned and accepts +as_of+ only for interface
+    # parity (it is ignored).
     def self.find(code, as_of: nil)
       AFSC::Enlisted.find(code, as_of: as_of) ||
         AFSC::Officer.find(code, as_of: as_of) ||
@@ -15,10 +16,10 @@ module GovCodes
     end
 
     # Resolve a code by its acronym (case-insensitive) as of the release in
-    # effect on +as_of+ (default: the latest shipped release). Searches the
-    # enlisted tier (source-verified acronyms + that release's overlay), then the
-    # officer tier (specialty and shredout acronyms + that release's overlay),
-    # then the unversioned RI overlay. Returns a single Code or nil.
+    # effect on +as_of+ (default: today). Searches the enlisted tier
+    # (source-verified acronyms + that release's overlay), then the officer
+    # tier (specialty and shredout acronyms + that release's overlay), then the
+    # unversioned RI overlay. Returns a single Code or nil.
     #
     # Acronyms are expected to be unique. If two codes carry the same acronym,
     # the first match wins in a defined order: enlisted before officer before RI,
@@ -26,7 +27,7 @@ module GovCodes
     def self.find_by_acronym(acronym, as_of: nil)
       AFSC::Enlisted.find_by_acronym(acronym, as_of: as_of) ||
         AFSC::Officer.find_by_acronym(acronym, as_of: as_of) ||
-        AFSC::RI.find_by_acronym(acronym)
+        AFSC::RI.find_by_acronym(acronym, as_of: as_of)
     end
 
     def self.search(prefix, as_of: nil)

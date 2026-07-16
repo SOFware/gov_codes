@@ -124,7 +124,10 @@ module GovCodes
 
     # DEC-004: a consumer manifest must MERGE its releases into the shipped list
     # (union by effective_date), not replace it. Adding a release must not hide
-    # the gem's shipped 2025-10-31 release.
+    # the gem's shipped 2025-10-31 release. A release dated in the future must
+    # not take effect early just because it is the most recently added one --
+    # `as_of: nil` (today) keeps resolving the shipped release until the future
+    # release's own effective_date actually arrives.
     describe "Releases manifest merging" do
       before do
         @temp_dir = Dir.mktmpdir
@@ -167,28 +170,38 @@ module GovCodes
         _(index.dig(:"1A1X2", :name)).must_equal "Mobility Force Aviator"
       end
 
-      it "resolves the consumer-added release as the latest" do
+      it "does not resolve a future release before its effective_date arrives" do
         index = Releases.enlisted_index(as_of: nil, lookup: [@temp_dir])
-        _(index.key?(:"9Q9X9")).must_equal true
+        _(index.key?(:"9Q9X9")).must_equal false
+        _(index.key?(:"1A1X2")).must_equal true # still the shipped release
         _(Releases.effective_date_for(as_of: nil, lookup: [@temp_dir]))
+          .must_equal Date.new(2025, 10, 31)
+      end
+
+      it "resolves the future release once as_of reaches its effective_date" do
+        index = Releases.enlisted_index(as_of: "2099-12-31", lookup: [@temp_dir])
+        _(index.key?(:"9Q9X9")).must_equal true
+        _(Releases.effective_date_for(as_of: "2099-12-31", lookup: [@temp_dir]))
           .must_equal Date.new(2099, 12, 31)
       end
     end
 
     # The officer (DAFOCD) publication reuses the same resolve/merge/cache
     # machinery as enlisted (DAFECD) but reads officer.yml under releases/dafocd.
-    # A future release date keeps the resolved index free of the 130-entry
-    # shipped index so these assertions are self-contained.
+    # Dated today (rather than the shipped 2025-10-31) so `as_of: nil` resolves
+    # this synthetic release instead of the real 130-entry shipped index, keeping
+    # these assertions self-contained.
     describe "Releases officer index" do
       before do
         @temp_dir = Dir.mktmpdir
+        @release_date = Date.today
         base = File.join(@temp_dir, "gov_codes", "afsc")
-        release_dir = File.join(base, "releases", "dafocd", "2099-06-30")
+        release_dir = File.join(base, "releases", "dafocd", @release_date.iso8601)
         FileUtils.mkdir_p(release_dir)
 
         File.write(File.join(base, "releases.yml"), <<~YAML)
           :dafocd:
-          - :effective_date: '2099-06-30'
+          - :effective_date: '#{@release_date.iso8601}'
             :version_label: test
             :source: synthetic-officer.pdf
             :name: Synthetic Officer Directory
@@ -230,7 +243,7 @@ module GovCodes
       it "resolves the officer effective date via the officer publication" do
         _(Releases.effective_date_for(as_of: nil, lookup: [@temp_dir],
           publication: Releases::OFFICER_PUBLICATION))
-          .must_equal Date.new(2099, 6, 30)
+          .must_equal @release_date
       end
 
       it "resolves each publication's effective date independently" do
@@ -251,13 +264,14 @@ module GovCodes
     describe "Releases officer acronym overlay" do
       before do
         @temp_dir = Dir.mktmpdir
+        release_date = Date.today
         base = File.join(@temp_dir, "gov_codes", "afsc")
-        release_dir = File.join(base, "releases", "dafocd", "2099-06-30")
+        release_dir = File.join(base, "releases", "dafocd", release_date.iso8601)
         FileUtils.mkdir_p(release_dir)
 
         File.write(File.join(base, "releases.yml"), <<~YAML)
           :dafocd:
-          - :effective_date: '2099-06-30'
+          - :effective_date: '#{release_date.iso8601}'
             :version_label: test
             :source: synthetic-officer.pdf
             :name: Synthetic Officer Directory

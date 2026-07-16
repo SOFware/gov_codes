@@ -6,7 +6,7 @@ module GovCodes
     # Officer AFSCs resolved against the versioned DAFOCD release index. Mirrors
     # Enlisted: +find(code, as_of:)+ resolves the X-form specialty (e.g. :11BX)
     # or a literal bare code (e.g. :10C0) in the release in effect on +as_of+,
-    # defaulting to the latest shipped release.
+    # defaulting to today.
     module Officer
       class Parser
         def initialize(code)
@@ -77,9 +77,10 @@ module GovCodes
       )
 
       # Resolve an officer AFSC against the DAFOCD release in effect on +as_of+
-      # (default: the latest shipped release). Returns nil when the code does not
-      # parse, when neither the X-form specialty nor a literal bare code resolves
-      # in the release, or when +as_of+ precedes the earliest shipped release.
+      # (default: today). Returns nil when the code does not parse, when neither
+      # the X-form specialty nor a literal bare code resolves in the release, or
+      # when +as_of+ precedes the earliest shipped release (or no release has
+      # taken effect yet).
       def self.find(code, as_of: nil)
         code = code.to_s
         # Key the memo on the RESOLVED release date so equivalent as_of values

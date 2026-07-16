@@ -53,16 +53,18 @@ code = GovCodes::AFSC.find("1A172A")
 code.shredout_name      # => "C-5 Flight Engineer"
 
 # Enlisted lookups are versioned by DAFECD release (published each 30 Apr and
-# 31 Oct). `find`/`search` default to the latest shipped release; pass `as_of:`
-# (a Date or "YYYY-MM-DD" string) to resolve the release in effect on that date.
+# 31 Oct). `find`/`search` default to today's date; pass `as_of:` (a Date or
+# "YYYY-MM-DD" string) to resolve the release in effect on a different date. A
+# release only takes effect on its own effective_date, even if it's the most
+# recently added one (e.g. one you pre-load ahead of its official date).
 code = GovCodes::AFSC.find("1A172Y", as_of: "2025-11-01")
 code.effective_date     # => #<Date: 2025-10-31>
 # A date before the earliest shipped release has no data and returns nil.
 GovCodes::AFSC.find("1A172Y", as_of: "2000-01-01") # => nil
 
 # Find an officer AFSC code. Officer lookups are versioned by DAFOCD release
-# (like enlisted); `find`/`search` default to the latest shipped release and
-# accept the same `as_of:`.
+# (like enlisted); `find`/`search` default to today's date and accept the
+# same `as_of:`.
 code = GovCodes::AFSC.find("11MX")
 puts code.name # => "Mobility Pilot"
 puts code.career_group # => "11"
@@ -179,13 +181,15 @@ Pair it with a matching `releases/dafecd/2026-04-30/enlisted.yml` index, and
 
 AFSC data is extracted from the official **Department of the Air Force classification directories** — the DAFECD (enlisted) and DAFOCD (officer) — not third-party sources. Extraction is deterministic, and every code is verified to appear verbatim in the source directory: no predicted or hallucinated codes.
 
-The data is **versioned by each directory's effective date** (the directories are republished roughly semi-annually, on 30 April and 31 October). Look a code up as it stood for a given release, or take the latest:
+The data is **versioned by each directory's effective date** (the directories are republished roughly semi-annually, on 30 April and 31 October). Look a code up as it stands today, or as it stood for a given release:
 
 ```ruby
-GovCodes::AFSC.find("1A172Y")                        # latest shipped release
+GovCodes::AFSC.find("1A172Y")                        # the release in effect today
 GovCodes::AFSC.find("1A172Y", as_of: "2025-11-01")   # the release in effect on that date
 GovCodes::AFSC.find("1A172Y").effective_date         # => the release the result came from
 ```
+
+`as_of: nil` (the default) is today's date, not "whatever's newest" — a release only takes effect on its own effective_date. This only differs from "the latest shipped release" if a release dated in the future has been added to the load path (see "Extending with Custom AFSC Codes" above); until that date arrives, lookups keep resolving against the current release.
 
 **Currently shipped:** enlisted AFSCs from the DAFECD and officer AFSCs from the DAFOCD, both effective 31 October 2025. Reporting/special-duty identifiers (RI/SDI), SEIs, prefixes, and Space Force codes are planned.
 

@@ -9,15 +9,16 @@ module GovCodes
   describe "AFSC versioned lookup" do
     before do
       @temp_dir = Dir.mktmpdir
+      @release_date = Date.today
       afsc_dir = File.join(@temp_dir, "gov_codes", "afsc")
-      # Future release date: `as_of: nil` (latest) resolves to this synthetic
-      # release, which the loader unions with the gem's shipped release.
-      release_dir = File.join(afsc_dir, "releases", "dafecd", "2099-06-30")
+      # Dated today: `as_of: nil` (today) resolves to this synthetic release,
+      # which the loader unions with the gem's shipped release.
+      release_dir = File.join(afsc_dir, "releases", "dafecd", @release_date.iso8601)
       FileUtils.mkdir_p(release_dir)
 
       File.write(File.join(afsc_dir, "releases.yml"), <<~YAML)
         :dafecd:
-        - :effective_date: '2099-06-30'
+        - :effective_date: '#{@release_date.iso8601}'
           :version_label: test
           :source: synthetic.pdf
           :name: Synthetic Directory
@@ -49,7 +50,7 @@ module GovCodes
       code = AFSC.find("1A172")
       _(code).must_be_instance_of AFSC::Enlisted::Code
       _(code.name).must_equal "Mobility Force Aviator"
-      _(code.effective_date).must_equal Date.new(2099, 6, 30)
+      _(code.effective_date).must_equal @release_date
     end
 
     it "returns nil when as_of precedes the earliest release" do
@@ -57,7 +58,7 @@ module GovCodes
     end
 
     it "threads as_of into search" do
-      codes = AFSC.search("1A1X2", as_of: "2099-06-30").map(&:specialty)
+      codes = AFSC.search("1A1X2", as_of: @release_date.iso8601).map(&:specialty)
       _(codes).must_include :"1A1X2"
     end
 
