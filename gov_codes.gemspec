@@ -11,7 +11,7 @@ Gem::Specification.new do |spec|
   spec.summary = "Handle codes used by the US government."
   spec.description = "Process and understand codes used by the US government."
   spec.homepage = "https://github.com/SOFware/gov_codes"
-  spec.required_ruby_version = ">= 3.1.0"
+  spec.required_ruby_version = ">= 3.2.0"
 
   spec.metadata["homepage_uri"] = spec.homepage
   spec.metadata["source_code_uri"] = "https://github.com/SOFware/gov_codes"
