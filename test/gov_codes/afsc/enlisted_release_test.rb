@@ -36,6 +36,8 @@ module GovCodes
               7:
                 :code: 1A172
                 :title: Craftsman
+              9:
+                :code: 1A192
             :shredouts:
               :A: C-5 Flight Engineer
               :Y: General
@@ -85,6 +87,12 @@ module GovCodes
 
       it "returns nil for a specialty absent from the release" do
         _(Enlisted.find("9Z9X9")).must_be_nil
+      end
+
+      it "falls back to the standard skill-level title when the release omits it" do
+        code = Enlisted.find("1A192")
+        _(code.skill_level_number).must_equal 9
+        _(code.skill_level_name).must_equal "Superintendent"
       end
 
       describe "search over the versioned index" do
